@@ -2,7 +2,7 @@
 export default async function Page({ params: { lang } } : { params: { lang: string } }) {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <h1>Page</h1>
+        <h1>Page in Lang</h1>
             <p>Lang: {lang}</p>
         </main>
     )
