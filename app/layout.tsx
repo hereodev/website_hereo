@@ -21,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={params.lang || "en-US"} data-theme="forest">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <pre className="max-w-80 overflow-scroll">{JSON.stringify(params, null, 2)}</pre>
+        <p>{params.lang ?? "no params.lang!"}</p>
+        {children}
+      </body>
     </html>
   );
 }
