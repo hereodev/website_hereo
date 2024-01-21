@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
 import "@/app/globals.css";
+import { i18n, type Locale } from "@/i18n-config";
 
 const inter = Inter({ subsets: ["latin"] });
 const displayFont = Raleway({ weight: ['400', '700'], subsets: ["latin"] });
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
 
 export async function generateStaticParams() {
     // Generate static pages for each language
-    return [{ lang: 'en-US' }, { lang: 'fr' }]
+    return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default function LangLayout({
+export default function RootLayout({
     children, params
 }: Readonly<{
     children: React.ReactNode;
-    params: { lang: string };
+    params: { lang: Locale };
 }>) {
     return (
         <html lang={params.lang || "en-US"}>
