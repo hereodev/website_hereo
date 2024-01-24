@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
 import "@/app/globals.css";
 import { i18n, type Locale } from "@/i18n-config";
+import Nav from "../_components/nav";
 
 const inter = Inter({ subsets: ["latin"] });
 const displayFont = Raleway({ weight: ['400', '700'], subsets: ["latin"] });
@@ -24,7 +25,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang={params.lang || "en-US"}>
-            <body className={displayFont.className}>
+            <body className={`${displayFont.className} flex flex-col min-h-screen`}>
+                <Nav lang={params.lang} />
                 {children}
             </body>
         </html>
