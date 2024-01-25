@@ -10,7 +10,6 @@ export default async function Nav({ lang } : { lang: string}) {
     const links = [
         { href: '/', label: 'Home', labelFr:'Maison', public: true },
         { href: '/protected', label: 'protected route', labelFr:'Protégé', public: true },
-        { href: '/admin', label: 'admin', labelFr:'Admin', public: false },
     ]
 
     return (
@@ -24,8 +23,12 @@ export default async function Nav({ lang } : { lang: string}) {
                             return l.public
                         }
                     }).map(({ href, label, labelFr }) => (
-                        <Link key={href} className="link-hover badge" href={href}>{lang=="fr"?labelFr:label}</Link>
+                        <Link key={href} className="" href={href}>{lang=="fr"?labelFr:label}</Link>
                     ))
+                }
+                {
+                    session?.user &&
+                    <Link className="" href={"/saay"}>SAAY</Link>
                 }
             </div>
             <div className="flex gap-4 items-center">
@@ -41,8 +44,8 @@ export default async function Nav({ lang } : { lang: string}) {
                 </div>
                 }
                 {session ? 
-                    <a className="link-hover badge" href="/api/auth/signout">sign out</a> : 
-                    <a className="link-hover badge" href="/api/auth/signin">sign in</a>
+                    <a className="" href="/api/auth/signout">sign out</a> : 
+                    <a className="" href="/api/auth/signin">sign in</a>
                 }
             </div>
 
