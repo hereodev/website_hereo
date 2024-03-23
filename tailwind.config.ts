@@ -17,7 +17,16 @@ const config: Config = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["forest"],
+    // themes: ["halloween"],
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["halloween"],
+          "base-100": "black",
+          // secondary: "teal",
+        },
+      },
+    ],
   },
 };
 export default config;

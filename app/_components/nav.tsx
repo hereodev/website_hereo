@@ -27,21 +27,25 @@ export default async function Nav({ lang } : { lang: string}) {
                     ))
                 }
                 {
-                    session?.user &&
+                    session?.user && session.user.role == "ADMIN" ?
                     <Link className="" href={"/saay"}>SAAY</Link>
+                    :
+                    "not admin"
                 }
             </div>
             <div className="flex gap-4 items-center">
                 <LocaleSwitcher lang={lang as Locale} />
                 {session?.user && 
                 // <p>{session.user?.name}</p>
-                <div className="avatar placeholder">
-                    <div className="bg-neutral text-neutral-content rounded-full w-8">
-                    <span className="text-xs">
-                        {session.user.name && (session.user.name.match(/[A-Z]/g) || []).slice(0, 2).join('')}
-                    </span>
+                <Link href={"/profile/" + session.user.id}>
+                    <div className="avatar placeholder">
+                        <div className="bg-neutral text-neutral-content rounded-full w-8">
+                        <span className="text-xs">
+                            {session.user.name && (session.user.name.match(/[A-Z]/g) || []).slice(0, 2).join('')}
+                        </span>
+                        </div>
                     </div>
-                </div>
+                </Link>
                 }
                 {session ? 
                     <a className="" href="/api/auth/signout">sign out</a> : 

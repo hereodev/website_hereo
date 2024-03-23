@@ -1,5 +1,4 @@
 import { type Locale } from "@/i18n-config"
-import LocaleSwitcher from "../_components/locale-switcher"
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
