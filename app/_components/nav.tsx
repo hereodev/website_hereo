@@ -2,6 +2,15 @@ import { auth } from "@/auth"
 import LocaleSwitcher from "./locale-switcher";
 import { Locale } from "@/i18n-config";
 import Link from "next/link";
+import { User } from "next-auth";
+
+type UserWithRole = User & {
+    id: string
+    // name: string
+    // email: string
+    role: string
+  }
+  
 
 export default async function Nav({ lang } : { lang: string}) {
     const session = await auth();
@@ -27,7 +36,7 @@ export default async function Nav({ lang } : { lang: string}) {
                     ))
                 }
                 {
-                    session?.user && session.user.role == "ADMIN" ?
+                    session?.user && (session.user as UserWithRole).role == "ADMIN" ?
                     <Link className="" href={"/saay"}>SAAY</Link>
                     :
                     "not admin"
