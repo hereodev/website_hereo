@@ -37,7 +37,7 @@ export default async function Nav({ lang } : { lang: string}) {
                 <LocaleSwitcher lang={lang as Locale} />
                 {session?.user && 
                 // <p>{session.user?.name}</p>
-                <Link href={"/profile/" + session.user.id}>
+                <Link href={"/indx/" + session.user.id}>
                     <div className="avatar placeholder">
                         <div className="bg-neutral text-neutral-content rounded-full w-8">
                         <span className="text-xs">

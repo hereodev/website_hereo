@@ -1,5 +1,6 @@
 import { auth } from "@/auth"
 import type { Metadata, ResolvingMetadata } from 'next'
+import { User } from "@/app/_components/user"
 
 type Props = {
     params: { id: string }
@@ -20,7 +21,7 @@ export async function generateMetadata(
     const previousImages = (await parent).openGraph?.images || []
 
     return {
-      title: `${id} | Her(e) Otherwise`,
+      title: `${id} | Her(e) Otherwise | ${process.env.NODE_ENV}`,
     //   openGraph: {
     //     images: ['/some-specific-page-image.jpg', ...previousImages],
     //   },
@@ -34,9 +35,11 @@ export default async function Art({ params }: { params: { id: string, lang: stri
     return (
         <main>
             <h1>Art</h1>
+            <p>Art page : ID #{params.id}</p>
+            <h2>Session (server)</h2>
             {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
-            <p>Art page : {params.id}</p>
-            { session && session.user && session.user.role == "ADMIN" &&
+            <User />
+            { session && session.user && session.user?.role && session.user.role == "ADMIN" &&
                 <button className="btn btn-primary">Edit</button>
             }
         </main>

@@ -3,7 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 import Google from 'next-auth/providers/google';
 
 async function getUser() {
-    return { id: 1, name: 'John Doe', email: 'a@b.fr' };
+    return { id: 1, name: 'John Doe', email: 'a@b.fr', role: "ADMIN" };
 }
 
 export const {
@@ -11,7 +11,11 @@ export const {
     auth,
   } = NextAuth({
     providers: [
-        Google,
+        Google({
+          profile(profile) {
+            return { role: profile.role ?? "USER", ...profile}
+          }
+        }),
         Credentials({
             // The name to display on the sign in form (e.g. "Sign in with...")
             name: "Credentials",
@@ -40,13 +44,27 @@ export const {
           })
     ],
     callbacks: {
-        async redirect({ url, baseUrl }) {
+      async jwt( { token, user }) {
+        if(user) { 
+          token.id = user.id;
+          token.role = (user as { role?: string }).role || "USER";
+        };
+        return token;
+      },
+      async session( { session, token }) {
+        if (session.user) {
+          session.user.id = token.id;
+          session.user.role = token.role;
+        }
+        return session;
+      },
+      async redirect({ url, baseUrl }) {
         //   // Allows relative callback URLs
         //   if (url.startsWith("/")) return `${baseUrl}${url}`
         //   // Allows callback URLs on the same origin
         //   else if (new URL(url).origin === baseUrl) return url
         //   return baseUrl
-            return "/"
-        }
+        return "/"
       }
+    }
 });
