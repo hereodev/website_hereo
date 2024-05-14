@@ -1,7 +1,14 @@
 import { auth } from "@/auth"
 import type { Metadata, ResolvingMetadata } from 'next'
-import { User } from "@/app/_components/user"
+import { User as UserSessionComp } from "@/app/_components/user"
+import { User } from "next-auth"
 
+type UserWithRole = User & {
+  id: string
+  // name: string
+  // email: string
+  role: string
+}
 type Props = {
     params: { id: string }
     searchParams: { [key: string]: string | string[] | undefined }
@@ -33,15 +40,15 @@ export default async function Art({ params }: { params: { id: string, lang: stri
     const session = await auth();
 
     return (
-        <main>
-            <h1>Art</h1>
-            <p>Art page : ID #{params.id}</p>
-            <h2>Session (server)</h2>
-            {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
-            <User />
-            { session && session.user && session.user?.role && session.user.role == "ADMIN" &&
-                <button className="btn btn-primary">Edit</button>
-            }
-        </main>
+      <main>
+        <h1>Art</h1>
+        <p>Art page : ID #{params.id}</p>
+        <h2>Session (server)</h2>
+        {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
+        <UserSessionComp />
+        { session && session.user && (session.user as UserWithRole).role && (session.user as UserWithRole).role == "ADMIN" &&
+          <button className="btn btn-primary">Edit my profile</button>
+        }
+      </main>
     )
 }
