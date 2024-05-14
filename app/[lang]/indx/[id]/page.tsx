@@ -2,13 +2,8 @@ import { auth } from "@/auth"
 import type { Metadata, ResolvingMetadata } from 'next'
 import { User as UserSessionComp } from "@/app/_components/user"
 import { User } from "next-auth"
+import { UserWithRole } from "@/global"
 
-type UserWithRole = User & {
-  id: string
-  // name: string
-  // email: string
-  role: string
-}
 type Props = {
     params: { id: string }
     searchParams: { [key: string]: string | string[] | undefined }

@@ -2,15 +2,7 @@ import { auth } from "@/auth"
 import LocaleSwitcher from "./locale-switcher";
 import { Locale } from "@/i18n-config";
 import Link from "next/link";
-import { User } from "next-auth";
-
-type UserWithRole = User & {
-    id: string
-    // name: string
-    // email: string
-    role: string
-  }
-  
+import { UserWithRole } from "@/global";
 
 export default async function Nav({ lang } : { lang: string}) {
     const session = await auth();

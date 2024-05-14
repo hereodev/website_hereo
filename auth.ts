@@ -1,7 +1,13 @@
-import NextAuth from "next-auth"
+import NextAuth, { User, type Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import Credentials from 'next-auth/providers/credentials';
 import Google from 'next-auth/providers/google';
+import { UserWithRole } from "./global";
 
+interface AdapterUser {
+  id: string;
+  role?: string;
+}
 async function getUser() {
     return { id: 1, name: 'John Doe', email: 'a@b.fr', role: "ADMIN" };
 }
@@ -51,10 +57,10 @@ export const {
         };
         return token;
       },
-      async session( { session, token }) {
+      async session({ session, token }: { session: Session; user?: AdapterUser; token?: JWT }) {
         if (session.user) {
-          session.user.id = token.id;
-          session.user.role = token.role;
+          session.user.id = token?.id as string;
+          (session.user as UserWithRole).role = token?.role as string; // Update the type of session.user to include the role property
         }
         return session;
       },
