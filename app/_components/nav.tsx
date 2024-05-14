@@ -15,6 +15,9 @@ export default async function Nav({ lang } : { lang: string}) {
 
     return (
         <nav className="flex justify-between items-center p-4">
+            <div className="flex gap-4 items-center text-2xl font-semibold uppercase text-white">
+                <Link href={"/"}>:Her(e), Otherwise</Link>
+            </div>
             <div className="flex gap-4 items-center">
                 {
                     links.filter((l:any)=> {
@@ -40,7 +43,7 @@ export default async function Nav({ lang } : { lang: string}) {
                 // <p>{session.user?.name}</p>
                 <Link href={"/indx/" + session.user.id}>
                     <div className="avatar placeholder">
-                        <div className="bg-neutral text-neutral-content rounded-full w-8">
+                        <div className="bg-info text-neutral-content rounded-full w-8">
                         <span className="text-xs">
                             {session.user.name && (session.user.name.match(/[A-Z]/g) || []).slice(0, 2).join('')}
                         </span>

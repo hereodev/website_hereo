@@ -1,2 +1,2 @@
-[ ] Admin auth
+[x] Admin auth
 [ ] Upload
