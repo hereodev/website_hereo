@@ -1,6 +1,8 @@
 import { type Locale } from "@/i18n-config"
 import { Metadata } from "next";
 import { User } from "@/app/_components/user";
+import prisma from "@/prisma"
+
 
 export const metadata: Metadata = {
     title: "Lang Page" + " | " + process.env.NODE_ENV,
@@ -9,12 +11,27 @@ export const metadata: Metadata = {
 
 
 export default async function Page({ params: { lang } } : { params: { lang: Locale } }) {
+    const prismaUser = await prisma.user.findUnique({where: {id: 1}})
+    console.log('USER:', prismaUser)
     return (
         <main className="flex flex-col items-center justify-between p-24">
         <h1>Page in Lang</h1>
         <p>Lang: {lang}</p>
         <h1>Connected ??</h1>
         <User />
+        <br />
+        <h1>Prisma users?? User id 1 ??</h1>
+        {
+            prismaUser && (
+                <div>
+                    <p>id: {prismaUser.id}</p>
+                    <p>name: {prismaUser.name}</p>
+                    <p>email: {prismaUser.email}</p>
+                    <p>role: {prismaUser.role}</p>
+                </div>
+            )
+        }
+        {/* <p>{prismaUser?.name || prismaUser?.email}</p> */}
         </main>
     )
 }

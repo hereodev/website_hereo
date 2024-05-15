@@ -2,12 +2,8 @@
 
 import { useState } from "react";
 import { FiAlertCircle, FiEye, FiEyeOff, FiKey, FiMail, FiUser, FiArrowRight } from "react-icons/fi"
-import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions';
  
-export default function FormSignIn() {
-// export default function FormSignIn({ handleSignIn } : { handleSignIn: (formData: FormData) => void}) {
-    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+export default function FormSignUp({ handleSignUp } : { handleSignUp: (formData: FormData) => void}) {
 
     const [passwordVisible, setPasswordVisible] = useState(true);
     // const [passwordVisible, setPasswordVisible] = useState(false);
@@ -18,8 +14,7 @@ export default function FormSignIn() {
     };
 
     return (
-        // <form action={handleSignIn}>
-        <form action={dispatch}>
+        <form action={handleSignUp}>
              <label className="input input-bordered flex items-center gap-2">
                 {/* <FiMail className="w-4 h-4 opacity-70" /> */}
                 <input 
@@ -30,10 +25,10 @@ export default function FormSignIn() {
                     placeholder="Email" 
                 />
              </label>
-             {/* <label className="input input-bordered flex items-center gap-2">
+             <label className="input input-bordered flex items-center gap-2">
                  <FiUser className="w-4 h-4 opacity-70" />
                  <input type="text" className="grow" placeholder="Name" />
-             </label> */}
+             </label>
              <label className="input input-bordered flex items-center gap-2">
                 {/* <FiKey className="w-4 h-4 opacity-70" /> */}
                 <input
@@ -52,33 +47,11 @@ export default function FormSignIn() {
                 </span>
             </label> 
             
-            {/* <button className="btn btn-secondary">Sign In</button> */}
-            <LoginButton />
+            <button className="btn btn-secondary">Sign Up</button>
+            {/* <LoginButton /> */}
 
-            <div
-          className="flex h-8 items-end space-x-1"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {errorMessage && (
-            <>
-              <FiAlertCircle className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
-          )}
-        </div>
 
         </form>
     )
 }
 
-
-function LoginButton() {
-    const { pending } = useFormStatus();
- 
-    return (
-        <button className="btn btn-secondary mt-4 w-full" aria-disabled={pending}>
-            Log in <FiArrowRight className="ml-auto h-5 w-5 text-gray-50" />
-        </button>
-    );
-}
