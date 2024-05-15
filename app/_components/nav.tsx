@@ -59,8 +59,7 @@ export default async function Nav({ lang } : { lang: string}) {
                   await signOut()
                 }}
               >
-                    {/* <a className="" href="/api/auth/signout">sign out</a>  */}
-                    <button type="submit">Sign out</button>
+                    <button type="submit">sign out</button>
                     </form>
                     : 
                     <Link className="" href="/auth/signin">sign in</Link>
