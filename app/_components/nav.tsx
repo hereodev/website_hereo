@@ -4,14 +4,16 @@ import { Locale } from "@/i18n-config";
 import Link from "next/link";
 import { UserWithRole } from "@/global";
 import { signOut } from "@/auth";
+import { FiLogIn, FiLogOut, FiUser } from "react-icons/fi";
 
 export default async function Nav({ lang } : { lang: string}) {
     const session = await auth();
     // make a fetch to /api/auth/csrf endpoint
 
     const links = [
-        { href: '/', label: 'Home', labelFr:'Maison', public: true },
-        { href: '/protected', label: 'protected route', labelFr:'Protégé', public: true },
+        // { href: '/', label: 'Home', labelFr:'Maison', public: true },
+        { href: '/indx', label: 'Index', labelFr:'Index', public: true },
+        // { href: '/protected', label: 'protected route', labelFr:'Protégé', public: true },
     ]
 
     return (
@@ -32,7 +34,7 @@ export default async function Nav({ lang } : { lang: string}) {
                     ))
                 }
                 {
-                    session?.user && (session.user as UserWithRole).role == "ADMIN" &&
+                    session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
                     <Link className="" href={"/saay"}>SAAY</Link>
                 }
             </div>
@@ -44,7 +46,9 @@ export default async function Nav({ lang } : { lang: string}) {
                     <div className="avatar placeholder">
                         <div className="bg-info text-neutral-content rounded-full w-8">
                         <span className="text-xs">
-                            {session.user.name && (session.user.name.match(/[A-Z]/g) || []).slice(0, 2).join('')}
+                            {session.user.name ? (session.user.name.match(/[A-Z]/g) || []).slice(0, 2).join('') : 
+                            <FiUser className="w-4 h-4 opacity-70" />
+                            }
                         </span>
                         </div>
                     </div>
@@ -57,10 +61,14 @@ export default async function Nav({ lang } : { lang: string}) {
                         await signOut()
                         }}
                     >
-                        <button type="submit">sign out</button>
+                        <button type="submit" title="Sign Out">
+                            <FiLogOut />
+                        </button>
                     </form>
                     : 
-                    <Link className="" href="/auth/signin">sign in</Link>
+                    <Link className="" href="/auth/signin" title="Sign In">
+                        <FiLogIn />
+                    </Link>
                 }
             </div>
 

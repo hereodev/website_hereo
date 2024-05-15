@@ -12,7 +12,6 @@ export async function authenticate(
 ) {
   try {
     await signIn('credentials', formData);
-    redirect('/indx');
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -24,6 +23,7 @@ export async function authenticate(
     }
     throw error;
   }
+  // redirect('/indx'); // no need: redirect is set in the auth.ts file
 }
 
 export async function addUser(

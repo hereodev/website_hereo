@@ -5,7 +5,7 @@ import Google from 'next-auth/providers/google';
 import { UserWithRole } from "./global";
 import prisma from "@/prisma";
 import { z } from "zod";
-// import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 interface AdapterUser {
   id: string;
@@ -62,8 +62,8 @@ export const {
                 const { email, password } = parsedCredentials.data;
                 const user = await getUser(email);
                 if (!user) return null;
-                // const passwordsMatch = await bcrypt.compare(password, user.password || "");
-                const passwordsMatch = user.password?.match('carton') || false;
+                const passwordsMatch = await bcrypt.compare(password, user.password || "");
+                // const passwordsMatch = user.password?.match('carton') || false;
 
                 if (passwordsMatch) return user as UserWithRole;
 
