@@ -53,17 +53,16 @@ export default async function Nav({ lang } : { lang: string}) {
                 </Link>
                 }
                 {session ? 
-                <form
-                action={async (formData) => {
-                  "use server"
-                  await signOut()
-                }}
-              >
-                    <button type="submit">sign out</button>
+                    <form
+                        action={async (formData) => {
+                        "use server"
+                        await signOut()
+                        }}
+                    >
+                        <button type="submit">sign out</button>
                     </form>
                     : 
                     <Link className="" href="/auth/signin">sign in</Link>
-                    // <a className="" href="/api/auth/signin">sign in</a>
                 }
             </div>
 
