@@ -32,10 +32,8 @@ export default async function Nav({ lang } : { lang: string}) {
                     ))
                 }
                 {
-                    session?.user && (session.user as UserWithRole).role == "ADMIN" ?
+                    session?.user && (session.user as UserWithRole).role == "ADMIN" &&
                     <Link className="" href={"/saay"}>SAAY</Link>
-                    :
-                    "not admin"
                 }
             </div>
             <div className="flex gap-4 items-center">
