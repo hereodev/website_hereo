@@ -3,6 +3,7 @@ import LocaleSwitcher from "./locale-switcher";
 import { Locale } from "@/i18n-config";
 import Link from "next/link";
 import { UserWithRole } from "@/global";
+import { signOut } from "@/auth";
 
 export default async function Nav({ lang } : { lang: string}) {
     const session = await auth();
@@ -52,8 +53,18 @@ export default async function Nav({ lang } : { lang: string}) {
                 </Link>
                 }
                 {session ? 
-                    <a className="" href="/api/auth/signout">sign out</a> : 
-                    <a className="" href="/api/auth/signin">sign in</a>
+                <form
+                action={async (formData) => {
+                  "use server"
+                  await signOut()
+                }}
+              >
+                    {/* <a className="" href="/api/auth/signout">sign out</a>  */}
+                    <button type="submit">Sign out</button>
+                    </form>
+                    : 
+                    <Link className="" href="/auth/signin">sign in</Link>
+                    // <a className="" href="/api/auth/signin">sign in</a>
                 }
             </div>
 
