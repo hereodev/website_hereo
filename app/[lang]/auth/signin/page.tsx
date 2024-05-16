@@ -10,10 +10,9 @@ const SignInPage: React.FC = () => {
             {/* <SignIn /> */}
             <FormSignIn />
             <div>
-                No account yet?
-                <Link href="/auth/signup">Sign up here.</Link>
+                No account yet?{' '}
+                <Link href="/auth/signup" className="text-accent">Sign up here.</Link>
             </div>
-
         </div>
     );
 };

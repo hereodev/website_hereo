@@ -102,12 +102,12 @@ function LoginButton() {
     const { pending } = useFormStatus();
  
     return (
-        <button className="btn btn-secondary mt-4 w-full" aria-disabled={pending}>
+        <button className="btn btn-primary mt-4 w-full" aria-disabled={pending}>
             {
                 pending ?
                 <span>Logging in...</span>
                 :
-                <span>Log In <FiArrowRight className="ml-auto h-5 w-5 text-gray-50" /></span>
+                <span>Log In <FiArrowRight className="ml-auto h-5 w-5" /></span>
             }
         </button>
     );

@@ -17,7 +17,7 @@ export default function FormSignUp({ handleSignUp } : { handleSignUp?: (formData
     // };
 
     return (
-        <form action={dispatch}>
+        <form action={dispatch} className="flex flex-col gap-2 w-full">
         {/* <form action={handleSignUp}> */}
              <label className="input input-bordered flex items-center gap-2">
                 <FiMail className="w-4 h-4 opacity-70" />
@@ -98,12 +98,12 @@ function SignUpButton() {
         // <button className="btn btn-secondary mt-4 w-full" aria-disabled={false}>
         //     <span>Sign Up <FiArrowRight className="ml-auto h-5 w-5 text-gray-50" /></span>
         // </button>
-        <button type="submit" className="btn btn-secondary mt-4 w-full" aria-disabled={pending}>
+        <button type="submit" className="btn btn-primary mt-4 w-full" aria-disabled={pending}>
             {
                 pending ?
                 <span>Signing you up...</span>
                 :
-                <span>Sign Up <FiArrowRight className="ml-auto h-5 w-5 text-gray-50" /></span>
+                <span className="w-full flex justify-between items-center">Sign Up{' '}<FiArrowRight className="h-5 w-5 " /></span>
             }
         </button>
     );
