@@ -81,17 +81,17 @@ export default function FormSignIn() {
             <LoginButton />
 
             <div
-          className="flex h-8 items-end space-x-1"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {errorMessage && (
-            <>
-              <FiAlertCircle className="h-5 w-5 text-error" />
-              <p className="text-sm text-error">{errorMessage}</p>
-            </>
-          )}
-        </div>
+            className="flex h-8 items-end space-x-1"
+            aria-live="polite"
+            aria-atomic="true"
+            >
+            {errorMessage && (
+                <>
+                <FiAlertCircle className="h-5 w-5 text-error" />
+                <p className="text-sm text-error">{errorMessage}</p>
+                </>
+            )}
+            </div>
 
         </form>
     )

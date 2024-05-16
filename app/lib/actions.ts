@@ -5,6 +5,7 @@ import prisma from '@/prisma';
 import bcrypt from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { UserRole } from '@prisma/client';
+import sgMail from '@sendgrid/mail'
 
 export async function authenticate(
   prevState: string | undefined,
@@ -52,9 +53,38 @@ export async function addUser(
     throw error;
   }
   if(user && user.id) {
+    sendMail({ email: user.email });
     // redirect("/indx/" + user.id)
     redirect("/auth/signin?signedup=" + user.email)
   }
 
 }
 
+export async function sendMail( email : { email: string }) {
+  // send email
+  const apiKey = process.env.SENDGRID_API_KEY;
+  if(!apiKey) {
+    throw new Error('SENDGRID_API_KEY not set');
+  }
+  // Set the SendGrid API key
+  sgMail.setApiKey(apiKey);
+  const rawFormData = {
+    to: email || "isadoravuongvan@gmail.com",
+    // to: email,
+    from: "hereotherwise@vuongvan.dev",
+    subject: `New message from ${"hereO!!"}`,
+    text: "Hello, here is a message from her(e) otherwise!!",
+}
+
+try {
+  await sgMail.send(rawFormData)
+  // Send a success response
+  console.log("Email Send Successfully!")
+  return 'Email sent';
+} catch (error) {
+  // Send an error response
+  console.log("Something went wrong, please try again!")
+  return "Something went wrong, please try again!"
+}
+
+}

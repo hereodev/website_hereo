@@ -1,5 +1,12 @@
 [x] Admin auth
 [ ] DB auth
-    - [ ] sign up with hash password
-    - [ ] signin from DB with bcrypt
+    - [x] sign up with hash password
+    - [ ] sign up e-mail: shape up + remove from spam
+    - [x] signin from DB with bcrypt
 [ ] Upload
+
+
+
+TODO finalisation :
+- [ ] Changer mail twilio
+- [ ] Changer nom de domaine
