@@ -114,7 +114,7 @@ export const {
         //   // Allows callback URLs on the same origin
         //   else if (new URL(url).origin === baseUrl) return url
         //   return baseUrl
-        return "/"
+        return "/profile"
       }
     }
 });

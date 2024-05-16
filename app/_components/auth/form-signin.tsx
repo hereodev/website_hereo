@@ -17,6 +17,7 @@ export default function FormSignIn() {
     const [hasTypedPassword, setHasTypedPassword] = useState(false);
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHasTypedPassword(true);
         setPassword(event.target.value);
     };
 
@@ -68,6 +69,7 @@ export default function FormSignIn() {
                             setHasTypedPassword(true);
                         }
                     }}
+                    onInput={() => setHasTypedPassword(true)}
                 />
                 <span
                     className=""

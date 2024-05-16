@@ -5,13 +5,15 @@ import prisma from '@/prisma';
 import bcrypt from 'bcrypt';
 import { redirect } from 'next/navigation';
 import sgMail from '@sendgrid/mail'
+import { UserWithRole } from "@/global";
 
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
+  let user : UserWithRole | undefined;
   try {
-    await signIn('credentials', formData);
+    user = await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -24,6 +26,9 @@ export async function authenticate(
     throw error;
   }
   // redirect('/indx'); // no need: redirect is set in the auth.ts file
+  // if(user && user?.id) {
+  //   redirect("/profile/" + user.id)
+  // }
 }
 
 export async function addUser(

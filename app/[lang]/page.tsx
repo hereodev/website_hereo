@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 
 export default async function Page({ params: { lang } } : { params: { lang: Locale } }) {
-    const prismaUser = await prisma.user.findUnique({where: {id: 1}})
+    const prismaUser = await prisma.user.findUnique({where: {id: "0f86eabc-42e1-4687-b6b1-42654fcf036b"}})
     console.log('USER:', prismaUser)
     return (
         <main className="flex flex-col items-center justify-between p-24">
@@ -20,7 +20,7 @@ export default async function Page({ params: { lang } } : { params: { lang: Loca
         <h1>Connected ??</h1>
         <User />
         <br />
-        <h1>Prisma users?? User id 1 ??</h1>
+        <h1>Prisma users?? User id 0f86eabc-42e1-4687-b6b1-42654fcf036b ??</h1>
         {
             prismaUser && (
                 <div>

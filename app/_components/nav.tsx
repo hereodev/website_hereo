@@ -59,6 +59,7 @@ export default async function Nav({ lang } : { lang: string}) {
                         action={async (formData) => {
                         "use server"
                         await signOut()
+                        window.location.reload()
                         }}
                     >
                         <button type="submit" title="Sign Out">
