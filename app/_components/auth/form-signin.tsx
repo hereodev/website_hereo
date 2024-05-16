@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FiAlertCircle, FiEye, FiEyeOff, FiKey, FiMail, FiUser, FiArrowRight } from "react-icons/fi"
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions';
+import { authenticate } from '@/app/lib/actions_auth';
 import { useSearchParams } from 'next/navigation'
 
 

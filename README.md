@@ -11,3 +11,4 @@
 TODO finalisation :
 - [ ] Changer mail twilio
 - [ ] Changer nom de domaine
+- [ ] Bunny: enable replication to US East

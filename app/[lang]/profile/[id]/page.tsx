@@ -23,14 +23,14 @@ export async function generateMetadata(
     const previousImages = (await parent).openGraph?.images || []
 
     return {
-      title: `#${id} | Her(e) Otherwise | ${process.env.NODE_ENV}`,
+      title: `My profile | #${id} | Her(e) Otherwise | ${process.env.NODE_ENV}`,
     //   openGraph: {
     //     images: ['/some-specific-page-image.jpg', ...previousImages],
     //   },
     }
   }
 
-export default async function Art({ params }: { params: { id: string, lang: string } }) {
+export default async function Profile({ params }: { params: { id: string, lang: string } }) {
 
     const session = await auth();
 

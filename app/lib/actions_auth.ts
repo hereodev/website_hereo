@@ -4,7 +4,6 @@ import { AuthError } from 'next-auth';
 import prisma from '@/prisma';
 import bcrypt from 'bcrypt';
 import { redirect } from 'next/navigation';
-import { UserRole } from '@prisma/client';
 import sgMail from '@sendgrid/mail'
 
 export async function authenticate(
@@ -71,19 +70,22 @@ export async function sendMail( email : { email: string }) {
   const rawFormData = {
     to: email || "isadoravuongvan@gmail.com",
     // to: email,
+    cc: "hereotherwise@vuongvan.dev",
     from: "hereotherwise@vuongvan.dev",
     subject: `New message from ${"hereO!!"}`,
-    text: "Hello, here is a message from her(e) otherwise!!",
+    text: "Thank you for signing up to Her(e) Otherwise.",
 }
 
 try {
   await sgMail.send(rawFormData)
   // Send a success response
-  console.log("Email Send Successfully!")
+  console.log("Email Sent Successfully!")
+  // TODO: add to db: email sent
   return 'Email sent';
 } catch (error) {
   // Send an error response
   console.log("Something went wrong, please try again!")
+  // TODO: send error message to the admin
   return "Something went wrong, please try again!"
 }
 

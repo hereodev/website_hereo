@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FiAlertCircle, FiEye, FiEyeOff, FiKey, FiMail, FiUser, FiArrowRight } from "react-icons/fi"
-import { addUser } from "@/app/lib/actions";
+import { addUser } from "@/app/lib/actions_auth";
 import { useFormState, useFormStatus } from 'react-dom';
 
 export default function FormSignUp({ handleSignUp } : { handleSignUp?: (formData: FormData) => void}) {

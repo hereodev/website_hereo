@@ -3,6 +3,7 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import { User as UserSessionComp } from "@/app/_components/user"
 import { User } from "next-auth"
 import { UserWithRole } from "@/global"
+import { redirect } from "next/navigation"
 
 type Props = {
     params: { id: string }
@@ -30,14 +31,16 @@ export async function generateMetadata(
     }
   }
 
-export default async function Art({ params }: { params: { id: string, lang: string } }) {
+export default async function Profile({ params }: { params: { id: string, lang: string } }) {
 
     const session = await auth();
+
+    if(session && session.user) {
 
     return (
       <main>
         <h1>Art</h1>
-        <p>Art page : ID #{params.id}</p>
+        <p>Art page : ID #{session.user.id}</p>
         <h2>Session (server)</h2>
         {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
         <UserSessionComp />
@@ -46,4 +49,8 @@ export default async function Art({ params }: { params: { id: string, lang: stri
         }
       </main>
     )
+
+    } else {
+        redirect('/auth/signin')
+    }
 }
