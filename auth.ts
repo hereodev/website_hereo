@@ -1,5 +1,6 @@
 import NextAuth, { User, type Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
+// import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from 'next-auth/providers/credentials';
 import Google from 'next-auth/providers/google';
 import { UserWithRole } from "./global";
@@ -31,6 +32,7 @@ export const {
     signOut,
     auth,
   } = NextAuth({
+    // adapter: PrismaAdapter(prisma),
     providers: [
         Google({
           profile(profile) {

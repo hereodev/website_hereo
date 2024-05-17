@@ -4,6 +4,7 @@ import { User as UserSessionComp } from "@/app/_components/user"
 import { User } from "next-auth"
 import { UserWithRole } from "@/global"
 import { redirect } from "next/navigation"
+import EditableProfile from "@/app/_components/auth/editable-profile"
 
 type Props = {
     params: { id: string }
@@ -39,11 +40,10 @@ export default async function Profile({ params }: { params: { id: string, lang: 
 
     return (
       <main>
-        <h1>Art</h1>
-        <p>Art page : ID #{session.user.id}</p>
-        <h2>Session (server)</h2>
-        {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
-        <UserSessionComp />
+        <h1>Profile</h1>
+        {/* <p>Art page : ID #{session.user.id}</p> */}
+        {/* {session && <pre>{JSON.stringify(session, null, 2)}</pre>} */}
+        <EditableProfile userId={session.user.id} initialName={session.user.name} initialEmail={session.user.email} />
         { session && session.user && ((session.user as UserWithRole).id == params.id || ((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
           <button className="btn btn-primary">Edit my profile</button>
         }

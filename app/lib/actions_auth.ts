@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt';
 import { redirect } from 'next/navigation';
 import sgMail from '@sendgrid/mail'
 import { UserWithRole } from "@/global";
+import { getSession, UpdateSession } from 'next-auth/react';
+// import jwt from 'jsonwebtoken';
 
 export async function authenticate(
   prevState: string | undefined,
@@ -94,4 +96,31 @@ try {
   return "Something went wrong, please try again!"
 }
 
+}
+
+async function updateJwt(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  const session = getSession();
+  console.log("session", session);
+}
+
+export async function changeName(userId:string, newName: string) {
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: { name: newName },
+  });
+  updateJwt(userId);
+  return user;
+}
+
+export async function changeEmail(userId:string, newEmail: string) {
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: { email: newEmail },
+  });
+  sendMail({ email: newEmail });
+  return user;
 }
