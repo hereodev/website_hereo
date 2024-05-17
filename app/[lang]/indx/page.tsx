@@ -1,13 +1,19 @@
-import UploadFiles from "./_components/upload-files";
+import UploadFiles from "@/app/_components/upload/upload-files";
+import { auth } from "@/auth"
 
 
-export default function Indx() {
+export default async function Indx() {
+    const session = await auth();
 
     return (
         <main>
             <h1>Index</h1>
             {/* <p>Home page</p> */}
-            <UploadFiles />
+            {
+                session && session.user && session.user.id &&
+                <UploadFiles userId={session.user.id} />
+
+            }
         </main>
     )
 }

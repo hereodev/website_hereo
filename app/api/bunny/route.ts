@@ -53,6 +53,7 @@ async function fileExists(path: string) {
 
 
 export async function PUT(request: NextRequest) {
+    console.log("uploading file from api route...")
     const data = await request.formData();
     const file: File | null = data.get("file") as unknown as File;
     // const path: string | null = data.get("path") as unknown as string;

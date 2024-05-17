@@ -1,21 +1,107 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider   = "postgresql"
-  url        = env("DATABASE_URL")
-  directUrl  = env("DIRECT_URL")
-  extensions = [plpgsql, uuid_ossp(map: "uuid-ossp", schema: "extensions")]
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Art {
+  id               Int          @id @default(autoincrement())
+  uploader_id      String       @db.Uuid
+  title            String
+  subtitle         String?
+  long_text        String?      @db.VarChar(10000)
+  slug             String       @unique(map: "art_slug_unique")
+  uploader         User         @relation(fields: [uploader_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "art_uploader_fk")
+  authors          Authorship[]
+  associated_media MediaInArt[]
+}
+
+model Media {
+  id               Int          @id @default(autoincrement())
+  type             String?      @db.VarChar(255)
+  alt              String?
+  description      String?
+  storage          String?      @db.VarChar(255)
+  author           String?      @db.VarChar(255)
+  date             DateTime?    @db.Timestamp(6)
+  title            String?
+  uploader_id      String       @db.Uuid
+  url              String?      @unique
+  user             User         @relation(fields: [uploader_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "media_uploader_fk")
+  associated_media MediaInArt[]
+
+  @@unique([uploader_id, url], map: "media_unique")
+}
+
+model MediaInArt {
+  art_id   Int
+  media_id Int
+  ordre    Int?
+  Art      Art   @relation(fields: [art_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "media_in_art_art_fk")
+  Media    Media @relation(fields: [media_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "media_in_art_media_fk")
+
+  @@id([art_id, media_id])
+  @@unique([art_id, ordre], map: "media_in_art_unique")
 }
 
 model User {
-  id       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name     String?   @db.VarChar(255)
-  email    String    @unique @db.VarChar(255)
-  password String?
-  role     UserRole?
+  name           String?   @db.VarChar(255)
+  email          String    @unique @db.VarChar(255)
+  password       String?
+  role           UserRole  @default(USER)
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Account        Account[]
+  uploaded_art   Art[]
+  author_info    Author?
+  uploaded_media Media[]
+  Session        Session[]
+}
+
+model Authorship {
+  author_id Int
+  art_id    Int
+  art       Art    @relation(fields: [art_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "authorship_art_fk")
+  author    Author @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "authorship_author_fk")
+
+  @@id([author_id, art_id])
+}
+
+model Author {
+  id              Int          @id @default(autoincrement())
+  name            String
+  user_id         String?      @unique(map: "author_user_unique") @db.Uuid
+  associated_user User?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "author_user_fk")
+  Authorship      Authorship[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userid            String  @db.Uuid
+  type              String
+  provider          String
+  provideraccountid String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  User              User    @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "account_user_fk")
+
+  @@unique([provider, provideraccountid], map: "account_unique")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessiontoken String   @unique
+  userid       String   @db.Uuid
+  expires      DateTime @db.Timestamp(6)
+  User         User     @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "session_user_fk")
 }
 
 enum UserRole {

@@ -9,8 +9,11 @@ type FileUpload = {
     url?: string;
 }
 
-export default function UploadFiles() {
-    const [file, setFile] = useState<File>()
+/**
+ * Component for uploading files.
+ */
+ function UploadFiles() {
+    const [file, setFile] = useState<File[]>([])
     const [files, setFiles] = useState<FileUpload[]>([])
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,14 +21,18 @@ export default function UploadFiles() {
         if (!file) return
 
         try {
-            const formData = new FormData()
-            formData.set('file', file)
-            const res = await fetch('/api/bunny', {
-                method: 'PUT',
-                body: formData
-            })
-            if (!res.ok){ 
-                throw new Error(await res.text())
+            for(const uploadedFile of file) {
+                const formData = new FormData()
+                formData.set('file', uploadedFile)
+                const res = await fetch('/api/bunny', {
+                    method: 'PUT',
+                    body: formData
+                })
+                if (!res.ok){ 
+                    throw new Error(await res.text())
+                } else {
+                    console.log("File uploaded successfully", res.json())
+                }
             }
 
         } catch (error) {
@@ -36,17 +43,28 @@ export default function UploadFiles() {
     return (
         <main>
             <h1>Upload Art</h1>
-            <form onSubmit={onSubmit} className="form">
+            <form onSubmit={onSubmit} className="form flex flex-col w-full">
                 <input 
                     type="file" 
                     name="file" 
-                    className="file-input file-input-sm w-full max-w-xs" 
-                    onChange={(e) => setFile(e.target.files?.[0])}
+                    multiple
+                    className="file-input file-input-bordered w-full max-w-sm" 
+                    onChange={(e) => {
+                        // setFile(e.target.files?.[0])
+                        // console.log("FILES?", e.target.files)
+                        if(e.target.files === null) return;
+                        const selectedFiles = Array.from(e.target.files);
+                        setFile(selectedFiles);
+                        setFiles(selectedFiles.map(file => ({ file, progress: 0, uploaded: false })));
+                        console.log("FILES?", e.target.files);
+                    }
+                    }
                 />
 
                 <input type="submit" value="Upload" className="btn btn-primary" />
 
             </form>
+            <pre>{JSON.stringify(files, null, 2)}</pre>
             {
                 files?.map((uploadedFile) => {
                     return (

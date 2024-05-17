@@ -5,6 +5,8 @@
     - [x] signin from DB with bcrypt
     - [ ] reset password
 [ ] Upload
+    - [ ] Upload to Bunny: in dir named after uploader's ID
+    - [ ] Update DB with URL, uploader's Id, authors
 
 
 
