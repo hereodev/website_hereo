@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 // import { useFormState, useFormStatus } from 'react-dom';
 import { FiAlertCircle, FiArrowRight } from 'react-icons/fi';
 import SubmitButton from '@/app/_components/submit-button';
+import Tiptap from './tiptap';
 
 const UploadForm = ({userId} : {userId: string}) => {
     const [media, setMedia] = useState<UploadedFile[]>([]);
@@ -102,16 +103,13 @@ const UploadForm = ({userId} : {userId: string}) => {
                 <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
 
                 <label className="form-control">
-  <div className="label">
-  <span className="label-text text-xl font-semibold">Content</span>
-    <span className="label-text-alt">Alt label</span>
-  </div>
-  <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
-  {/* <div className="label">
-    <span className="label-text-alt">Your bio</span>
-    <span className="label-text-alt">Alt label</span>
-  </div> */}
-</label>
+                    <div className="label">
+                        <span className="label-text text-xl font-semibold">Content</span>
+                        <span className="label-text-alt">Alt label</span>
+                    </div>
+                    {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
+                    <Tiptap />
+                </label>
 
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
 
