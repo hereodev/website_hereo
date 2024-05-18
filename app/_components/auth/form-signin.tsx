@@ -5,6 +5,7 @@ import { FiAlertCircle, FiEye, FiEyeOff, FiKey, FiMail, FiUser, FiArrowRight } f
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions_auth';
 import { useSearchParams } from 'next/navigation'
+import SubmitButton from "../submit-button";
 
 
 export default function FormSignIn() {
@@ -81,6 +82,7 @@ export default function FormSignIn() {
             
             {/* <button className="btn btn-secondary">Sign In</button> */}
             <LoginButton />
+            {/* <SubmitButton pending={useFormStatus()} submitMessage="Sign In" submittingMessage="Signing in..." color="primary" /> */}
 
             <div
             className="flex h-8 items-end space-x-1"
@@ -109,7 +111,7 @@ function LoginButton() {
                 pending ?
                 <span>Logging in...</span>
                 :
-                <span>Log In <FiArrowRight className="ml-auto h-5 w-5" /></span>
+                <span className="w-full flex justify-between items-center">Log In <FiArrowRight className="h-5 w-5" /></span>
             }
         </button>
     );

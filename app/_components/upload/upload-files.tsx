@@ -5,17 +5,13 @@ import { useDropzone } from 'react-dropzone';
 import FilePreview from './file-preview';
 import { deleteFileFromBunny } from '@/app/lib/actions_bunny';
 import { set } from 'zod';
+import { UploadedFile } from '@/global';
 
-type UploadedFile = {
-    file: File;
-    progress: number | undefined;
-    uploaded: boolean;
-    path?: string;
-};
 
-const UploadFiles = ({userId} : { userId: string }) => {
+const UploadFiles = ({userId, media, setMedia} : { userId: string, media: UploadedFile[], setMedia: (media: UploadedFile[]) => void }) => {
     const [files, setFiles] = useState<File[]>([]);
     const [fileUploads, setFileUploads] = useState<UploadedFile[]>([]);
+    const [rejectedFiles, setRejectedFiles] = useState<File[]>([]);
 	const maxSizeMb = 10;
 	const accept = {
 		"image/*": [".png", ".gif", ".jpeg", ".jpg"],
@@ -27,7 +23,7 @@ const UploadFiles = ({userId} : { userId: string }) => {
 		"application/vnd.openxmlformats-officedocument.presentationml.presentation": [".pptx"],
         "application/pdf": [".pdf"],
 	};
-	const acceptedFileExtensions = Object.values(accept).flat();
+	const acceptedFileExtensions = Object.values(accept).join(", ");
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         maxSize: maxSizeMb * 1024 * 1024, // {maxSizeMb}MB
@@ -35,38 +31,42 @@ const UploadFiles = ({userId} : { userId: string }) => {
         multiple: true,
         onDropRejected: (fileRejections) => {
             console.log('Rejected files:', fileRejections);
+            setRejectedFiles(fileRejections.map((fileRejection) => fileRejection.file));
         },
-        onDrop: (acceptedFiles) => {
+        onDrop: async (acceptedFiles) => {
             console.log("acceptedFiles", acceptedFiles)
-            setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
-            const filesToUpload = acceptedFiles.map((file) => ({ file, progress: 0, uploaded: false }));
-            setFileUploads((prevFileUploads) => [...prevFileUploads, ...filesToUpload]);
-            const uploadFiles = async () => {
-                for (const file of filesToUpload) {
-                    // setFileUploads((prevFileUploads) => [...prevFileUploads, { file, progress: undefined, uploaded: false }]);
-                    console.log("file", file.file)
-                    const formData = new FormData();
-                    formData.append('file', file.file);
-                    formData.append('userId', userId);
-                    const uploaded = await fetch(`/api/bunny?userId=${userId}`, {
-                        method: 'PUT',
-                        body: formData,
-                    // }).catch((error) => {
-                    //     console.error("Error uploading file", error);
-                    });
-                    // update progress of upload to 100%
-                    if (uploaded.ok) {
-                        setFileUploads((prevFileUploads) => prevFileUploads.map((f) => {
-                            if (f.file === file.file) {
-                                return { ...f, uploaded: true, progress: 100};
-                            }
-                            return f;
-                        }));
-                    console.log("uploaded", uploaded)
+            try {
+                setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
+                const filesToUpload = acceptedFiles.map((file) => ({ file, progress: 0, uploaded: false }));
+                setFileUploads((prevFileUploads) => [...prevFileUploads, ...filesToUpload]);
+                // const uploadFiles = async () => {
+                    for (const file of filesToUpload) {
+                        // setFileUploads((prevFileUploads) => [...prevFileUploads, { file, progress: undefined, uploaded: false }]);
+                        console.log("file", file.file)
+                        const formData = new FormData();
+                        formData.append('file', file.file);
+                        formData.append('userId', userId);
+                        const uploaded = await fetch(`/api/bunny?userId=${userId}`, {
+                            method: 'PUT',
+                            body: formData,
+                        // }).catch((error) => {
+                        //     console.error("Error uploading file", error);
+                        });
+                        // update progress of upload to 100%
+                        if (uploaded.ok) {
+                            setFileUploads((prevFileUploads) => prevFileUploads.map((f) => {
+                                if (f.file === file.file) {
+                                    return { ...f, uploaded: true, progress: 100};
+                                }
+                                return f;
+                            }));
+                        console.log("uploaded", uploaded)
+                    }
+                // }
+                // uploadFiles();
                 }
-            }
-            console.log("ARE YOU GONNA UPLOAD")
-            uploadFiles();
+            } catch (error) {
+                console.error("Error uploading files", error);
         }
     }});
 
@@ -78,7 +78,7 @@ const UploadFiles = ({userId} : { userId: string }) => {
                 {/* <input className="hidden" /> */}
                 {/* <div className="indicator"> */}
                     {/* <span className="indicator-item badge badge-secondary">new</span>  */}
-                    <button className="btn bg-primary text-primary-content border border-primary rounded-l-sm join-item uppercase">Choose Files</button>
+                    <button className="btn bg-primary bg-opacity-70 text-primary-content h-[70px] border border-primary rounded-l-sm join-item uppercase">Choose Files</button>
                 {/* </div> */}
                 <input {...getInputProps()} multiple className="file-input file-input-bordered join-item flex flex-col items-center" />
                 {isDragActive ? (
@@ -87,10 +87,27 @@ const UploadFiles = ({userId} : { userId: string }) => {
                     </div>
                 ) : (
                     <div className={`w-full border border-base-content rounded-r-sm border-l-0 grow flex flex-col justify-center p-1`}>
-                        <p className="">{"Click to select files, or drop them here."}</p>
+                        <p>{"Click to select files, or drop them here."}</p>
+                        <p className="text-xs">Accepted file types are: {acceptedFileExtensions}</p>
                     </div>
                 )}
             </div>
+            {
+                rejectedFiles.length > 0 && rejectedFiles.map((file, index) => {
+                    const removeFile = () => {
+                        setRejectedFiles(rejectedFiles.filter((f) => f !== file));
+                    };
+                    setTimeout(() => {
+                        removeFile();
+                    }, 5000);
+                    return (
+                        <div key={index} className="flex flex-row text-sm justify-between items-center border border-error rounded p-2 m-2">
+                            <p><span className="italic">{file.name}</span> is not an accepted format</p>
+                            <button onClick={removeFile}>OK</button>
+                        </div>
+                    )
+                })
+            }
                 {files.length > 0 && (
                     <div>
                         <h4>Selected Files:</h4>
@@ -103,7 +120,7 @@ const UploadFiles = ({userId} : { userId: string }) => {
                                         body: JSON.stringify({ file, userId }),
                                     })
                                     console.log("deleted", deleted)
-                                    if(deleted.ok) {
+                                    if(deleted.ok) { 
                                         setFiles(files.filter((f) => f !== file));
                                         setFileUploads(fileUploads.filter((f) => f.file !== file));
                                     }

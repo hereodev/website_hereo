@@ -1,4 +1,4 @@
-import UploadFiles from "@/app/_components/upload/upload-files";
+import UploadForm from "@/app/_components/upload/upload-form";
 import { auth } from "@/auth"
 
 
@@ -11,7 +11,7 @@ export default async function Indx() {
             {/* <p>Home page</p> */}
             {
                 session && session.user && session.user.id &&
-                <UploadFiles userId={session.user.id} />
+                <UploadForm userId={session.user.id} />
 
             }
         </main>

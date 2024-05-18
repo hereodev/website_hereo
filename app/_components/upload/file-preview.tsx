@@ -33,28 +33,32 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, userId, progress, delet
     };
 
     return (
-        <div className="flex flex-col">
-            <div className="file-preview flex flex-row">
-                <div className="image-preview w-14 flex flex-col items-center justify-between mx-2">
-                    {getFileIcon()}
-            <progress className="progress w-full" value={progress && progress < 100 ? progress : undefined} max="100"></progress>
-                </div>
-                <div className="file-info grow">
-                    <h3 className="font-semibold">{name}</h3>
-                    <p>Type: {type}</p>
-                    <p>Size: {file.size} bytes</p>
-                </div>
-                {
-                    !progress || (progress && progress >= 100) && (
-                        <div 
-                            className="flex items-center justify-center hover:text-warning hover:cursor-pointer m-1"
-                            onClick={deleteFile}
-                        >
-                            <FiTrash className="w-6 h-6" />
-                        </div>
-                    )
-                }
+        <div className={`file-preview flex flex-row max-w-screen ${(!progress || progress<100) && "opacity-50"}`}>
+            <div className={`image-preview w-14 min-w-14 flex flex-col items-center justify-between mx-2`}>
+                {getFileIcon()}
+                {progress === 100 ? (
+                    <progress className="progress w-full" value={progress} max="100"></progress>
+                ) : (
+                    <progress className="progress w-full" max="100"></progress>
+                )}                
             </div>
+            <div className="file-info grow">
+                {/* TODO: renaming file if wanted?? */}
+                <input type="text" defaultValue={name} className="input w-full font-semibold" />
+                <p>Type: {type}</p>
+                <p>Size: {file.size} bytes</p>
+                {/* <p>Progress : {progress || "??"}</p> */}
+            </div>
+            {
+                !progress || (progress && progress >= 100) && (
+                    <div 
+                        className="flex items-center justify-center hover:text-warning hover:cursor-pointer m-1"
+                        onClick={deleteFile}
+                    >
+                        <FiTrash className="w-6 h-6" />
+                    </div>
+                )
+            }
         </div>
     );
 };

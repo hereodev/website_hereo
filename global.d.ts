@@ -8,3 +8,9 @@ export type UserWithRole = User & {
     role: string;
 }
 
+type UploadedFile = {
+    file: File;
+    progress: number | undefined;
+    uploaded: boolean;
+    path?: string;
+};
