@@ -40,28 +40,29 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                 const filesToUpload = acceptedFiles.map((file) => ({ file, progress: 0, uploaded: false }));
                 setMedia((prevFileUploads) => [...prevFileUploads, ...filesToUpload]);
                 // const uploadFiles = async () => {
-                    for (const file of filesToUpload) {
-                        // setMedia((prevFileUploads) => [...prevFileUploads, { file, progress: undefined, uploaded: false }]);
-                        console.log("file", file.file)
-                        const formData = new FormData();
-                        formData.append('file', file.file);
-                        formData.append('userId', userId);
-                        const uploaded = await fetch(`/api/bunny?userId=${userId}`, {
-                            method: 'PUT',
-                            body: formData,
-                        // }).catch((error) => {
-                        //     console.error("Error uploading file", error);
-                        });
-                        // update progress of upload to 100%
-                        if (uploaded.ok) {
-                            setMedia((prevFileUploads) => prevFileUploads.map((f) => {
-                                if (f.file === file.file) {
-                                    return { ...f, uploaded: true, progress: 100};
-                                }
-                                return f;
-                            }));
-                        console.log("uploaded", uploaded)
-                    }
+                for (const file of filesToUpload) {
+                    // setMedia((prevFileUploads) => [...prevFileUploads, { file, progress: undefined, uploaded: false }]);
+                    console.log("file", file.file)
+                    const formData = new FormData();
+                    formData.append('file', file.file);
+                    formData.append('userId', userId);
+                    const uploaded = await fetch(`/api/bunny?userId=${userId}`, {
+                        method: 'PUT',
+                        body: formData,
+                    // }).catch((error) => {
+                    //     console.error("Error uploading file", error);
+                    });
+                    // update progress of upload to 100%
+                    // if (uploaded.ok) {
+                        // update Db
+                        setMedia((prevFileUploads) => prevFileUploads.map((f) => {
+                            if (f.file === file.file) {
+                                return { ...f, uploaded: true, progress: 100};
+                            }
+                            return f;
+                        }));
+                    console.log("uploaded", uploaded)
+                    // }
                 // }
                 // uploadFiles();
                 }
@@ -111,31 +112,29 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                 {files.length > 0 && (
                     <div>
                         <h4>Selected Files:</h4>
-                        <pre className="overflow-x-auto">{JSON.stringify(media, null, 2)}</pre>
-                            {media.map((uploadedFile, index) => {
-                                const file = uploadedFile.file;
-                                const deleteCurrentFile = async () => {
-                                    const deleted = await fetch(`/api/bunny?userId=${userId}&path=${userId}/${file.name}`, {
-                                        method: 'DELETE',
-                                        body: JSON.stringify({ file, userId }),
-                                    })
-                                    console.log("deleted", deleted)
-                                    if(deleted.ok) { 
-                                        setFiles(files.filter((f) => f !== file));
-                                        setMedia(media.filter((f) => f.file !== file));
-                                    }
-                                };
-                                return(
+                        {/* <pre className="overflow-x-auto">{JSON.stringify(media, null, 2)}</pre> */}
+                        {media.map((uploadedFile, index) => {
+                            const file = uploadedFile.file;
+                            const deleteCurrentFile = async () => {
+                                const deleted = await fetch(`/api/bunny?userId=${userId}&path=${userId}/${file.name}`, {
+                                    method: 'DELETE',
+                                    body: JSON.stringify({ file, userId }),
+                                })
+                                console.log("deleted", deleted)
+                                if(deleted.ok) { 
+                                    setFiles(files.filter((f) => f !== file));
+                                    setMedia(media.filter((f) => f.file !== file));
+                                }
+                            };
+                            return(
                                 <div key={index}>
-                                    <FilePreview file={file} deleteFile={deleteCurrentFile} progress={uploadedFile.progress} />
-                                    {/* <FilePreview key={index} file={file} deleteFile={deleteCurrentFile} /> */}
+                                    <FilePreview uploadedFile={uploadedFile} deleteFile={deleteCurrentFile} progress={uploadedFile.progress} />
                                     {
                                         (index < files.length - 1) &&
                                             <div className="divider"></div> 
                                     }
                                 </div>
-
-                                )
+                            )
                             })}
                     </div>
                 )}

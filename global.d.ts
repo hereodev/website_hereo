@@ -13,4 +13,12 @@ type UploadedFile = {
     progress: number | undefined;
     uploaded: boolean;
     path?: string;
+    type?: string;
+    alt?: string;
+    // description?: string;
+    storage?: string;
+    author?: string;
+    date?: string;
+    title?: string;
+    url?: string;
 };

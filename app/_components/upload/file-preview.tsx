@@ -3,22 +3,24 @@
 import { FaFile } from 'react-icons/fa';
 import { FiTrash } from 'react-icons/fi';
 import { auth } from '@/auth';
+import { UploadedFile } from '@/global';
 
 
 type FilePreviewProps = {
-    file: File;
+    uploadedFile: UploadedFile;
     userId?: string;
     progress?: number;
     deleteFile?: () => void;
 };
 
-const FilePreview: React.FC<FilePreviewProps> = ({ file, userId, progress, deleteFile }) => {
-    const { name, type } = file;
+const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progress, deleteFile }) => {
+    const { name, type } = uploadedFile.file;
+    const title = name.split('.').slice(0, -1).join('');
 
     // Function to generate image preview URL
     const getImagePreviewUrl = (): string | undefined => {
         if (type.startsWith('image/')) {
-            return URL.createObjectURL(file);
+            return URL.createObjectURL(uploadedFile.file);
         }
         return undefined;
     };
@@ -42,13 +44,33 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, userId, progress, delet
                     <progress className="progress w-full" max="100"></progress>
                 )}                
             </div>
-            <div className="file-info grow">
+            <form className="file-info grow">
                 {/* TODO: renaming file if wanted?? */}
-                <input type="text" defaultValue={name} className="input w-full font-semibold" />
-                <p>Type: {type}</p>
-                <p>Size: {file.size} bytes</p>
+                {/* <input type="text" className="input w-full font-semibold" /> */}
+                <label className="input flex items-center gap-2 h-8">
+                    <span className="font-semibold">Title</span>
+                    <input type="text" defaultValue={title} className="grow" placeholder={title} />
+                </label>
+                <label className="input flex items-center gap-2 h-8">
+                    <span className="font-semibold">Description</span>
+                    <input type="text" defaultValue="" className="grow" placeholder="Enter a description of the picture" />
+                </label>
+                <label className="input flex items-center gap-2 h-8">
+                    <span className="font-semibold">Author(s)</span>
+                    <input type="text" defaultValue="" className="grow" placeholder="" />
+                </label>
+                <label className="input flex items-center gap-2 h-8">
+                    <span className="font-semibold">Type</span>
+                    {type}
+                </label>
+                <label className="input flex items-center gap-2 h-8">
+                    <span className="font-semibold">Size</span> 
+                    {uploadedFile.file.size < 1024 * 1024 
+                        ? (uploadedFile.file.size / 1024).toFixed(2) + ' KB' 
+                        : (uploadedFile.file.size / 1024 / 1024).toFixed(2) + ' MB'}
+                </label>
                 {/* <p>Progress : {progress || "??"}</p> */}
-            </div>
+            </form>
             {
                 !progress || (progress && progress >= 100) && (
                     <div 

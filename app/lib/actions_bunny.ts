@@ -8,22 +8,6 @@ const storageZone = process.env.NEXT_PUBLIC_BUNNY_STORAGE_ZONE || '';
 const apiKey = process.env.BUNNY_STORAGE_API_KEY || '';
 
 
-export async function addFileToDb({ file, userId } : { file: File, userId: string }) {
-    console.log("uploading file...", file.name, userId);
-    const { name, type } = file;
-    // const fileExtension = name.split('.').pop();
-    const fileRecord = await prisma.media.create({
-        data: {
-            title:name,
-            type,
-            // uploaderId: userId,
-            user: {
-                connect: { id: userId },
-            },
-        }
-    });
-    return fileRecord;
-}
 
 export async function uploadFileToBunny({ file, userId } : { file: File, userId: string }) {
     console.log("uploading file...", file.name, userId);
