@@ -8,10 +8,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 // import { useFormState, useFormStatus } from 'react-dom';
 import { FiAlertCircle, FiArrowRight } from 'react-icons/fi';
 import SubmitButton from '@/app/_components/submit-button';
-import Tiptap from './tiptap';
+import Tiptap from './tiptap3';
 
 const UploadForm = ({userId} : {userId: string}) => {
     const [media, setMedia] = useState<UploadedFile[]>([]);
+    const [editorContent, setEditorContent] = useState<string>('')
+    const handleContentChange = (reason: any) => {
+        setEditorContent(reason)
+    }
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { 
         register, 
@@ -33,7 +37,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         // }, 3000);
 
         data.uploader_id = userId;
-        // data.long_text = JSON.stringify(editorValue);
+        data.long_text = JSON.stringify(editorContent);
         data.media = media || [];
         // data.authors = selectedAuthors.map((author) => author.id);
         console.log("DATA TO BE UPLOADED", data);
@@ -108,8 +112,13 @@ const UploadForm = ({userId} : {userId: string}) => {
                         <span className="label-text-alt">Alt label</span>
                     </div>
                     {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
-                    <Tiptap />
+                    {/* <Tiptap
+                        editorContent={editorContent}
+                        onChange={(newContent: string) => handleContentChange(newContent)}
+                    />                     */}
+                    <Tiptap setContent={setEditorContent} />
                 </label>
+                <p>{editorContent}</p>
 
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
 
