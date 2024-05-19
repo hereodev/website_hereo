@@ -103,6 +103,8 @@ export async function DELETE(request: NextRequest) {
     // const filename = searchParams.get('filename') || ""
     // if(filename === "") { return NextResponse.json({ success: false, error: "No filename" }, { status: 400 }); }
     const path = searchParams.get('path') || ''
+    // path should look like:
+    
     if(path === "") { return NextResponse.json({ success: false, error: "No path" }, { status: 400 }); }
 
     const url = `${storageUrl}/${storageZone}/${path}`.replace(/(?<!:)\/\//g, '/');

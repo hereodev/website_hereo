@@ -8,9 +8,9 @@ import { set } from 'zod';
 import { UploadedFile } from '@/global';
 
 
-const UploadFiles = ({userId, media, setMedia} : { userId: string, media: UploadedFile[], setMedia: (media: UploadedFile[]) => void }) => {
+const UploadFiles = ({userId, media, setMedia} : { userId: string, media: UploadedFile[], setMedia: React.Dispatch<React.SetStateAction<UploadedFile[]>> }) => {
     const [files, setFiles] = useState<File[]>([]);
-    const [fileUploads, setFileUploads] = useState<UploadedFile[]>([]);
+    // const [fileUploads, setFileUploads] = useState<UploadedFile[]>([]);
     const [rejectedFiles, setRejectedFiles] = useState<File[]>([]);
 	const maxSizeMb = 10;
 	const accept = {
@@ -38,10 +38,10 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
             try {
                 setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
                 const filesToUpload = acceptedFiles.map((file) => ({ file, progress: 0, uploaded: false }));
-                setFileUploads((prevFileUploads) => [...prevFileUploads, ...filesToUpload]);
+                setMedia((prevFileUploads) => [...prevFileUploads, ...filesToUpload]);
                 // const uploadFiles = async () => {
                     for (const file of filesToUpload) {
-                        // setFileUploads((prevFileUploads) => [...prevFileUploads, { file, progress: undefined, uploaded: false }]);
+                        // setMedia((prevFileUploads) => [...prevFileUploads, { file, progress: undefined, uploaded: false }]);
                         console.log("file", file.file)
                         const formData = new FormData();
                         formData.append('file', file.file);
@@ -54,7 +54,7 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                         });
                         // update progress of upload to 100%
                         if (uploaded.ok) {
-                            setFileUploads((prevFileUploads) => prevFileUploads.map((f) => {
+                            setMedia((prevFileUploads) => prevFileUploads.map((f) => {
                                 if (f.file === file.file) {
                                     return { ...f, uploaded: true, progress: 100};
                                 }
@@ -78,15 +78,15 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                 {/* <input className="hidden" /> */}
                 {/* <div className="indicator"> */}
                     {/* <span className="indicator-item badge badge-secondary">new</span>  */}
-                    <button className="btn bg-primary bg-opacity-70 text-primary-content h-[70px] border border-primary rounded-l-sm join-item uppercase">Choose Files</button>
+                    <button className="btn bg-primary bg-opacity-70 text-primary-content h-[140px] border border-base-content border-opacity-30 rounded-l-sm join-item uppercase">Choose Files</button>
                 {/* </div> */}
                 <input {...getInputProps()} multiple className="file-input file-input-bordered join-item flex flex-col items-center" />
                 {isDragActive ? (
-                    <div className={`w-full border  rounded-r-sm border-l-0 grow flex flex-col justify-center p-1 border-dashed border-primary`}>
+                    <div className={`w-full border rounded-r-sm border-l-0 grow flex flex-col justify-center p-1 border-dashed border-primary`}>
                         <p className="">{"Drop the files here ..."}</p>
                     </div>
                 ) : (
-                    <div className={`w-full border border-base-content rounded-r-sm border-l-0 grow flex flex-col justify-center p-1`}>
+                    <div className={`w-full border border-base-content border-opacity-30 rounded-r-sm border-l-0 grow flex flex-col justify-center p-1`}>
                         <p>{"Click to select files, or drop them here."}</p>
                         <p className="text-xs">Accepted file types are: {acceptedFileExtensions}</p>
                     </div>
@@ -111,8 +111,8 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                 {files.length > 0 && (
                     <div>
                         <h4>Selected Files:</h4>
-                        <pre className="overflow-x-auto">{JSON.stringify(fileUploads, null, 2)}</pre>
-                            {fileUploads.map((uploadedFile, index) => {
+                        <pre className="overflow-x-auto">{JSON.stringify(media, null, 2)}</pre>
+                            {media.map((uploadedFile, index) => {
                                 const file = uploadedFile.file;
                                 const deleteCurrentFile = async () => {
                                     const deleted = await fetch(`/api/bunny?userId=${userId}&path=${userId}/${file.name}`, {
@@ -122,7 +122,7 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                                     console.log("deleted", deleted)
                                     if(deleted.ok) { 
                                         setFiles(files.filter((f) => f !== file));
-                                        setFileUploads(fileUploads.filter((f) => f.file !== file));
+                                        setMedia(media.filter((f) => f.file !== file));
                                     }
                                 };
                                 return(

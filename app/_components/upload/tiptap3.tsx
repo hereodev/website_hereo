@@ -1,57 +1,54 @@
 import React, { useRef } from 'react';
-import { Editor, EditorContent, useEditor } from '@tiptap/react';
+import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import EditorToolbar from './editor-toolbar';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
+import TextStyle from '@tiptap/extension-text-style'
+import { Color } from '@tiptap/extension-color'
 
 interface TiptapEditorProps {
-    content?: string;
+    initialContent?: string;
     setContent: (content: string) => void;
 }
 
-const TiptapEditor: React.FC<TiptapEditorProps> = ({ content, setContent }) => {
+const TiptapEditor: React.FC<TiptapEditorProps> = ({ initialContent, setContent }) => {
+    // if(!initialContent) initialContent = '<ul><li><p><strong>Hello</strong>, Tiptap!</p></li></ul><h1>And this is great.</h1>';
+    if(!initialContent) initialContent = '<p>Start typing...</p>';
+    // setContent(initialContent);
     const editorRef = useRef(null);
     const editor = useEditor({
-        extensions: [StarterKit],
-        content: '<p>Hello, Tiptap!</p>',
+        extensions: [
+            StarterKit,
+            Underline,
+            TextAlign,
+            TextStyle,
+            Color,
+        ],
+        content: initialContent,
         // placeholder: 'Start typing...',
         editorProps: {
             attributes: {
-                class: 'editor-content min-h-[200px] h-full w-full p-4 border border-opacity-30 border-base-content rounded-md focus:outline focus:outline-base-content/30 focus:outline-2 focus:outline-offset-2 ',
+                class: 'editor-content prose prose-sm min-h-[200px] h-full w-full p-4 ',
             },
         },
         onUpdate: ({ editor }) => {
             // console.log(editor.getHTML());
             setContent(editor.getHTML());
+            // setContent(JSON.stringify(editor.getJSON(), null, 2))
         },
     });
 
     if(!editor) return (
-
         <div className="flex flex-row w-full items-center justify-center">
-            <span className="loading loading-dots loading-md"></span>
+            {/* <span className="loading loading-dots loading-md"></span> */}
+            <span className="loading loading-ring loading-lg"></span>
         </div>
     )
 
     return (
-        <div>
-            <div>
-                <EditorToolbar editor={editor} />
-            </div>
-            {/* <div className="editor-toolbar">
-                {editor && (
-                    <>
-                        <button onClick={() => editor.chain().focus().toggleBold().run()}>
-                            Bold
-                        </button>
-                        <button onClick={() => editor.chain().focus().toggleItalic().run()}>
-                            Italic
-                        </button>
-                        <button onClick={() => editor.chain().focus().toggleUnderline().run()}>
-                            Underline
-                        </button>
-                    </>
-                )}
-            </div> */}
+        <div className="border border-opacity-30 border-base-content rounded-md focus:outline focus:outline-base-content/30 focus:outline-2 focus:outline-offset-2 ">
+            <EditorToolbar editor={editor} />
             <div className="editor-content" ref={editorRef}>
                 {editor && <EditorContent editor={editor} />}
             </div>

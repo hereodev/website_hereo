@@ -8,9 +8,10 @@
 [ ] Profile page
     - [ ] FIXME: name does not update
 [ ] Upload
-    - [ ] Upload to Bunny: in dir named after uploader's ID
+    - [x] Upload to Bunny: in dir named after uploader's ID
     - [ ] Update DB with URL, uploader's Id, authors
-    - [ ] FIXME: Tiptap weird focus
+    - [x] FIXME Tiptap weird focus
+    - [ ] Upload art text content to DB
 
 
 

@@ -13,6 +13,7 @@
     "@formatjs/intl-localematcher": "^0.5.4",
     "@prisma/client": "^5.14.0",
     "@sendgrid/mail": "^8.1.3",
+    "@tiptap/extension-color": "^2.4.0",
     "@tiptap/extension-heading": "^2.4.0",
     "@tiptap/extension-highlight": "^2.4.0",
     "@tiptap/extension-paragraph": "^2.4.0",
@@ -20,6 +21,7 @@
     "@tiptap/extension-superscript": "^2.4.0",
     "@tiptap/extension-text": "^2.4.0",
     "@tiptap/extension-text-align": "^2.4.0",
+    "@tiptap/extension-text-style": "^2.4.0",
     "@tiptap/extension-underline": "^2.4.0",
     "@tiptap/pm": "^2.4.0",
     "@tiptap/react": "^2.4.0",
@@ -39,6 +41,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "@types/bcrypt": "^5.0.2",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",

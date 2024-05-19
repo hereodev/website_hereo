@@ -107,23 +107,18 @@ const UploadForm = ({userId} : {userId: string}) => {
                 <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
 
                 <label className="form-control">
-                    <div className="label">
+                    <div className="label pb-1">
                         <span className="label-text text-xl font-semibold">Content</span>
-                        <span className="label-text-alt">Alt label</span>
+                        {/* <span className="label-text-alt">Alt label</span> */}
                     </div>
                     {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
-                    {/* <Tiptap
-                        editorContent={editorContent}
-                        onChange={(newContent: string) => handleContentChange(newContent)}
-                    />                     */}
                     <Tiptap setContent={setEditorContent} />
                 </label>
-                <p>{editorContent}</p>
+                {/* <p>{editorContent}</p> */}
 
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
 
                 <UploadButton pending={isSubmitting} />
-                {/* <SubmitButton /> */}
             </form>
         </div>
     )
