@@ -1,7 +1,7 @@
 
 "use client"
-import React, { useEffect, useState } from 'react';
-import { changeName, changeEmail } from '@/app/lib/actions_auth';
+import React, { useCallback, useEffect, useState } from 'react';
+import { changeName, changeEmail, myAction } from '@/app/lib/actions_auth';
 import { useDebouncedCallback } from 'use-debounce';
 import { FiCheck, FiCheckCircle } from 'react-icons/fi';
 
@@ -41,12 +41,22 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
     // TODO: change name when types.
     // TODO: display success when changed.
 
-    const handleNameChange = useDebouncedCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleNameChange = useDebouncedCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
         // setName(e.target.value);
+        console.log("changing name to", e.target.value);
+        console.log("userId", userId)
         if(userId) { 
-            changeName(userId, e.target.value); 
-            // set changedName to success
-            setChangedName(true);
+            console.log("changing name in DB...", userId, e.target.value)
+            const test = await myAction()
+            console.log("test", test)
+            const userUpdated = await fetch(`/api/user?userId=${userId}&name=${e.target.value}`);
+            // const userUpdated = await fetch(`/api/user?userId=${userId}&name=${e.target.value}`, {
+            //     method: 'UPDATE',
+            // });
+
+            // const userUpdated = await changeName(userId, e.target.value); 
+            console.log("userUpdated", userUpdated)
+            // setChangedName(true);
         }
     }, 1000);
 
@@ -106,9 +116,9 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         className="input input-bordered"
                     />
                 </div> */}
-                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md">
+                {/* <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md">
                     Change Password
-                </button>
+                </button> */}
             </form>
         // </div>
     );

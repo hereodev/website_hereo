@@ -19,3 +19,12 @@ export async function addFileToDb({ file, userId } : { file: File, userId: strin
     return fileRecord;
 }
 
+export async function deleteFileFromDb({ fileId } : { fileId: number }) {
+    // console.log("deleting file...", file.name, userId);
+    const deletedFile = await prisma.media.delete({
+        where: {
+            id: fileId,
+        }
+    });
+    return deletedFile;
+}

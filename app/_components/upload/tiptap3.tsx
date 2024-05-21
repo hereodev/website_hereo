@@ -29,7 +29,7 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ initialContent, setContent 
         // placeholder: 'Start typing...',
         editorProps: {
             attributes: {
-                class: 'editor-content prose prose-sm min-h-[200px] h-full w-full p-4 ',
+                class: 'editor-content prose min-h-[200px] h-full w-full p-4 ',
             },
         },
         onUpdate: ({ editor }) => {

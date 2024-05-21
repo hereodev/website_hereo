@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UploadFiles from './upload-files';
 import { UploadedFile } from '@/global';
 import { Art } from '@prisma/client';
@@ -12,6 +12,9 @@ import Tiptap from './tiptap3';
 
 const UploadForm = ({userId} : {userId: string}) => {
     const [media, setMedia] = useState<UploadedFile[]>([]);
+    const [mediaUpdated, setMediaUpdated] = useState<boolean>(false);
+    const [category, setCategory] = useState<string>('');
+    const [publish, setPublish] = useState<boolean>(false);
     const [editorContent, setEditorContent] = useState<string>('')
     const handleContentChange = (reason: any) => {
         setEditorContent(reason)
@@ -29,6 +32,14 @@ const UploadForm = ({userId} : {userId: string}) => {
         // }
     });
 
+    const handleMediaChange = (newMedia: UploadedFile[]) => {
+        setMedia(newMedia);
+    }
+
+    useEffect(() => {
+        console.log("media updated:", media)
+    }, [media])
+
     const onSubmit: SubmitHandler<Art & {media?:UploadedFile[], authors?:string[]}> = (data) => {
         setIsSubmitting(true);
         // console.log("data", data);
@@ -38,7 +49,7 @@ const UploadForm = ({userId} : {userId: string}) => {
 
         data.uploader_id = userId;
         data.long_text = JSON.stringify(editorContent);
-        data.media = media || [];
+        data.media = media;
         // data.authors = selectedAuthors.map((author) => author.id);
         console.log("DATA TO BE UPLOADED", data);
         
@@ -117,6 +128,16 @@ const UploadForm = ({userId} : {userId: string}) => {
                 {/* <p>{editorContent}</p> */}
 
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
+                <h4>Selected Files:</h4>
+                <pre className="overflow-x-auto text-xs">{JSON.stringify(media, null, 2)}</pre>
+
+                {/* Catégorie */}
+
+                {/* URL Vidéo */}
+
+                {/* TODO: publish? */}
+
+                {/* Legal accept */}
 
                 <UploadButton pending={isSubmitting} />
             </form>

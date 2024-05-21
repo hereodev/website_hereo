@@ -5,6 +5,7 @@ import { User } from "next-auth"
 import { UserWithRole } from "@/global"
 import { redirect } from "next/navigation"
 import EditableProfile from "@/app/_components/auth/editable-profile"
+import prisma from "@/prisma"
 
 type Props = {
     params: { id: string }
@@ -15,14 +16,23 @@ export async function generateMetadata(
     { params, searchParams }: Props,
     parent: ResolvingMetadata
   ): Promise<Metadata> {
-    // read route params
-    const id = params.id
+
+    const session = await auth();
+
+    if(!session) {
+      return {
+        title: `Sign in | Her(e) Otherwise | ${process.env.NODE_ENV}`,
+      }
+    }
+
+    const id = session.user?.id
 
     // fetch data
     // const product = await fetch(`https://.../${id}`).then((res) => res.json())
 
     // optionally access and extend (rather than replace) parent metadata
     const previousImages = (await parent).openGraph?.images || []
+
 
     return {
       title: `#${id} | Her(e) Otherwise | ${process.env.NODE_ENV}`,
@@ -32,21 +42,60 @@ export async function generateMetadata(
     }
   }
 
-export default async function Profile({ params }: { params: { id: string, lang: string } }) {
-
+export default async function Profile() {
     const session = await auth();
 
     if(session && session.user) {
+
+    const id = session.user?.id
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: id
+        }
+    })
+
+    const userArt = await prisma.art.findMany({
+        where: {
+            uploader_id: id
+        }
+    })
+
+    const userMedia = await prisma.media.findMany({
+        where: {
+            uploader_id: id
+        }
+    })
 
     return (
       <main>
         <h1>Profile</h1>
         {/* <p>Art page : ID #{session.user.id}</p> */}
-        {/* {session && <pre>{JSON.stringify(session, null, 2)}</pre>} */}
-        <EditableProfile userId={session.user.id} initialName={session.user.name} initialEmail={session.user.email} />
-        { session && session.user && ((session.user as UserWithRole).id == params.id || ((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
-          <button className="btn btn-primary">Edit my profile</button>
+        {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
+        {/* <EditableProfile userId={session.user.id} initialName={session.user.name} initialEmail={session.user.email} /> */}
+        <button className="btn btn-primary">Edit my profile</button>
+        <h2>My Media</h2>
+        {
+          userMedia.map((media) => {
+            return (
+              <div key={media.id}>
+                <p>{media.title}</p>
+                {/* <img src={media.url} alt={media.title} /> */}
+              </div>
+            )
+          })
         }
+        <h2>My Art</h2>
+        {
+          userArt.map((art) => {
+            return (
+              <div key={art.id}>
+                <p>{art.title}</p>
+              </div>
+            )
+        })
+        }
+
       </main>
     )
 

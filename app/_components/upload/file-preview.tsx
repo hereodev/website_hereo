@@ -4,18 +4,38 @@ import { FaFile } from 'react-icons/fa';
 import { FiTrash } from 'react-icons/fi';
 import { auth } from '@/auth';
 import { UploadedFile } from '@/global';
-
+import { useForm, SubmitHandler } from "react-hook-form"
+import { useEffect } from 'react';
 
 type FilePreviewProps = {
     uploadedFile: UploadedFile;
     userId?: string;
     progress?: number;
     deleteFile?: () => void;
+    onFileInfoChange: (field: string, value: string) => void;
 };
 
-const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progress, deleteFile }) => {
+const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progress, deleteFile, onFileInfoChange }) => {
     const { name, type } = uploadedFile.file;
     const title = name.split('.').slice(0, -1).join('');
+    uploadedFile.title = title;
+    
+
+    const {
+        register,
+        // handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<UploadedFile>()
+    // const onSubmit: SubmitHandler<UploadedFile> = (data) => console.log(data)
+
+    // FIXME: doesnt work this way. data sent is still the previous title.
+    // useEffect(() => {
+    //     uploadedFile.title = watch("title")
+    // }, [watch("title")])
+    // useEffect(() => {
+    //     uploadedFile.title = watch("alt")
+    // }, [watch("alt")])
 
     // Function to generate image preview URL
     const getImagePreviewUrl = (): string | undefined => {
@@ -44,20 +64,36 @@ const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progres
                     <progress className="progress w-full" max="100"></progress>
                 )}                
             </div>
-            <form className="file-info grow">
+            <form 
+            // onSubmit={handleSubmit(onSubmit)} 
+                className="file-info grow"
+            >
                 {/* TODO: renaming file if wanted?? */}
                 {/* <input type="text" className="input w-full font-semibold" /> */}
                 <label className="input flex items-center gap-2 h-8">
                     <span className="font-semibold">Title</span>
-                    <input type="text" defaultValue={title} className="grow" placeholder={title} />
+                    <input type="text" defaultValue={title} 
+                    className="grow" 
+                    placeholder={title} 
+                    // {...register("title")}
+                    onChange={(e) => onFileInfoChange("title", e.target.value)}
+                />
                 </label>
                 <label className="input flex items-center gap-2 h-8">
                     <span className="font-semibold">Description</span>
-                    <input type="text" defaultValue="" className="grow" placeholder="Enter a description of the picture" />
+                    <input type="text" defaultValue="" 
+                    className="grow" 
+                    placeholder="Enter a description of the picture" 
+                    onChange={(e) => onFileInfoChange("alt", e.target.value)}
+                />
                 </label>
                 <label className="input flex items-center gap-2 h-8">
                     <span className="font-semibold">Author(s)</span>
-                    <input type="text" defaultValue="" className="grow" placeholder="" />
+                    <input type="text" defaultValue="" 
+                    className="grow" 
+                    placeholder="" 
+                    onChange={(e) => onFileInfoChange("author", e.target.value)}
+                />
                 </label>
                 <label className="input flex items-center gap-2 h-8">
                     <span className="font-semibold">Type</span>

@@ -89,7 +89,7 @@ export async function PUT(request: NextRequest) {
             return res.json().then(err => { throw err })
         }
     })
-    .then(res =>{ console.log("upload ?", res); return NextResponse.json({ success: true, status: res.HttpCode, message: res.Message, url: `https://hereotherwise.b-cdn.net/${userId}/${file.name}`})})
+    .then(res =>{ console.log("upload ?", res); return NextResponse.json({ success: true, status: res.HttpCode, message: res.Message, uploadUrl: `https://hereotherwise.b-cdn.net/${userId}/${file.name}`})})
     .catch(err => {console.error(err) ; return NextResponse.json({ success: false, error: err }, { status: 500 })})
 
     return response;

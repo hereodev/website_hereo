@@ -5,6 +5,7 @@ import Link from "next/link";
 import { UserWithRole } from "@/global";
 import { signOut } from "@/auth";
 import { FiLogIn, FiLogOut, FiUser } from "react-icons/fi";
+import prisma from "@/prisma";
 
 export default async function Nav({ lang } : { lang: string}) {
     const session = await auth();
@@ -15,6 +16,16 @@ export default async function Nav({ lang } : { lang: string}) {
         { href: '/indx', label: 'Index', labelFr:'Index', public: true },
         // { href: '/protected', label: 'protected route', labelFr:'Protégé', public: true },
     ]
+
+    let name = ""
+    if(session?.user) {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: (session.user as UserWithRole).id
+            }
+        })
+        name = user?.name || ""
+    }
 
     return (
         <nav className="flex justify-between items-center p-4">
@@ -46,7 +57,7 @@ export default async function Nav({ lang } : { lang: string}) {
                     <div className="avatar placeholder">
                         <div className="bg-info text-neutral-content rounded-full w-8">
                         <span className="text-xs">
-                            {session.user.name ? (session.user.name.match(/[A-Z]/g) || []).slice(0, 2).join('') : 
+                            {name ? (name.match(/[A-Z]/g) || []).slice(0, 2).join('') : 
                             <FiUser className="w-4 h-4 opacity-70" />
                             }
                         </span>

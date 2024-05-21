@@ -8,7 +8,10 @@ import sgMail from '@sendgrid/mail'
 import { UserWithRole } from "@/global";
 import { getSession, UpdateSession } from 'next-auth/react';
 // import jwt from 'jsonwebtoken';
-
+export async function myAction() {
+  console.log("action: myAction...")
+  return Promise.resolve("foo");
+}
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
@@ -66,7 +69,7 @@ export async function addUser(
 
 }
 
-export async function sendMail( email : { email: string }) {
+export async function sendMail( {email, lang="en"} : { email: string, lang?: string }) {
   // send email
   const apiKey = process.env.SENDGRID_API_KEY;
   if(!apiKey) {
@@ -79,7 +82,7 @@ export async function sendMail( email : { email: string }) {
     // to: email,
     cc: "hereotherwise@vuongvan.dev",
     from: "hereotherwise@vuongvan.dev",
-    subject: `New message from ${"hereO!!"}`,
+    subject: `New message from Her(e) Otherwise`,
     text: "Thank you for signing up to Her(e) Otherwise.",
 }
 
@@ -108,11 +111,12 @@ async function updateJwt(userId: string) {
 }
 
 export async function changeName(userId:string, newName: string) {
+  console.log("action: changing name...")
   const user = await prisma.user.update({
     where: { id: userId },
     data: { name: newName },
   });
-  updateJwt(userId);
+  // updateJwt(userId);
   return user;
 }
 

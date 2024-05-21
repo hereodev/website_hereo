@@ -53,16 +53,21 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                     //     console.error("Error uploading file", error);
                     });
                     // update progress of upload to 100%
-                    // if (uploaded.ok) {
+                    if (uploaded.ok) {
+                        const responseJson = await uploaded.json();
+                        const uploadUrl = responseJson.uploadUrl;
+                        console.log("at URL", uploadUrl)
                         // update Db
                         setMedia((prevFileUploads) => prevFileUploads.map((f) => {
                             if (f.file === file.file) {
-                                return { ...f, uploaded: true, progress: 100};
+                                return { ...f, uploaded: true, progress: 100, url: uploadUrl};
                             }
                             return f;
                         }));
                     console.log("uploaded", uploaded)
-                    // }
+                    } else {
+                        // TODO: if file not uploaded, alert user
+                    }
                 // }
                 // uploadFiles();
                 }
@@ -111,8 +116,8 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
             }
                 {files.length > 0 && (
                     <div>
-                        <h4>Selected Files:</h4>
-                        {/* <pre className="overflow-x-auto">{JSON.stringify(media, null, 2)}</pre> */}
+                        {/* <h4>Selected Files:</h4>
+                        <pre className="overflow-x-auto">{JSON.stringify(media, null, 2)}</pre> */}
                         {media.map((uploadedFile, index) => {
                             const file = uploadedFile.file;
                             const deleteCurrentFile = async () => {
@@ -126,9 +131,24 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                                     setMedia(media.filter((f) => f.file !== file));
                                 }
                             };
+                            const onFileInfoChange = (field: string, value: string) => {
+                                console.log("onFileInfoChange", field, value)
+                                setMedia((prevFileUploads) => prevFileUploads.map((f) => {
+                                    if (f.file === file) {
+                                        return { ...f, [field]: value };
+                                    }
+                                    return f;
+                                }));
+                            }
+                        
+                        
                             return(
                                 <div key={index}>
-                                    <FilePreview uploadedFile={uploadedFile} deleteFile={deleteCurrentFile} progress={uploadedFile.progress} />
+                                    <FilePreview uploadedFile={uploadedFile} 
+                                        deleteFile={deleteCurrentFile} 
+                                        progress={uploadedFile.progress} 
+                                        onFileInfoChange={onFileInfoChange}
+                                    />
                                     {
                                         (index < files.length - 1) &&
                                             <div className="divider"></div> 
