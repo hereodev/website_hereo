@@ -25,10 +25,7 @@ export default async function Page({ params: { lang } } : { params: { lang: Loca
                 {/* <VideoPlayer /> */}
                 <div className="-order-1  absolute top-0 left-0 h-screen w-screen">
                 <div className="overlapper min-h-screen h-screen">
-                            {/* {
-                                hasWindow && */}
-                                <VideoPlayer />
-                            {/* } */}
+                    <VideoPlayer />
                 </div>
             </div>
 

@@ -27,8 +27,7 @@ export default function VideoPlayer() {
                 height="100%"
                 width={"auto"}
                 controls={false}
-                // light is usefull incase of dark mode
-                light={false}
+                // light={false}
                 playing={true}
                 loop={true}
                 // picture in picture
