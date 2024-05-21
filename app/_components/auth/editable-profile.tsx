@@ -46,17 +46,18 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
         console.log("changing name to", e.target.value);
         console.log("userId", userId)
         if(userId) { 
-            console.log("changing name in DB...", userId, e.target.value)
-            const test = await myAction()
-            console.log("test", test)
-            const userUpdated = await fetch(`/api/user?userId=${userId}&name=${e.target.value}`);
-            // const userUpdated = await fetch(`/api/user?userId=${userId}&name=${e.target.value}`, {
-            //     method: 'UPDATE',
-            // });
+            const userUpdated = await fetch(`/api/user?userId=${userId}&name=${e.target.value}`, {
+                method: 'PUT',
+            });
 
             // const userUpdated = await changeName(userId, e.target.value); 
-            console.log("userUpdated", userUpdated)
-            // setChangedName(true);
+            // console.log("userUpdated", userUpdated)
+            if(userUpdated.ok) {
+                console.log("name changed successfully")
+                setChangedName(true);
+            } else {
+                console.error("error changing name")
+            }
         }
     }, 1000);
 
@@ -76,7 +77,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
 
     return (
         // <div>
-            <form onSubmit={handleSubmit}>
+            <div >
                 <div className="label w-full">
                     <label htmlFor="name" className="form-control w-full max-w-xs">
                         <div className="label"><span className="label-text">Name</span></div>
@@ -119,7 +120,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                 {/* <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md">
                     Change Password
                 </button> */}
-            </form>
+            </div>
         // </div>
     );
 };

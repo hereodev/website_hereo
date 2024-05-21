@@ -71,9 +71,11 @@ export default async function Profile() {
       <main>
         <h1>Profile</h1>
         {/* <p>Art page : ID #{session.user.id}</p> */}
-        {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
-        {/* <EditableProfile userId={session.user.id} initialName={session.user.name} initialEmail={session.user.email} /> */}
-        <button className="btn btn-primary">Edit my profile</button>
+        {/* {session && <pre>{JSON.stringify(session, null, 2)}</pre>} */}
+        {
+          user && 
+          <EditableProfile userId={session.user.id} initialName={user.name} initialEmail={user.email} />
+        }
         <h2>My Media</h2>
         {
           userMedia.map((media) => {

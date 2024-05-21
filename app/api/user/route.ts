@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma";
 
-export async function GET(request: NextRequest) {
+export async function PUT(request: NextRequest) {
     console.log("uploading file from api route...")
 
     const { searchParams } = new URL(request.url)
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         data: { name: newName },
       });
       // updateJwt(userId);
-      return response;
+    //   return response;
     // }).then(res => {
     //     if (res.ok) {
     //         return res.json()
@@ -28,6 +28,11 @@ export async function GET(request: NextRequest) {
 
     // return response;
 
-    // return NextResponse.json({ success: true })
+    if(response) {
+        return NextResponse.json({ success: true, user: response })
+    } else {
+        return NextResponse.json({ success: false, error: "Error changing name" }, { status: 500 });
+    }
+
 }
 
