@@ -6,6 +6,7 @@ import { UserWithRole } from "@/global"
 import { redirect } from "next/navigation"
 import EditableProfile from "@/app/_components/auth/editable-profile"
 import prisma from "@/prisma"
+import Link from "next/link"
 
 type Props = {
     params: { id: string }
@@ -69,15 +70,33 @@ export default async function Profile() {
 
     return (
       <main>
-        <h1>Profile</h1>
+        <h1>My Profile</h1>
         {/* <p>Art page : ID #{session.user.id}</p> */}
         {/* {session && <pre>{JSON.stringify(session, null, 2)}</pre>} */}
         {
           user && 
           <EditableProfile userId={session.user.id} initialName={user.name} initialEmail={user.email} />
         }
+        <div className="flex flex-row items-end gap-6">
+          <h2>My Art</h2>
+          <Link href="/indx/upload" className={`${"btn btn-xs btn-primary mb-3"}`}>Upload Art</Link>
+        </div>
+        {
+          userArt.length === 0 ? <p>No art uploaded yet.</p>
+          :
+          userArt.map((art) => {
+            return (
+              <div key={art.id}>
+                <p>{art.title}</p>
+                <Link href={`/indx/${art.id}`}>View</Link>
+              </div>
+            )
+        })
+        }
         <h2>My Media</h2>
         {
+          userMedia.length === 0 ? <p>No media uploaded yet.</p>
+          :
           userMedia.map((media) => {
             return (
               <div key={media.id}>
@@ -86,16 +105,6 @@ export default async function Profile() {
               </div>
             )
           })
-        }
-        <h2>My Art</h2>
-        {
-          userArt.map((art) => {
-            return (
-              <div key={art.id}>
-                <p>{art.title}</p>
-              </div>
-            )
-        })
         }
 
       </main>

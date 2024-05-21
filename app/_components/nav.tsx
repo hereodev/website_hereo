@@ -28,11 +28,11 @@ export default async function Nav({ lang } : { lang: string}) {
     }
 
     return (
-        <nav className="flex justify-between items-center p-4">
+        <nav className="flex justify-between items-center p-4 sm:gap-4 z-50">
             <div className="flex gap-4 items-center text-2xl font-semibold uppercase text-white">
                 <Link href={"/"}>:Her(e), Otherwise</Link>
             </div>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 grow items-center">
                 {
                     links.filter((l:any)=> {
                         if (session) {
@@ -41,7 +41,7 @@ export default async function Nav({ lang } : { lang: string}) {
                             return l.public
                         }
                     }).map(({ href, label, labelFr }) => (
-                        <Link key={href} className="" href={href}>{lang=="fr"?labelFr:label}</Link>
+                        <Link key={href} className="hover:underline hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
                     ))
                 }
                 {

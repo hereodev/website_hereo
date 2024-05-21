@@ -15,18 +15,6 @@ export async function PUT(request: NextRequest) {
         data: { name: newName },
       });
       // updateJwt(userId);
-    //   return response;
-    // }).then(res => {
-    //     if (res.ok) {
-    //         return res.json()
-    //     } else {
-    //         return res.json().then(err => { throw err })
-    //     }
-    // })
-    // .then(res =>{ console.log("upload ?", res); return NextResponse.json({ success: true, status: res.HttpCode, message: res.Message, uploadUrl: `https://hereotherwise.b-cdn.net/${userId}/${file.name}`})})
-    // .catch(err => {console.error(err) ; return NextResponse.json({ success: false, error: err }, { status: 500 })})
-
-    // return response;
 
     if(response) {
         return NextResponse.json({ success: true, user: response })

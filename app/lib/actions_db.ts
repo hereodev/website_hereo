@@ -1,6 +1,9 @@
 "use server";
 
+import { UploadedFile } from "@/global";
 import prisma from "@/prisma";
+import { Art } from "@prisma/client";
+import slugify from "slugify";
 
 export async function addFileToDb({ file, userId } : { file: File, userId: string }) {
     console.log("uploading file...", file.name, userId);
@@ -27,4 +30,83 @@ export async function deleteFileFromDb({ fileId } : { fileId: number }) {
         }
     });
     return deletedFile;
+}
+
+export async function uploadArt2(
+    { files, userId, title, subtitle, longText }: 
+    { files: UploadedFile[], userId: string, title: string, subtitle?: string, longText?: string }
+) {
+    // console.log("uploading art...", file.name, userId);
+    // const { name, type } = file;
+    // const artRecord = await prisma.art.create({
+    //     data: {
+    //         title,
+    //         subtitle,
+    //         long_text: longText,
+    //         uploader: {
+    //             connect: { id: userId },
+    //         },
+    //         associated_media: {
+    //             create: {
+    //                 media: {
+    //                     create: {
+    //                         title: name,
+    //                         type,
+    //                         uploader: {
+    //                             connect: { id: userId },
+    //                         },
+    //                     },
+    //                 },
+    //             },
+    //         },
+    //     },
+    //     include: {
+    //         associated_media: true,
+    //     },
+    // });
+    // return artRecord;
+}
+
+export async function uploadArt(data : {data: Art & {media?:UploadedFile[], authors?:string[]}}) {
+    console.log("uploading art...", data);
+    const { media, authors, ...artData } = data.data;
+    let slug = slugify(artData.title);
+    // check if another Art with the same slug exists, if it does, add a number to the slug, incrementing it until it is unique
+    let slugExists = true;
+    let slugNumber = 1;
+    while(slugExists) {
+        const existingArt = await prisma.art.findUnique({
+            where: {
+                slug: slug,
+            },
+        });
+        if(existingArt) {
+            slugNumber++;
+            slug = slugify(`${artData.title} ${slugNumber}`);
+        } else {
+            slugExists = false;
+        }
+    }
+    if(media) console.log("media to be uploaded",media)
+    const artRecord = await prisma.art.create({
+        data: {
+            slug: slug,
+            uploader_id: artData.uploader_id,
+            title: artData.title,
+            subtitle: artData.subtitle,
+            long_text: artData.long_text,
+
+            // uploader: {
+            //     connect: { id: artData.uploader_id },
+            // },
+            // associated_media: {
+            //     create: mediaRecords,
+            // },
+        },
+        // include: {
+        //     associated_media: true,
+        // },
+    });
+    return artRecord;
+    // return Promise.resolve("foo");
 }

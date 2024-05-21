@@ -2,7 +2,10 @@ import { type Locale } from "@/i18n-config"
 import { Metadata } from "next";
 import { User } from "@/app/_components/user";
 import prisma from "@/prisma"
-
+import VideoPlayer from "../_components/video-player";
+// import React from "react";
+// import ReactPlayer from 'react-player';
+import dynamic from 'next/dynamic'
 
 export const metadata: Metadata = {
     title: "Lang Page" + " | " + process.env.NODE_ENV,
@@ -13,9 +16,23 @@ export const metadata: Metadata = {
 export default async function Page({ params: { lang } } : { params: { lang: Locale } }) {
     const prismaUser = await prisma.user.findUnique({where: {id: "0f86eabc-42e1-4687-b6b1-42654fcf036b"}})
     console.log('USER:', prismaUser)
+    let videoSrc = 'https://hereotherwise.b-cdn.net/assets_website/landing_vid.mp4';
+
     return (
         <main className="flex flex-col items-center justify-between p-24">
-        <h1>Page in Lang</h1>
+            <div className="z-20 text-3xl font-semibold">Welcome to :Her(e), Otherwise</div>
+
+                {/* <VideoPlayer /> */}
+                <div className="-order-1  absolute top-0 left-0 h-screen w-screen">
+                <div className="overlapper min-h-screen h-screen">
+                            {/* {
+                                hasWindow && */}
+                                <VideoPlayer />
+                            {/* } */}
+                </div>
+            </div>
+
+        {/* <h1>Page in Lang</h1>
         <p>Lang: {lang}</p>
         <h1>Connected ??</h1>
         <User />
@@ -30,7 +47,7 @@ export default async function Page({ params: { lang } } : { params: { lang: Loca
                     <p>role: {prismaUser.role}</p>
                 </div>
             )
-        }
+        } */}
         {/* <p>{prismaUser?.name || prismaUser?.email}</p> */}
         </main>
     )

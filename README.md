@@ -14,7 +14,6 @@
     - [ ] Upload art text content to DB
 
 
-
 TODO finalisation :
 - [ ] Changer mail twilio
 - [ ] Changer nom de domaine

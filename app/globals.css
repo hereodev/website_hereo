@@ -30,6 +30,24 @@ body {
     rgb(var(--background-start-rgb)); */
 }
 
+h1 {
+  font-size: 2rem;
+  margin-top: 1rem;
+  padding-bottom: 0.6rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  padding-bottom: 0.6rem;
+}
+
+.hero-video > video {
+  object-fit: cover;
+  object-position: center;
+  overflow: clip;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

@@ -9,6 +9,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { FiAlertCircle, FiArrowRight } from 'react-icons/fi';
 import SubmitButton from '@/app/_components/submit-button';
 import Tiptap from './tiptap3';
+import { uploadArt } from '@/app/lib/actions_db';
+import { redirect } from 'next/navigation';
 
 const UploadForm = ({userId} : {userId: string}) => {
     const [media, setMedia] = useState<UploadedFile[]>([]);
@@ -40,7 +42,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         console.log("media updated:", media)
     }, [media])
 
-    const onSubmit: SubmitHandler<Art & {media?:UploadedFile[], authors?:string[]}> = (data) => {
+    const onSubmit: SubmitHandler<Art & {media?:UploadedFile[], authors?:string[]}> = async (data) => {
         setIsSubmitting(true);
         // console.log("data", data);
         // setTimeout(() => {
@@ -52,8 +54,19 @@ const UploadForm = ({userId} : {userId: string}) => {
         data.media = media;
         // data.authors = selectedAuthors.map((author) => author.id);
         console.log("DATA TO BE UPLOADED", data);
+        let uploadedArt;
+        try {
+            uploadedArt = await uploadArt({data: JSON.parse(JSON.stringify(data))});
+            console.log("test", uploadedArt)
+        } catch (error) {
+            console.error("Error uploading art", error)
+        }
+
+        if(uploadedArt?.id) {
+            setIsSubmitting(false);
+            // redirect(`/indx/${uploadedArt.id}`)
+        }
         
-        setIsSubmitting(false);
     }
 
     // const [errorMessage, dispatch] = useFormState(onSubmit, undefined);
@@ -106,7 +119,7 @@ const UploadForm = ({userId} : {userId: string}) => {
 
     return(
         <div>
-            <h1>Upload Form</h1>
+            <h1>Upload Art</h1>
 
             <form 
                 onSubmit={handleSubmit(onSubmit)} 
@@ -129,7 +142,7 @@ const UploadForm = ({userId} : {userId: string}) => {
 
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
                 <h4>Selected Files:</h4>
-                <pre className="overflow-x-auto text-xs">{JSON.stringify(media, null, 2)}</pre>
+                <pre className="overflow-x-auto text-xs">{JSON.stringify({media: media}, null, 2)}</pre>
 
                 {/* Catégorie */}
 

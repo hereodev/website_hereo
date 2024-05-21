@@ -10,13 +10,11 @@ const SignUpPage = () => {
             <h1>Sign Up</h1>
             {/* <SignUpForm /> */}
             <SignUp />
-            {/* between two horizontal dividers: Or continue with */}
-            {/* then icons for oauth providers */}
             <div className="w-full flex flex-col items-center gap-2">
-                <div className="divider lg:divider-horizontal">Or continue with</div>
+                {/* <div className="divider lg:divider-horizontal">Or continue with</div>
                 <div className="flex flex-col justify-center items-center">
                     <a href="#" className="text-info"><AiFillGoogleCircle className="h-16 w-16"/></a>
-                </div>
+                </div> */}
                 <div className="justify-center items-center mt-8">
                     Already have an account?{' '}
                     <Link href="/auth/signup" className="text-secondary hover:underline">Login here.</Link>
