@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import { useState } from "react"
 
 type FileUpload = {
@@ -74,7 +75,7 @@ type FileUpload = {
                                 <div className="progress">
                                     <div className="progress-bar" style={{width: `${uploadedFile.progress}%`}}></div>
                                 </div>
-                                {uploadedFile.uploaded && <a href={uploadedFile.url}>View</a>}
+                                {uploadedFile.uploaded && <Link className="hover:underline" href={uploadedFile.url || ""}>View</Link>}
                             </div>
                         </div>
                     )

@@ -7,6 +7,7 @@ import { redirect } from "next/navigation"
 import EditableProfile from "@/app/_components/auth/editable-profile"
 import prisma from "@/prisma"
 import Link from "next/link"
+import { FiEdit, FiTrash } from "react-icons/fi"
 
 type Props = {
     params: { id: string }
@@ -72,7 +73,7 @@ export default async function Profile() {
       <main>
         <h1>My Profile</h1>
         {/* <p>Art page : ID #{session.user.id}</p> */}
-        {/* {session && <pre>{JSON.stringify(session, null, 2)}</pre>} */}
+        {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
         {
           user && 
           <EditableProfile userId={session.user.id} initialName={user.name} initialEmail={user.email} />
@@ -84,14 +85,22 @@ export default async function Profile() {
         {
           userArt.length === 0 ? <p>No art uploaded yet.</p>
           :
-          userArt.map((art) => {
-            return (
-              <div key={art.id}>
-                <p>{art.title}</p>
-                <Link href={`/indx/${art.id}`}>View</Link>
-              </div>
-            )
-        })
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+           { userArt.map((art) => {
+              return (
+                <div key={art.slug} className="flex flex-row items-center w-full border border-dashed p-1">
+                  <Link href={`/indx/${art.slug}`} className="grow hover:underline text-xs">{art.title}</Link>
+                  <button className="btn btn-square hover:text-primary" title="Edit" aria-disabled={true} disabled>
+                    <FiEdit />
+                  </button>
+                  <button className="btn btn-square hover:text-error" title="Delete" aria-disabled={true} disabled>
+                    <FiTrash />
+                  </button>
+                </div>
+              )
+            })
+          }
+          </div>
         }
         <h2>My Media</h2>
         {

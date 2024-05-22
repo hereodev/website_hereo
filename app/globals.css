@@ -42,6 +42,11 @@ h2 {
   padding-bottom: 0.6rem;
 }
 
+/* h3 {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  padding-bottom: 0.6rem;
+} */
 .hero-video > video {
   object-fit: cover;
   object-position: center;

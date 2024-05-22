@@ -41,7 +41,7 @@ export default async function Nav({ lang } : { lang: string}) {
                             return l.public
                         }
                     }).map(({ href, label, labelFr }) => (
-                        <Link key={href} className="hover:underline hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
+                        <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
                     ))
                 }
                 {
@@ -68,9 +68,9 @@ export default async function Nav({ lang } : { lang: string}) {
                 {session ? 
                     <form
                         action={async (formData) => {
-                        "use server"
-                        await signOut()
-                        window.location.reload()
+                            "use server"
+                            await signOut()
+                            window.location.reload()
                         }}
                     >
                         <button type="submit" title="Sign Out">
