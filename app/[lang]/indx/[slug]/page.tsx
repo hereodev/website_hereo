@@ -105,7 +105,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <button className="btn btn-primary">Edit my profile</button>
           } */}
           <h2>Credits</h2>
-          <p>Offered by: {art.uploader.name || art.uploader.id}</p>
+          <p>Offered by: {art.uploader.name || "Unknown"}</p>
         </main>
       )
 
