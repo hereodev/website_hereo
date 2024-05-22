@@ -8,8 +8,93 @@ export default function CategoriesSelect(
     { categories: string[], selectedCategories: string, setSelectedCategories: (categories: string) => void }
 ) {
 
-    type TopCategory = "REALMS" | "LOCALITIES" | "SCALES" | "STRATEGIES";
+    const categoriesData = [
+    {
+              "id": 1,
+              "name": "AFK",
+              "category_name": "REALMS"
+            },
+            {
+              "id": 2,
+              "name": "ORAL",
+              "category_name": "REALMS"
+            },
+            {
+              "id": 3,
+              "name": "INVISIBLE",
+              "category_name": "REALMS"
+            },
+            {
+              "id": 4,
+              "name": "SONIC",
+              "category_name": "REALMS"
+            },
+            {
+              "id": 5,
+              "name": "RITUALIZED",
+              "category_name": "LOCALITIES"
+            },
+            {
+              "id": 6,
+              "name": "HETEROTOPIC",
+              "category_name": "LOCALITIES"
+            },
+            {
+              "id": 7,
+              "name": "NON-PLACES",
+              "category_name": "LOCALITIES"
+            },
+            {
+              "id": 8,
+              "name": "INTIMATE",
+              "category_name": "LOCALITIES"
+            },
+            {
+              "id": 9,
+              "name": "SHIFTS",
+              "category_name": "SCALES"
+            },
+            {
+              "id": 10,
+              "name": "BODY",
+              "category_name": "SCALES"
+            },
+            {
+              "id": 11,
+              "name": "LAND",
+              "category_name": "SCALES"
+            },
+            {
+              "id": 12,
+              "name": "PUBLIC",
+              "category_name": "SCALES"
+            },
+            {
+              "id": 13,
+              "name": "RADICAL",
+              "category_name": "STRATEGIES"
+            },
+            {
+              "id": 14,
+              "name": "NARRATIVE",
+              "category_name": "STRATEGIES"
+            },
+            {
+              "id": 15,
+              "name": "IMPROVISATIONS",
+              "category_name": "STRATEGIES"
+            },
+            {
+              "id": 16,
+              "name": "TRADE",
+              "category_name": "STRATEGIES"
+            }
+    ]
 
+    type TopCategory = "REALMS" | "LOCALITIES" | "SCALES" | "STRATEGIES";
+    // const [categories, setCategories] = useState(categoriesData);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+    const [selectedSubCategoryId, setSelectedSubCategoryId] = useState<number | null>(null);
     const [topCategory, setTopCategory] = useState<TopCategory | "">(""); 
 
     const subCat = {
@@ -18,6 +103,8 @@ export default function CategoriesSelect(
         SCALES: ["SHIFTS", "BODY", "LAND", "PUBLIC"],
         STRATEGIES: ["RADICAL", "NARRATIVE", "IMPROVISATIONS", "TRADE"]
     }
+    const uniqueCategories = Array.from(new Set(categoriesData.map(category => category.category_name)));
+
     return (
         <div>
             <label className="form-control w-full">
@@ -37,18 +124,26 @@ export default function CategoriesSelect(
                         className="select select-bordered w-full max-w-xs"
                         onChange={(e) => setTopCategory(e.target.value as TopCategory)}
                     >
-                        <option disabled selected>Category</option>
+                        <option disabled >Category</option>
                         <option>REALMS</option>
                         <option>LOCALITIES</option>
                         <option>SCALES</option>
                         <option>STRATEGIES</option>
+                        {/* {
+                            uniqueCategories.map((category, index) => (
+                            <option key={index} value={categories.find(cat => cat.category_name === category)?.id}>
+                                {category}
+                            </option>
+                            ))
+                        } */}
                     </select>
                     <select 
+                        disabled={topCategory == ""}
                         className="select select-bordered w-full max-w-xs"
                         onChange={(e) => setSelectedCategories(e.target.value)}
                         // {...register("category", { required })}
                     >
-                        <option disabled selected>Sub-Category</option>
+                        <option disabled >Sub-Category</option>
                         {
                             topCategory && subCat[topCategory].map((cat, index) => (
                                 <option key={index}>{cat}</option>

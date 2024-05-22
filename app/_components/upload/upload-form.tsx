@@ -12,6 +12,7 @@ import Tiptap from './tiptap3';
 import { uploadArt } from '@/app/lib/actions_db';
 import { redirect } from 'next/navigation';
 import CategoriesSelect from './categories-select';
+import Link from 'next/link';
 
 const UploadForm = ({userId} : {userId: string}) => {
     const [media, setMedia] = useState<UploadedFile[]>([]);
@@ -24,6 +25,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         setEditorContent(reason)
     }
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState<string | null>(null);
     const { 
         register, 
         formState: { errors },
@@ -65,9 +67,10 @@ const UploadForm = ({userId} : {userId: string}) => {
             console.error("Error uploading art", error)
         }
 
-        if(uploadedArt?.id) {
+        if(uploadedArt?.artRecord?.slug) {
             setIsSubmitting(false);
-            // redirect(`/indx/${uploadedArt.id}`)
+            setSubmitted(uploadedArt.artRecord.slug);
+            // redirect(`/indx/${uploadedArt.artRecord.slug}`)
         }
         
     }
@@ -156,7 +159,20 @@ const UploadForm = ({userId} : {userId: string}) => {
 
                 {/* Legal accept */}
 
-                <UploadButton pending={isSubmitting} />
+                {
+                    submitted ? (
+                        <div className="alert alert-success">
+                            <div className="flex-1">
+                                <label className="label">Success</label>
+                                <p>Your art was successfully uploaded</p>
+                            </div>
+                            <Link href={`/indx/${submitted}`} className="btn btn-success">Go to your art</Link>
+                        </div>
+                    )
+                    :
+                    <UploadButton pending={isSubmitting} />
+
+                }
             </form>
         </div>
     )

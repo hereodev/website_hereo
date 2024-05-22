@@ -15,6 +15,8 @@ model Art {
   subtitle         String?
   long_text        String?      @db.VarChar(10000)
   slug             String       @unique(map: "art_slug_unique")
+  subcategory_id   Int?
+  SubCategory      SubCategory? @relation(fields: [subcategory_id], references: [id], onUpdate: NoAction)
   uploader         User         @relation(fields: [uploader_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "art_uploader_fk")
   authors          Authorship[]
   associated_media MediaInArt[]
@@ -102,6 +104,20 @@ model Session {
   userid       String   @db.Uuid
   expires      DateTime @db.Timestamp(6)
   User         User     @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "session_user_fk")
+}
+
+model Category {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  SubCategory SubCategory[]
+}
+
+model SubCategory {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  category_id Int?
+  Art         Art[]
+  Category    Category? @relation(fields: [category_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 enum UserRole {

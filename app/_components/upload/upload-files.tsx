@@ -37,7 +37,7 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
             console.log("acceptedFiles", acceptedFiles)
             try {
                 setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
-                const filesToUpload = acceptedFiles.map((file) => ({ file, progress: 0, uploaded: false }));
+                const filesToUpload = acceptedFiles.map((file) => ({ file, progress: 0, uploaded: false, type: file.type}));
                 setMedia((prevFileUploads) => [...prevFileUploads, ...filesToUpload]);
                 // const uploadFiles = async () => {
                 for (const file of filesToUpload) {
@@ -46,6 +46,7 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                     const formData = new FormData();
                     formData.append('file', file.file);
                     formData.append('userId', userId);
+                    // formData.append('type', file.file.type);
                     const uploaded = await fetch(`/api/bunny?userId=${userId}`, {
                         method: 'PUT',
                         body: formData,

@@ -87,7 +87,22 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
             slugExists = false;
         }
     }
-    if(media) console.log("media to be uploaded",media)
+    let mediaRecords = [];
+    if(media) {
+        console.log("media to be uploaded",media)
+    for (const file of media) {
+        console.log("file", file)
+        const uploadedMedia = await prisma.media.create({
+            data: {
+                title: file.title,
+                type: file.type,
+                uploader_id: artData.uploader_id,
+            },
+        });
+        console.log("uploaded file", uploadedMedia)
+        mediaRecords.push(uploadedMedia);
+    }
+}
     const artRecord = await prisma.art.create({
         data: {
             slug: slug,
@@ -100,13 +115,22 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
             //     connect: { id: artData.uploader_id },
             // },
             // associated_media: {
-            //     create: mediaRecords,
+            //     connect: mediaRecords,
             // },
         },
         // include: {
         //     associated_media: true,
         // },
     });
-    return artRecord;
+
+    const artinMedia = await prisma.mediaInArt.createMany({
+        data: mediaRecords.map((mediaRecord) => {
+            return {
+                media_id: mediaRecord.id,
+                art_id: artRecord.id,
+            };
+        }),
+    });
+    return {artRecord, artinMedia};
     // return Promise.resolve("foo");
 }

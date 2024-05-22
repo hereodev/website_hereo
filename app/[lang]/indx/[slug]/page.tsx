@@ -53,7 +53,12 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                   Media: true
                 }
             },
-            uploader: true,
+            uploader: {
+                select: {
+                    name: true,
+                    email: true,
+                }
+            },
             authors: true,
         }
     })
@@ -65,28 +70,33 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           <h1>{art.title}</h1>
           <h2>{art.subtitle}</h2>
           <p>Art page : Slug #{slug}</p>
-          {/* {
-              art && <pre className="overflow-x-auto text-xs">{JSON.stringify(art, null, 2)}</pre>
-          } */}
           {
-            art.associated_media && art.associated_media.map((media) => {
-              return (
-                media.Media &&
-                <div key={media.media_id}>
-                  {media.Media.title && <h3>{media.Media.title}</h3>}
-                  {
-                    media.Media.type && media.Media.type.includes("image") && media.Media.url ? 
-                      <img src={media.Media.url} alt={media.Media.alt || ""} /> 
-                    : media.Media.type && media.Media.type.includes("video") && media.Media.url ? 
-                      <video src={media.Media.url} controls></video> 
-                    : 
-                      media.Media.url && media.Media.title &&
-                      <a href={media.Media.url}>{media.Media.title}</a>
-                  }
-                </div>
-              )
-            })
-
+              art && <pre className="overflow-x-auto text-xs">{JSON.stringify(art, null, 2)}</pre>
+          }
+          {
+            art.associated_media && 
+            <div>
+              <h2>Media</h2>
+              {
+              art.associated_media.map((media) => {
+                return (
+                  media.Media &&
+                  <div key={media.media_id}>
+                    {media.Media.title && <h3>{media.Media.title}</h3>}
+                    {
+                      media.Media.type && media.Media.type.includes("image") && media.Media.url ?
+                        <img src={media.Media.url} alt={media.Media.alt || ""} />
+                      : media.Media.type && media.Media.type.includes("video") && media.Media.url ?
+                        <video src={media.Media.url} controls></video>
+                      :
+                        media.Media.url && media.Media.title &&
+                        <a href={media.Media.url}>{media.Media.title}</a>
+                    }
+                  </div>
+                )
+              })
+                        }
+            </div>
           }
           {/* <h2>Session (server)</h2>
           {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
@@ -94,6 +104,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           { session && session.user && ((session.user as UserWithRole).slug == params.slug || ((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
             <button className="btn btn-primary">Edit my profile</button>
           } */}
+          <h2>Credits</h2>
           <p>Offered by: {art.uploader.name || art.uploader.id}</p>
         </main>
       )
