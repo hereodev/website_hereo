@@ -11,12 +11,14 @@ import SubmitButton from '@/app/_components/submit-button';
 import Tiptap from './tiptap3';
 import { uploadArt } from '@/app/lib/actions_db';
 import { redirect } from 'next/navigation';
+import CategoriesSelect from './categories-select';
 
 const UploadForm = ({userId} : {userId: string}) => {
     const [media, setMedia] = useState<UploadedFile[]>([]);
     const [mediaUpdated, setMediaUpdated] = useState<boolean>(false);
     const [category, setCategory] = useState<string>('');
     const [publish, setPublish] = useState<boolean>(false);
+
     const [editorContent, setEditorContent] = useState<string>('')
     const handleContentChange = (reason: any) => {
         setEditorContent(reason)
@@ -52,6 +54,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         data.uploader_id = userId;
         data.long_text = JSON.stringify(editorContent);
         data.media = media;
+        // data.category = category;
         // data.authors = selectedAuthors.map((author) => author.id);
         console.log("DATA TO BE UPLOADED", data);
         let uploadedArt;
@@ -130,6 +133,11 @@ const UploadForm = ({userId} : {userId: string}) => {
 
                 <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
 
+                {/* Catégorie */}
+                <CategoriesSelect categories={[]} selectedCategories={category} setSelectedCategories={setCategory} />
+
+                {/* URL Vidéo */}
+
                 <label className="form-control">
                     <div className="label pb-1">
                         <span className="label-text text-xl font-semibold">Content</span>
@@ -143,10 +151,6 @@ const UploadForm = ({userId} : {userId: string}) => {
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
                 <h4>Selected Files:</h4>
                 <pre className="overflow-x-auto text-xs">{JSON.stringify({media: media}, null, 2)}</pre>
-
-                {/* Catégorie */}
-
-                {/* URL Vidéo */}
 
                 {/* TODO: publish? */}
 
