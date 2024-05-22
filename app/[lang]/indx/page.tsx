@@ -2,6 +2,7 @@ import { auth } from "@/auth"
 import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
 import SearchBar from "./_components/search-bar";
+import Link from "next/link";
 export default async function Indx() {
     const session = await auth();
 
@@ -45,7 +46,7 @@ export default async function Indx() {
                 allArt && allArt.map((art) => {
                     return (
                         <div key={art.id} className="border border-dashed border-base-content min-h-24 p-4">
-                            <h3 className="text-lg">{art.title}</h3>
+                            <h3 className="text-lg hover:underline"><Link href={`/indx/${art.slug}`}>{art.title}</Link></h3>
                             {/* <p className="text-lg">{art.subtitle}</p> */}
                         </div>
                     )
