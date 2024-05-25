@@ -6,6 +6,7 @@ import VideoPlayer from "../_components/video-player";
 // import React from "react";
 // import ReactPlayer from 'react-player';
 import dynamic from 'next/dynamic'
+import Invitations from "../_components/invitations";
 
 export const metadata: Metadata = {
     title: "Lang Page" + " | " + process.env.NODE_ENV,
@@ -21,11 +22,12 @@ export default async function Page({ params: { lang } } : { params: { lang: Loca
     return (
         <main className="flex flex-col items-center justify-between p-24">
             <div className="z-20 text-3xl font-semibold">Welcome to :Her(e), Otherwise</div>
+            <Invitations />
 
                 {/* <VideoPlayer /> */}
                 <div className="-order-1  absolute top-0 left-0 h-screen w-screen">
                 <div className="overlapper min-h-screen h-screen">
-                    {/* <VideoPlayer /> */}
+                    <VideoPlayer />
                 </div>
             </div>
 

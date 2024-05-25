@@ -12,9 +12,12 @@
     - [ ] Update DB with URL, uploader's Id, authors
     - [x] FIXME Tiptap weird focus
     - [ ] Upload art text content to DB
-
+[ ] Profil
+    - [ ] Champ réseaux sociaux
 
 TODO finalisation :
 - [ ] Changer mail twilio
 - [ ] Changer nom de domaine
-- [ ] Bunny: enable replication to US East
+- [x] Bunny: enable replication to US East
+
+The acts: événements et poster du contenu. Plutôt comme un blog, pour Patti et Hannah.

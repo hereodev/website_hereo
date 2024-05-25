@@ -4,7 +4,8 @@ import dynamic from 'next/dynamic'
 
 export default function VideoPlayer() {
 
-    let videoSrc = 'https://hereotherwise.b-cdn.net/assets_website/landing_vid.mp4';
+    let videoSrc = 'https://hereotherwise.b-cdn.net/assets_website/intro_EN.mp4';
+    let videoSrcFr = 'https://hereotherwise.b-cdn.net/assets_website/intro_FR.mp4';
     const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
     const [hasWindow, setHasWindow] = useState(false);
 
@@ -28,6 +29,7 @@ export default function VideoPlayer() {
                 width={"auto"}
                 controls={false}
                 // light={false}
+                muted={true}
                 playing={true}
                 loop={true}
                 // picture in picture

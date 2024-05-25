@@ -30,7 +30,7 @@ export async function authenticate(
     }
     throw error;
   }
-  // redirect('/indx'); // no need: redirect is set in the auth.ts file
+  // redirect('/offerings'); // no need: redirect is set in the auth.ts file
   // if(user && user?.id) {
   //   redirect("/profile/" + user.id)
   // }
@@ -63,7 +63,7 @@ export async function addUser(
   }
   if(user && user.id) {
     sendMail({ email: user.email });
-    // redirect("/indx/" + user.id)
+    // redirect("/offerings/" + user.id)
     redirect("/auth/signin?signedup=" + user.email)
   }
 

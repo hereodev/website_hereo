@@ -40,7 +40,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
     const lang = params.lang || "en";
 
     if(!slug) {
-      redirect("/indx")
+      redirect("/offerings")
     }
 
     const art = await prisma.art.findUnique({

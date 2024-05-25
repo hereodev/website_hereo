@@ -70,7 +70,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         if(uploadedArt?.artRecord?.slug) {
             setIsSubmitting(false);
             setSubmitted(uploadedArt.artRecord.slug);
-            // redirect(`/indx/${uploadedArt.artRecord.slug}`)
+            // redirect(`/offerings/${uploadedArt.artRecord.slug}`)
         }
         
     }
@@ -166,7 +166,7 @@ const UploadForm = ({userId} : {userId: string}) => {
                                 <label className="label">Success</label>
                                 <p>Your art was successfully uploaded</p>
                             </div>
-                            <Link href={`/indx/${submitted}`} className="btn btn-success">Go to your art</Link>
+                            <Link href={`/offerings/${submitted}`} className="btn btn-success">Go to your art</Link>
                         </div>
                     )
                     :

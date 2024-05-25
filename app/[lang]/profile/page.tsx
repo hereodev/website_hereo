@@ -80,7 +80,7 @@ export default async function Profile() {
         }
         <div className="flex flex-row items-end gap-6">
           <h2>My Art</h2>
-          <Link href="/indx/upload" className={`${"btn btn-xs btn-primary mb-3"}`}>Upload Art</Link>
+          <Link href="/offerings/upload" className={`${"btn btn-xs btn-primary mb-3"}`}>Upload Art</Link>
         </div>
         {
           userArt.length === 0 ? <p>No art uploaded yet.</p>
@@ -89,7 +89,7 @@ export default async function Profile() {
            { userArt.map((art) => {
               return (
                 <div key={art.slug} className="flex flex-row items-center w-full border border-dashed p-1">
-                  <Link href={`/indx/${art.slug}`} className="grow hover:underline text-xs">{art.title}</Link>
+                  <Link href={`/offerings/${art.slug}`} className="grow hover:underline text-xs">{art.title}</Link>
                   <button className="btn btn-square hover:text-primary" title="Edit" aria-disabled={true} disabled>
                     <FiEdit />
                   </button>
