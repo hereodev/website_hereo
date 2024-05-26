@@ -10,6 +10,7 @@
   --rounded-btn: var(--daisy-rounded);
   --rounded-box: var(--daisy-rounded);
   --rounded-badge: var(--daisy-rounded);
+  --height-navbar: 64px;
 }
 
 /* @media (prefers-color-scheme: dark) {
