@@ -132,7 +132,7 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                                     setMedia(media.filter((f) => f.file !== file));
                                 }
                             };
-                            const onFileInfoChange = (field: string, value: string) => {
+                            const onFileInfoChange = (field: string, value: string | Date) => {
                                 console.log("onFileInfoChange", field, value)
                                 setMedia((prevFileUploads) => prevFileUploads.map((f) => {
                                     if (f.file === file) {

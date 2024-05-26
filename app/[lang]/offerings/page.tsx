@@ -3,6 +3,7 @@ import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
 import SearchBar from "./_components/search-bar";
 import Link from "next/link";
+
 export default async function Offerings() {
     const session = await auth();
 
@@ -23,7 +24,13 @@ export default async function Offerings() {
 
     return (
         <main>
-            <h1>Index</h1>
+            <div className="w-full flex flex-row flex-nowrap items-center justify-between">
+                <h1>Index</h1>
+                {
+                    session && session.user &&
+                    <Link href="/offerings/upload" className={`${"btn btn-outline btn-primary"}`}>Upload Art</Link>
+                }
+            </div>
         <div className={` grid grid-cols-1 md:grid-cols-3 gap-4 px-1`}>
             <div className="flex flex-col w-full gap-2">
                 <SearchBar />

@@ -64,7 +64,6 @@ export default function Nav({ lang } : { lang: string}) {
             <div className="flex gap-4 items-center text-2xl font-semibold uppercase text-white">
                 <Link href={"/"}>:Her(e), Otherwise</Link>
             </div>
-
         </Link>
         <div className="md:flex flex-row gap-4 hidden">
                          {

@@ -6,13 +6,14 @@ import { auth } from '@/auth';
 import { UploadedFile } from '@/global';
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect } from 'react';
+import DateInput from './date-input';
 
 type FilePreviewProps = {
     uploadedFile: UploadedFile;
     userId?: string;
     progress?: number;
     deleteFile?: () => void;
-    onFileInfoChange: (field: string, value: string) => void;
+    onFileInfoChange: (field: string, value: string | Date) => void;
 };
 
 const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progress, deleteFile, onFileInfoChange }) => {
@@ -105,6 +106,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progres
                         ? (uploadedFile.file.size / 1024).toFixed(2) + ' KB' 
                         : (uploadedFile.file.size / 1024 / 1024).toFixed(2) + ' MB'}
                 </label>
+                <DateInput onFileInfoChange={onFileInfoChange} />
                 {/* <p>Progress : {progress || "??"}</p> */}
             </form>
             {

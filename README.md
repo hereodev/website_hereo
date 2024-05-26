@@ -20,4 +20,4 @@ TODO finalisation :
 - [ ] Changer nom de domaine
 - [x] Bunny: enable replication to US East
 
-The acts: événements et poster du contenu. Plutôt comme un blog, pour Patti et Hannah.
+[ ] The acts: événements et poster du contenu. Plutôt comme un blog, pour Patti et Hannah.

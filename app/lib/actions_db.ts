@@ -91,15 +91,18 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
     if(media) {
         console.log("media to be uploaded",media)
     for (const file of media) {
-        if(file.url == null) {
-            file.url = `https://hereotherwise.b-cdn.net/ec036ad1-60e4-4351-ab65-71fd08003f4d/Screenshot%202024-05-01%20152156.png/${artData.uploader_id}/${file.title}.${file.type ? file.type.split("/")[1] : "png"}`;
-        }
         console.log("file", file)
         const uploadedMedia = await prisma.media.create({
             data: {
+                uploader_id: artData.uploader_id,
                 title: file.title,
                 type: file.type,
-                uploader_id: artData.uploader_id,
+                url: file.url,
+                alt: file.alt,
+                description: file.alt,
+                storage: "BunnyCDN",
+                author: file.author,
+                date: file.date,
             },
         });
         console.log("uploaded file", uploadedMedia)
