@@ -24,8 +24,8 @@ export default function FormSignIn() {
         setPassword(event.target.value);
     };
 
-    const searchParams = useSearchParams()
-    const justSignedUp = searchParams.get('signedup')
+    // const searchParams = useSearchParams()
+    // const justSignedUp = searchParams.get('signedup')
     return (
         // <form action={handleSignIn}>
         <form action={dispatch}>
@@ -34,14 +34,14 @@ export default function FormSignIn() {
           aria-live="polite"
           aria-atomic="true"
         >
-          <Suspense>
+          {/* <Suspense>
               {justSignedUp && (
                 <>
                   <FiAlertCircle className="h-5 w-5 text-info-content" />
                   <p className="text-sm text-info-content">Thank you for signing up. You can now sign in.</p>
                 </>
               )}
-          </Suspense>
+          </Suspense> */}
         </div>
 
              <label className="input input-bordered flex items-center gap-2">
@@ -52,7 +52,7 @@ export default function FormSignIn() {
                     name="email"
                     className="grow" 
                     placeholder="Email"
-                    defaultValue={justSignedUp || ""}
+                    // defaultValue={justSignedUp || ""}
                 />
              </label>
              {/* <label className="input input-bordered flex items-center gap-2">
