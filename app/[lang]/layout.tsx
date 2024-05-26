@@ -36,6 +36,7 @@ export default function RootLayout({
                 
                 <body className={`${displayFont.className} flex flex-col min-h-screen`}>
                     <Nav lang={params.lang} />
+                    <div className="h-[--height-navbar]"></div>
                     {children}
                 </body>
             </Providers>
