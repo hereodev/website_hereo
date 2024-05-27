@@ -13,7 +13,7 @@ import NavUser from "./nav-user";
 export default function Nav({ lang } : { lang: string}) {
     const { data: session, update } = useSession()
     // make a fetch to /api/auth/csrf endpoint
-    let name = ""
+    const [name, setName] = useState("");
     // if(session?.user) {
     //     const user = await prisma.user.findUnique({
     //         where: {
@@ -26,23 +26,23 @@ export default function Nav({ lang } : { lang: string}) {
 
     const [menuOpen, setMenuOpen] = useState(false);
 
-    // useEffect(() => {
-    //     if (session) {
-    //         const user = async () => {
-    //             const user = await prisma.user.findUnique({
-    //                 where: {
-    //                     id: (session.user as UserWithRole).id
-    //                 }
-    //             })
-    //             name = user?.name || ""
-    //         }
-    //         user()
-    //     }
-    // }, [session])
-
     useEffect(() => {
-        setMenuOpen(false)
-    }, []);
+        if (session) {
+            const user = async () => {
+                const user = await prisma.user.findUnique({
+                    where: {
+                        id: (session.user as UserWithRole).id
+                    }
+                })
+                user && setName(user.name || "");
+            }
+
+        }
+    }, [session])
+
+    // useEffect(() => {
+    //     setMenuOpen(false)
+    // }, []);
 
     const links = [
         // { href: '/', label: 'Home', labelFr:'Maison', public: true },
@@ -56,31 +56,28 @@ export default function Nav({ lang } : { lang: string}) {
 
     return (
         <div className="navbar bg-base-100 bg-opacity-90 fixed top-0 left-0 z-50">
-        <Link href="/" className="flex-1 z-50 text-xl font-semibold ">
-            {/* <h1 className="sr-only">Her(e) Otherwise</h1>
-            <img src="https://smallcreative.b-cdn.net/Site_Web/z_ASSETS/Small_Creative_Logo_cvvyw9.png" alt="logo" 
-                className="object-contain max-w-48" 
-            /> */}
-            <div className="flex gap-4 items-center text-2xl font-semibold uppercase text-white">
-                <Link href={"/"}>:Her(e), Otherwise</Link>
-            </div>
+        <Link href="/" className="flex-1 z-50 font-semibold uppercase text-2xl">
+            {/* <h1 className="sr-only">Her(e) Otherwise</h1> */}
+            {/* <div className="flex gap-4 w-full items-center text-2xl font-semibold uppercase text-white"> */}
+                :Her(e), Otherwise
+            {/* </div> */}
         </Link>
         <div className="md:flex flex-row gap-4 hidden">
-                         {
-                         links.filter((l:any)=> {
-                             if (session) {
-                                 return true
-                             } else {
-                                 return l.public
-                             }
-                         }).map(({ href, label, labelFr }) => (
-                             <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
-                         ))
-                     }
-                     {
-                         session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
-                         <Link className="" href={"/saay"}>SAAY</Link>
-                     }
+            {
+                links.filter((l:any)=> {
+                    if (session) {
+                        return true
+                    } else {
+                        return l.public
+                    }
+                }).map(({ href, label, labelFr }) => (
+                    <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
+                ))
+            }
+            {
+                session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
+                <Link className="" href={"/saay"}>SAAY</Link>
+            }
 
             <div className="divider divider-horizontal mx-0"></div>
             <span className="">
@@ -122,7 +119,6 @@ export default function Nav({ lang } : { lang: string}) {
         {/* } */}
 
             </span>
-            {/* <Link href="/contact"><span className="btn btn-outline">Contact</span></Link> */}
         </div>
 
         <label className="swap swap-rotate z-50 md:hidden md:w-0 md:p-0 md:h-0">
@@ -130,11 +126,8 @@ export default function Nav({ lang } : { lang: string}) {
             <input type="checkbox" checked={menuOpen} onChange={handleCheckboxChange} />
             {/* hamburger icon */}
             <FiMenu className="swap-off w-8 h-8" />
-            {/* <FiMenu className="w-8 h-8 swap-off" onClick={() => setMenuOpen(true)} /> */}
-
             {/* close icon */}
             <FiX className="swap-on w-8 h-8" />
-            {/* <FiX className="w-8 h-8 swap-on" onClick={() => setMenuOpen(false)} /> */}
         </label>
         {
             menuOpen &&
