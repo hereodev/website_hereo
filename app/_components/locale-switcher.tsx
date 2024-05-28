@@ -15,6 +15,7 @@ export default function LocaleSwitcher({ lang } : { lang?: Locale }) {
     
     return (
         <div>
+            {lang && <div>Current locale: {lang}</div>}
             <ul className="flex flex-row gap-2">
                 {i18n.locales.map((locale) => {
                     return (

@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic'
+import { FiPause } from "react-icons/fi";
 
-export default function VideoPlayer() {
+export default function VideoPlayer({ lang } : { lang?: string }) {
 
     let videoSrc = 'https://hereotherwise.b-cdn.net/assets_website/intro_EN.mp4';
     let videoSrcFr = 'https://hereotherwise.b-cdn.net/assets_website/intro_FR.mp4';
@@ -16,29 +17,36 @@ export default function VideoPlayer() {
     }, []);
 
     return (
-        <div className="relative w-full h-full">
-    {/* <div className="absolute z-0 h-screen w-auto overflow-x-hidden top-0 left-0"> */}
-    {/* <div className="absolute z-0 h-screen w-auto overflow-x-hidden top-0 left-0 flex items-center justify-center"> */}
-    {
-        hasWindow &&
-            <ReactPlayer
-                // url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
-                url={videoSrc}
-                // height={'100vh'}
-                height="100%"
-                width={"auto"}
-                controls={false}
-                // light={false}
-                muted={true}
-                playing={true}
-                loop={true}
-                // picture in picture
-                // pip={true}
-                // style={{ objectFit: 'cover', objectPosition: 'center', border:"3px solid red" }}
-                className="hero-video absolute top-0 left-0 h-full w-auto"
-            />
-    }
-    </div>
+        <div>
+            <div className="absolute btn btn-outline btn-primary top-20 right-16 z-50">
+            {/* <div className="absolute btn btn-outline btn-primary top-20 left-[50%] transform -translate-x-1/2 z-50"> */}
+                <FiPause />
+                PAUSE
+            </div>
+        {/* FIXME: only if doesnt prefer reduced motion */}
+        {
+            hasWindow &&
+                <ReactPlayer
+                    // url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+                    url={lang && lang == "fr" ? videoSrcFr : videoSrc}
+                    // height={'100vh'}
+                    height="100%"
+                    controls={false}
+                    // playIcon={<button>Play</button>}
+                    // light={false}
+                    muted={true}
+                    playing={true}
+                    loop={false}
+                    // picture in picture
+                    // pip={true}
+                    // style={{ objectFit: 'cover', objectPosition: 'center', border:"3px solid red" }}
+                    // className="hero-video absolute top-0 left-0 h-full w-auto"
+                    id="background-video"
+                    // className="mx-auto"
+                />
+        }
+        </div>
     )
 
 }
+

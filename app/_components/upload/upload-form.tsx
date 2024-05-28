@@ -13,12 +13,16 @@ import { uploadArt } from '@/app/lib/actions_db';
 import { redirect } from 'next/navigation';
 import CategoriesSelect from './categories-select';
 import Link from 'next/link';
+import Authorship from './authorship';
 
 const UploadForm = ({userId} : {userId: string}) => {
+    // const [name, setName] = useState("");
+
     const [media, setMedia] = useState<UploadedFile[]>([]);
     const [mediaUpdated, setMediaUpdated] = useState<boolean>(false);
     const [category, setCategory] = useState<string>('');
     const [publish, setPublish] = useState<boolean>(false);
+    const [authors, setAuthors] = useState<string[]>([]);
 
     const [editorContent, setEditorContent] = useState<string>('')
     const handleContentChange = (reason: any) => {
@@ -138,6 +142,8 @@ const UploadForm = ({userId} : {userId: string}) => {
 
                 {/* Catégorie */}
                 <CategoriesSelect categories={[]} selectedCategories={category} setSelectedCategories={setCategory} />
+
+                <Authorship userId={userId} authors={authors} setAuthors={setAuthors} />
 
                 {/* URL Vidéo */}
 

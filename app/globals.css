@@ -43,6 +43,24 @@ h2 {
   padding-bottom: 0.6rem;
 }
 
+#background-video {
+  /* height: 100vh; */
+  width: 100vw;
+  min-width: 100vw;
+  height: calc(100vh-(var(--height-navbar)));
+  max-height: calc(100vh-(var(--height-navbar)));
+  object-fit: cover;
+  object-position: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--height-navbar);
+  /* bottom: 0; */
+  z-index: -1;
+  /* z-index: 80; */
+  /* border: 3px solid red; */
+}
+
 /* h3 {
   font-size: 1.25rem;
   margin-top: 1rem;

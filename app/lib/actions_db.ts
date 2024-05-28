@@ -140,3 +140,26 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
     return {artRecord, artinMedia};
     // return Promise.resolve("foo");
 }
+
+export async function getAssociatedAuthor({ userId } : { userId: string }) {
+    const author = await prisma.author.findFirst({
+        where: {
+            user_id: userId,
+        },
+    });
+    return author;
+}
+
+export async function getAllAuthors() {
+    const authors = await prisma.author.findMany();
+    return authors;
+}
+
+export async function getUserName({ userId } : { userId: string }) {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+    });
+    return user?.name;
+}
