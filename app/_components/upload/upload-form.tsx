@@ -21,7 +21,7 @@ const UploadForm = ({userId} : {userId: string}) => {
     const [media, setMedia] = useState<UploadedFile[]>([]);
     const [mediaUpdated, setMediaUpdated] = useState<boolean>(false);
     const [category, setCategory] = useState<string>('');
-    const [publish, setPublish] = useState<boolean>(false);
+    const [publish, setPublish] = useState<boolean>(true);
     const [authors, setAuthors] = useState<string[]>([]);
 
     const [editorContent, setEditorContent] = useState<string>('')
@@ -60,6 +60,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         data.uploader_id = userId;
         data.long_text = JSON.stringify(editorContent);
         data.media = media;
+        data.authors = authors;
         // data.category = category;
         // data.authors = selectedAuthors.map((author) => author.id);
         console.log("DATA TO BE UPLOADED", data);
@@ -158,10 +159,32 @@ const UploadForm = ({userId} : {userId: string}) => {
                 {/* <p>{editorContent}</p> */}
 
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
-                <h4>Selected Files:</h4>
-                <pre className="overflow-x-auto text-xs">{JSON.stringify({media: media}, null, 2)}</pre>
+                {/* <h4>Selected Files:</h4>
+                <pre className="overflow-x-auto text-xs">{JSON.stringify({media: media}, null, 2)}</pre> */}
 
                 {/* TODO: publish? */}
+                <div className="form-control w-full">
+                    <div className="label pb-1">
+                        <span className="label-text-alt text-error text-sm opacity-80">required*</span>
+                    </div>
+                    <label className="label-text flex flex-row gap-2">
+                    <input 
+                        type="checkbox" 
+                        name="chbx-me" 
+                        className="checkbox" 
+                        placeholder="Please enter your name"
+                        defaultChecked={publish}
+                        onChange={(e) => setPublish(e.target.checked)}
+                    />                    
+                        <span className="text-xl font-semibold">Make available on Her(e) Otherwise</span>
+                    </label>
+                    <div className="label">
+                        <span className="label-text-alt flex flex-row items-center">
+                            You can decide to remove your work from this website at any time.
+                        </span>
+                    </div>
+
+                </div>
 
                 {/* Legal accept */}
 
