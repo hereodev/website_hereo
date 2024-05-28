@@ -6,12 +6,12 @@
     - [ ] reset password
     - [ ] FIXME: signing up doesnt send to signin page??
 [ ] Profile page
-    - [ ] FIXME: name does not update
+    - [x] FIXME name does not update
 [ ] Upload
     - [x] Upload to Bunny: in dir named after uploader's ID
-    - [ ] Update DB with URL, uploader's Id, authors
+    - [x] Update DB with URL, uploader's Id, authors
     - [x] FIXME Tiptap weird focus
-    - [ ] Upload art text content to DB
+    - [x] Upload art text content to DB
 [ ] Profil
     - [ ] Champ réseaux sociaux
 
