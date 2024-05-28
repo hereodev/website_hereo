@@ -64,6 +64,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
+        // TODO: send email to new adress.
     };
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {

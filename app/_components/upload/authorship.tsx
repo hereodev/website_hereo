@@ -37,8 +37,9 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
         // setName(e.target.value);
         // console.log("changing name to", e.target.value);
         // console.log("userId", userId)
+        const newName = e.target.value.trim();
         if(userId) { 
-            const userUpdated = await fetch(`/api/user?userId=${userId}&name=${e.target.value}`, {
+            const userUpdated = await fetch(`/api/user?userId=${userId}&name=${newName}`, {
                 method: 'PUT',
             });
 
@@ -47,6 +48,9 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
             if(userUpdated.ok) {
                 console.log("name changed successfully")
                 setChangedName(true);
+                if(!authors.includes(newName)) {
+                    setAuthors([...authors, newName])
+                }
             } else {
                 console.error("error changing name")
             }
@@ -69,7 +73,7 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
                         placeholder="Please enter your name"
                         onChange={(e) => setIsMeChecked(e.target.checked)}
                     />                    
-                    <span>Me</span>
+                    <span>Me{isMeChecked && ":"}</span>
                     {isMeChecked && (
                         <input 
                             type="text" 
@@ -82,7 +86,6 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
                     {
                         changedName && <div className="text-success"><FiCheckCircle /></div>
                     }
-
                 </div>
                 <div className="flex flex-row items-center h-12 gap-2">
                     <input 
@@ -90,8 +93,8 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
                         name="chbx-others" 
                         className="checkbox" 
                         onChange={(e) => setIsOthersChecked(e.target.checked)}
-                    />                    
-                    <span>And/Or other Author(s)</span>
+                    />
+                    <span>And/Or other Author(s){isOthersChecked && ":"}</span>
                 </div>
             </div>
 
