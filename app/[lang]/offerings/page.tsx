@@ -19,13 +19,13 @@ export default async function Offerings() {
         }
     })
 
-    const allMedia = await prisma.media.count()
+    const allTags = await prisma.category.count()
     const allAuthors = await prisma.author.count()
 
     return (
         <main>
             <div className="w-full flex flex-row flex-nowrap items-center justify-between">
-                <h1>Index</h1>
+                <h1>Offerings</h1>
                 {
                     session && session.user &&
                     <Link href="/offerings/upload" className={`${"btn btn-outline btn-primary"}`}>Upload Art</Link>
@@ -35,17 +35,19 @@ export default async function Offerings() {
             <div className="flex flex-col w-full gap-2">
                 <SearchBar />
                 {/* <IndexSearchBar value={searchTerm} onChange={setSearchTerm} /> */}
+                {/* TODO: tags  */}
                 <div className="flex flex-row justify-between">
-                    <p className="border-t border-t-white">ITEMS</p>
-                    <p>{allArt.length}</p>
+                    <p className="border-t border-t-white">PROMPTS</p>
+                    <p>{allTags}</p>
                 </div>
                 <div className="flex flex-row justify-between">
                     <p className="border-t border-t-white">PEOPLE</p>
                     <p>{allAuthors}</p>
                 </div>
                 <div className="flex flex-row justify-between">
-                    <p className="border-t border-t-white">RES.SOURCES</p>
-                    <p>{allMedia}</p>
+                    <p className="border-t border-t-white">SIGHTS.LOCALITIES</p>
+                    <p>{allArt.length}</p>
+                    {/* Choisir par lieux (régions) */}
                 </div>
                 <div className="divider my-0"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div> 
             </div>

@@ -193,9 +193,10 @@ const UploadForm = ({userId} : {userId: string}) => {
                         <div className="alert alert-success">
                             <div className="flex-1">
                                 <label className="label">Success</label>
-                                <p>Your art was successfully uploaded</p>
+                                <p>Your offering was successfully uploaded</p>
                             </div>
-                            <Link href={`/offerings/${submitted}`} className="btn btn-success">Go to your art</Link>
+                            <Link href={`/offerings/${submitted}`} className="btn btn-success">Go to your offering</Link>
+                            <Link href={`/offerings/`} className="btn btn-success">Submit another</Link>
                         </div>
                     )
                     :

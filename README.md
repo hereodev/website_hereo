@@ -1,4 +1,25 @@
 [x] Admin auth
+[ ] SAYY à remplacer par "Admin"
+[ ] Une page "about" qui s'appelle saay/yaas
+[ ] Home :
+    - [ ] Enlever le bouton pause.
+    - [ ] Invitations : menu déroulant horizontal
+    - [ ] Monter le welcome et les invitations, baisser la vidéo
+[ ] Auth:
+    - [ ] vider le champ password
+[ ] Upload:
+    - [ ] tiptap: enlever le placeholder ou alors pas le sélectionner
+    - [ ] select-files: les gras sont en primary (titres etc)
+    - [ ] catégories : que les filles. rajouter The Acts
+[ ] Profile:
+    - [ ] localités
+[ ] Offering:
+    - [ ] pas beosin de retour arrière quand on est sur une page art
+[ ] Offerings:
+    - [ ] pointillés couleur selon tag. je choisis les couleurs.
+    - [ ] images en fond du rectangle: oui
+    - [ ] prompts au lieu de items
+    - [ ] search: 4 catégories toujorus visibles + search bar
 [ ] DB auth
     - [x] sign up with hash password
     - [ ] sign up e-mail: shape up + remove from spam

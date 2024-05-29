@@ -18,11 +18,10 @@ export default function VideoPlayer({ lang } : { lang?: string }) {
 
     return (
         <div>
-            <div className="absolute btn btn-outline btn-primary top-20 right-16 z-50">
-            {/* <div className="absolute btn btn-outline btn-primary top-20 left-[50%] transform -translate-x-1/2 z-50"> */}
+            {/* <div className="absolute btn btn-outline btn-primary top-20 right-16 z-50">
                 <FiPause />
                 PAUSE
-            </div>
+            </div> */}
         {/* FIXME: only if doesnt prefer reduced motion */}
         {
             hasWindow &&
@@ -36,7 +35,7 @@ export default function VideoPlayer({ lang } : { lang?: string }) {
                     // light={false}
                     muted={true}
                     playing={true}
-                    loop={false}
+                    loop={true}
                     // picture in picture
                     // pip={true}
                     // style={{ objectFit: 'cover', objectPosition: 'center', border:"3px solid red" }}
