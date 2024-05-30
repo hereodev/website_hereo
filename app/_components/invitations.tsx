@@ -71,7 +71,7 @@ export default function Invitations({welcome=false}: {welcome?: boolean}) {
             )
           }
           <div className="marquee">
-          {/* <p className="">This text will move from left to right indefinitely</p> */}
+          {/* This text will move from left to right indefinitely */}
             <div className="marquee-content">
               <div className="flex flex-row flex-nowrap gap-4 z-20 text-xl">
                 {links.map((link, index) => (
