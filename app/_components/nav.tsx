@@ -71,7 +71,7 @@ export default function Nav({ lang } : { lang: string}) {
                         return l.public
                     }
                 }).map(({ href, label, labelFr }) => (
-                    <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
+                    <Link key={href} className="hover:font-bold hover:cursor-pointer" href={`/${lang}${href}`}>{lang=="fr"?labelFr:label}</Link>
                 ))
             }
             {

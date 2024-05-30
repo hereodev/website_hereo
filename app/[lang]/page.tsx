@@ -1,7 +1,7 @@
 import { type Locale } from "@/i18n-config"
 import { Metadata } from "next";
 import { User } from "@/app/_components/user";
-import prisma from "@/prisma"
+// import prisma from "@/prisma"
 import VideoPlayer from "../_components/video-player";
 // import React from "react";
 // import ReactPlayer from 'react-player';
@@ -15,9 +15,8 @@ export const metadata: Metadata = {
 
 
 export default async function Page({ params: { lang } } : { params: { lang: Locale } }) {
-    const prismaUser = await prisma.user.findUnique({where: {id: "0f86eabc-42e1-4687-b6b1-42654fcf036b"}})
-    console.log('USER:', prismaUser)
-    let videoSrc = 'https://hereotherwise.b-cdn.net/assets_website/landing_vid.mp4';
+    // const prismaUser = await prisma.user.findUnique({where: {id: "0f86eabc-42e1-4687-b6b1-42654fcf036b"}})
+    // console.log('USER:', prismaUser)
 
     return (
         <main className="flex flex-col items-center justify-between p-24">
