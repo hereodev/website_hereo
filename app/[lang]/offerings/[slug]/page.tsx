@@ -105,7 +105,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <button className="btn btn-primary">Edit my profile</button>
           } */}
           <h2>Credits</h2>
-          <p>Offered by: {art.authors.map(a => a.author_id).join(", ") || "Unknown"}</p>
+          <p>Offered by: {art.authors.map(a => a.author_id).join(", ") || "People"}</p>
         </main>
       )
 

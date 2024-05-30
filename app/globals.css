@@ -11,6 +11,13 @@
   --rounded-box: var(--daisy-rounded);
   --rounded-badge: var(--daisy-rounded);
   --height-navbar: 64px;
+  --color-tag-green: #01FF00; /* Bright Green */
+  --color-tag-blue: #0000FF; /* Blue */
+  --color-tag-red: #FF0000; /* Red */
+  --color-tag-purple: #FF00FF; /* Purple */
+  --color-tag-light-blue: #01FFFF; /* Light Blue */
+  --color-editable: #01FFFF; /* Light Blue */
+  --color-timeline: #FFFF00; /* Bright Yellow */
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -64,17 +71,18 @@ h2 {
 .marquee {
   overflow: hidden;
   white-space: nowrap;
+  width: 100%;
 }
 
 .marquee-content {
   display: inline-block;
   padding-left: 100%;
-  animation: marquee 20s linear infinite;
+  animation: marquee 120s linear infinite;
 }
 
 @keyframes marquee {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(0); }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 /* h3 {
   font-size: 1.25rem;

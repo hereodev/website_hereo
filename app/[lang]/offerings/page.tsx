@@ -69,7 +69,7 @@ export default async function Offerings() {
                     <p>{allAuthors}</p>
                 </div>
                 <div className="flex flex-row justify-between">
-                    <p className="border-t border-t-white">SIGHTS</p>
+                    <p className="border-t border-t-white">SITES OF BELONGING</p>
                     <p>{allArt.length}</p>
                     {/* Choisir par lieux (régions) */}
                 </div>

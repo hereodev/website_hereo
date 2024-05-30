@@ -37,7 +37,7 @@ export async function generateMetadata(
 
 
     return {
-      title: `#${id} | Her(e) Otherwise | ${process.env.NODE_ENV}`,
+      title: `My Profile | Her(e) Otherwise | ${process.env.NODE_ENV}`,
     //   openGraph: {
     //     images: ['/some-specific-page-image.jpg', ...previousImages],
     //   },

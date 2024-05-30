@@ -1,41 +1,85 @@
+"use client";
 import Link from "next/link"
+import { useEffect, useState } from "react";
 
-export default function Invitations() {
-    const links = [
-        { name: 'Français', url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-francais.pdf' },
-        { name: 'English', url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-english.pdf' },
-        { name: 'Hausa', url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-hausa.pdf' },
-        { name: 'IsiZulu', url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-isizulu.pdf' },
-        { name: 'Lgbo', url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-lgbo.pdf' },
-        { name: 'Sesotho', url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-sesotho.pdf' },
-        { name: 'Swahili', url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-swahili.pdf' },
-        { name: 'Yoruba', url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-yoruba.pdf' },
-      ];
-      
+export default function Invitations({welcome=false}: {welcome?: boolean}) {
+  const links = [
+    { 
+      name: 'Français', 
+      url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-francais.pdf',
+      welcome: 'Bienvenu*e',
+      invitation: 'Une invitation'
+    },
+    { 
+      name: 'English', 
+      url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-english.pdf',
+      welcome: 'Welcome',
+      invitation: 'An invitation'
+    },
+    { 
+      name: 'Hausa', 
+      url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-hausa.pdf',
+      welcome: 'Sannu da zuwa',
+      invitation: 'Gayyata'
+    },
+    { 
+      name: 'IsiZulu', 
+      url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-isizulu.pdf',
+      welcome: 'Wamukelekile',
+      invitation: 'Isimemo'
+    },
+    { 
+      name: 'Lgbo', 
+      url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-lgbo.pdf',
+      welcome: 'Ndewo',
+      invitation: 'Ka ditsela tse ding'
+    },
+    { 
+      name: 'Sesotho', 
+      url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-sesotho.pdf',
+      welcome: 'Amohela',
+      invitation: 'Memo'
+    },
+    { 
+      name: 'Swahili', 
+      url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-swahili.pdf',
+      welcome: 'Karibu',
+      invitation: 'Mwaliko'
+    },
+    { 
+      name: 'Yoruba', 
+      url: 'https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-yoruba.pdf',
+      welcome: 'Kaabo',
+      invitation: 'Isiniwepe'
+    }
+  ];
+  const [currentWelcomeIndex, setCurrentWelcomeIndex] = useState(0);
+  // const [currentWelcomeIndex, setCurrentWelcomeIndex] = useState(Math.round(Math.random() * links.length));
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWelcomeIndex((currentWelcomeIndex + 1) % links.length);
+    }, 1600);
+
+    return () => clearInterval(interval);
+  }, [currentWelcomeIndex]);
+
       return (
-        <div className="marquee">
-        {/* <p className="">This text will move from left to right indefinitely</p> */}
-        <div className="marquee-content">
-        <div className="flex flex-row flex-nowrap gap-4 z-20">
-            Invitations:
-            
-          {links.map((link, index) => (
-            <Link key={index} href={link.url} className="hover:underline hover:cursor-pointer">{link.name}</Link>
-          ))}
+        <div className="w-full flex flex-col items-center">
+          {
+            welcome && (
+              <div className="z-20 text-3xl font-semibold mb-6">{links[currentWelcomeIndex].welcome}</div>
+            )
+          }
+          <div className="marquee">
+          {/* <p className="">This text will move from left to right indefinitely</p> */}
+            <div className="marquee-content">
+              <div className="flex flex-row flex-nowrap gap-4 z-20 text-xl">
+                {links.map((link, index) => (
+                  <Link key={index} href={link.url} className="hover:underline hover:cursor-pointer">{link.invitation}</Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-      );
-    // return (
-    //     <div>
-    //         <Link href="https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-francais.pdf" className="hover:underline">Français</Link>
-    //         <Link href="https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-english.pdf" className="hover:underline">English</Link>
-    //         <Link href="https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-hausa.pdf" className="hover:underline">Hausa</Link>
-    //         <Link href="https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-isizulu.pdf" className="hover:underline">IsiZulu</Link>
-    //         <Link href="https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-lgbo.pdf" className="hover:underline">Lgbo</Link>
-    //         <Link href="https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-sesotho.pdf" className="hover:underline">Sesotho</Link>
-    //         <Link href="https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-swahili.pdf" className="hover:underline">Swahili</Link>
-    //         <Link href="https://hereotherwise.b-cdn.net/assets_website/Invitations/invitation-yoruba.pdf" className="hover:underline">Yoruba</Link>
-    //     </div>
-    // )
+      )
 }

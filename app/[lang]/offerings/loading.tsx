@@ -32,7 +32,7 @@ export default async function Loading() {
                     <p>?</p>
                 </div>
                 <div className="flex flex-row justify-between">
-                    <p className="border-t border-t-white">SIGHTS</p>
+                    <p className="border-t border-t-white">SITES OF BELONGING</p>
                     <p>?</p>
                 </div>
                 <div className="divider my-0"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div> 
