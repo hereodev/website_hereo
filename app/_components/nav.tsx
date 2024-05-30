@@ -76,7 +76,7 @@ export default function Nav({ lang } : { lang: string}) {
             }
             {
                 session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
-                <Link className="" href={"/saay"}>SAAY</Link>
+                <Link className="" href={lang+"/admin_saay_yaas"}>Admin</Link>
             }
 
             <div className="divider divider-horizontal mx-0"></div>
