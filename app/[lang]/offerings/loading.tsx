@@ -1,6 +1,6 @@
 import { auth } from "@/auth"
 import prisma from "@/prisma";
-import { FiTriangle } from "react-icons/fi";
+import { FiSearch, FiTriangle } from "react-icons/fi";
 import SearchBar from "./_components/search-bar";
 import Link from "next/link";
 
@@ -13,7 +13,16 @@ export default async function Loading() {
             </div>
         <div className={` grid grid-cols-1 md:grid-cols-3 gap-4 px-1`}>
             <div className="flex flex-col w-full gap-2">
-                <SearchBar />
+            <div className="search-bar w-full">
+            <label className="input flex items-center gap-2 px-0">
+                <FiSearch className="w-4 h-4 opacity-70" />
+                <input
+                    type="text" 
+                    className="grow"
+                    placeholder="I've seen the future..."
+                />
+            </label>
+        </div>
                 <div className="flex flex-row justify-between">
                     <p className="border-t border-t-white">PROMPTS</p>
                     <p>?</p>
