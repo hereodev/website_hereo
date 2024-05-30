@@ -71,7 +71,7 @@ const DateInput: React.FC<DateInputProps> = ({ onFileInfoChange }) => {
     <div>
       <div className="mb-4 w-full">
         <label className="input flex items-center gap-2 h-8">
-          <span className="font-semibold">Date</span>
+          <span className="font-semibold text-primary">Date</span>
           <div className="grow flex flex-row flex-nowrap gap-1 ">
             <input
                 type="number"

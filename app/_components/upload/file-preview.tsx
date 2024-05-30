@@ -72,7 +72,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progres
                 {/* TODO: renaming file if wanted?? */}
                 {/* <input type="text" className="input w-full font-semibold" /> */}
                 <label className="input flex items-center gap-2 h-8">
-                    <span className="font-semibold">Title</span>
+                    <span className="font-semibold text-primary">Title</span>
                     <input type="text" defaultValue={title} 
                     className="grow" 
                     placeholder={title} 
@@ -81,7 +81,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progres
                 />
                 </label>
                 <label className="input flex items-center gap-2 h-8">
-                    <span className="font-semibold">Description</span>
+                    <span className="font-semibold text-primary">Description</span>
                     <input type="text" defaultValue="" 
                     className="grow" 
                     placeholder="Enter a description of the picture" 
@@ -89,13 +89,14 @@ const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progres
                 />
                 </label>
                 <label className="input flex items-center gap-2 h-8">
-                    <span className="font-semibold">Author(s)</span>
+                    <span className="font-semibold text-primary">Author(s)</span>
                     <input type="text" defaultValue="" 
                     className="grow" 
                     placeholder="" 
                     onChange={(e) => onFileInfoChange("author", e.target.value)}
                 />
                 </label>
+                <DateInput onFileInfoChange={onFileInfoChange} />
                 <label className="input flex items-center gap-2 h-8">
                     <span className="font-semibold">Type</span>
                     {type}
@@ -106,7 +107,6 @@ const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progres
                         ? (uploadedFile.file.size / 1024).toFixed(2) + ' KB' 
                         : (uploadedFile.file.size / 1024 / 1024).toFixed(2) + ' MB'}
                 </label>
-                <DateInput onFileInfoChange={onFileInfoChange} />
                 {/* <p>Progress : {progress || "??"}</p> */}
             </form>
             {
