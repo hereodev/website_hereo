@@ -95,7 +95,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         return (
             <label className="form-control w-full">
                 <div className="label pb-1">
-                    <span className="label-text text-xl font-semibold">{label}</span>
+                    <span className="label-text text-xl font-semibold text-primary">{label}</span>
                     {
                         required && (
                             <span className="label-text-alt text-error text-sm opacity-80">required*</span>
@@ -150,7 +150,7 @@ const UploadForm = ({userId} : {userId: string}) => {
 
                 <label className="form-control">
                     <div className="label pb-1">
-                        <span className="label-text text-xl font-semibold">Content</span>
+                        <span className="label-text text-xl font-semibold text-primary">Content</span>
                         {/* <span className="label-text-alt">Alt label</span> */}
                     </div>
                     {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
@@ -171,7 +171,7 @@ const UploadForm = ({userId} : {userId: string}) => {
                     <input 
                         type="checkbox" 
                         name="chbx-me" 
-                        className="checkbox" 
+                        className="checkbox checkbox-primary" 
                         placeholder="Please enter your name"
                         defaultChecked={publish}
                         onChange={(e) => setPublish(e.target.checked)}

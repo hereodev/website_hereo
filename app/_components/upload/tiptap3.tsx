@@ -14,8 +14,8 @@ interface TiptapEditorProps {
 
 const TiptapEditor: React.FC<TiptapEditorProps> = ({ initialContent, setContent }) => {
     // if(!initialContent) initialContent = '<ul><li><p><strong>Hello</strong>, Tiptap!</p></li></ul><h1>And this is great.</h1>';
-    // if(!initialContent) initialContent = '';
-    if(!initialContent) initialContent = '<p>Start typing...</p>';
+    if(!initialContent) initialContent = '';
+    // if(!initialContent) initialContent = '<p>Start typing...</p>';
     // setContent(initialContent);
     const editorRef = useRef(null);
     const editor = useEditor({

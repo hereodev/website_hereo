@@ -10,7 +10,7 @@ export default function FormSignUp({ handleSignUp } : { handleSignUp?: (formData
 
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    // const [password, setPassword] = useState('password');
+    // const [password, setPassword] = useState('');
 
     // const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //     setPassword(event.target.value);

@@ -3,8 +3,8 @@
 [x] Une page "about" qui s'appelle saay/yaas
 [ ] Home :
     - [x] Enlever le bouton pause.
-    - [ ] Invitations : menu déroulant horizontal
-    - [ ] Monter le welcome et les invitations, baisser la vidéo
+    - [x] Invitations : menu déroulant horizontal
+    - [x] Monter le welcome et les invitations, baisser la vidéo
 [ ] Auth:
     - [ ] vider le champ password
 [ ] Upload:

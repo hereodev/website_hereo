@@ -10,7 +10,6 @@ export default async function UploadArt() {
             {
                 session && session.user && session.user.id &&
                 <UploadForm userId={session.user.id} />
-
             }
         </main>
     )

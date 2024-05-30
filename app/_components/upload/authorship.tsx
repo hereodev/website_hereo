@@ -73,7 +73,7 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
     return (
         <div className="form-control w-full">
             <div className="label pb-1">
-                <span className="label-text text-xl font-semibold">Author(s)</span>
+                <span className="label-text text-xl font-semibold text-primary">Author(s)</span>
                     <span className="label-text-alt text-error text-sm opacity-80">required*</span>
             </div>
 

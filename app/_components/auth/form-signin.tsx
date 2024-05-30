@@ -16,7 +16,7 @@ export default function FormSignIn() {
 
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    const [password, setPassword] = useState('password');
+    const [password, setPassword] = useState('');
     const [hasTypedPassword, setHasTypedPassword] = useState(false);
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {

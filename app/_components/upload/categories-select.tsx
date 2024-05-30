@@ -94,7 +94,7 @@ const subCat = {
         <div>
             <label className="form-control w-full">
                 <div className="label pb-1">
-                    <span className="label-text text-xl font-semibold">Category</span>
+                    <span className="label-text text-xl font-semibold text-primary">Prompt</span>
                     <span className="label-text-alt text-error text-sm opacity-80">required*</span>
                 </div>
                 {/* <input 

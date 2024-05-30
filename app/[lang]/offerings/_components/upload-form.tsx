@@ -24,7 +24,7 @@ export default function UploadArt() {
 
     return (
         <main>
-            <h1>Upload Art</h1>
+            <h1>Offerings</h1>
             <form onSubmit={onSubmit} className="form">
                 <input 
                     type="file" 
