@@ -88,7 +88,7 @@ const subCat = {
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [selectedSubCategoryId, setSelectedSubCategoryId] = useState<number | null>(null);
     const [topCategory, setTopCategory] = useState<TopCategory | "">(""); 
-
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
 
     return (
         <div>
@@ -97,45 +97,25 @@ const subCat = {
                     <span className="label-text text-xl font-semibold text-primary">Prompt</span>
                     <span className="label-text-alt text-error text-sm opacity-80">required*</span>
                 </div>
-                {/* <input 
-                    type={type} 
-                    placeholder="Type here" 
-                    className="input input-bordered w-full" 
-                    {...register(name, { required })} 
-                    aria-invalid={errors[name] ? "true" : "false"}
-                /> */}
                 <div className="flex flex-col sm:flex-row gap-2">
                     <select 
+                        // disabled={topCategory == ""}
                         className="select select-bordered w-full max-w-xs"
-                        onChange={(e) => setTopCategory(e.target.value as TopCategory)}
-                    >
-                        <option disabled >Category</option>
-                        <option>REALMS</option>
-                        <option>LOCALITIES</option>
-                        <option>SCALES</option>
-                        <option>STRATEGIES</option>
-                        {/* {
-                            uniqueCategories.map((category, index) => (
-                            <option key={index} value={categories.find(cat => cat.category_name === category)?.id}>
-                                {category}
-                            </option>
-                            ))
-                        } */}
-                    </select>
-                    <select 
-                        disabled={topCategory == ""}
-                        className="select select-bordered w-full max-w-xs"
-                        onChange={(e) => setSelectedCategories(e.target.value)}
+                        onChange={(e) => {
+                            setSelectedCategory(e.target.value)
+                            setSelectedCategories(e.target.value)
+                        }}
                         // {...register("category", { required })}
                     >
-                        <option disabled >Sub-Category</option>
+                        <option selected disabled >Prompt</option>
                         {
-                            topCategory && subCat[topCategory].map((cat, index) => (
-                                <option key={index}>{cat}</option>
+                            categoriesData.sort((a,b)=>a.name.localeCompare(b.name)).map((cat, index) => (
+                                <option key={index}>{cat.name}</option>
                             ))
                         }
                     </select>
                 </div>
+                {selectedCategory}
                 {/* {
                     errors[name] && (
                         <div className="label">

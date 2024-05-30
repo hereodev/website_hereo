@@ -73,7 +73,7 @@ export default async function Profile() {
       <main>
         <h1>My Profile</h1>
         {/* <p>Art page : ID #{session.user.id}</p> */}
-        {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
+        {/* {session && <pre>{JSON.stringify(session, null, 2)}</pre>} */}
         {
           user && 
           <EditableProfile userId={session.user.id} initialName={user.name} initialEmail={user.email} />
