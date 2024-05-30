@@ -46,7 +46,7 @@ export default function Nav({ lang } : { lang: string}) {
 
     const links = [
         // { href: '/', label: 'Home', labelFr:'Maison', public: true },
-        { href: '/offerings', label: 'Offerings', labelFr:'Contributions', public: true },
+        { href: '/offerings', label: 'Offerings', labelFr:'Recueil', public: true },
         { href: '/the-acts', label: 'The Acts', labelFr:'Rencontres', public: true },
         { href: '/saay_yaas', label: 'saay/yaas', labelFr:'saay/yaas', public: true },
         // { href: '/protected', label: 'protected route', labelFr:'Protégé', public: true },
@@ -114,8 +114,9 @@ export default function Nav({ lang } : { lang: string}) {
                 </button>
             </form>
             :  */}
-            <Link className="" href="/auth/signin" title="Sign In">
+            <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
                 <FiLogIn />
+                Login
             </Link>
         {/* } */}
 
@@ -183,8 +184,9 @@ export default function Nav({ lang } : { lang: string}) {
                 </button>
             </form>
             :  */}
-            <Link className="" href="/auth/signin" title="Sign In">
+            <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
                 <FiLogIn />
+                Login
             </Link>
         {/* } */}
 

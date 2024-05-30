@@ -8,7 +8,8 @@
 [ ] Auth:
     - [ ] vider le champ password
 [ ] Upload:
-    - [ ] tiptap: enlever le placeholder ou alors pas le sélectionner
+    - [x] tiptap: enlever le placeholder ou alors pas le sélectionner 
+    - [ ] FIXME: placeholder tiptap
     - [ ] select-files: les gras sont en primary (titres etc)
     - [ ] catégories : que les filles. rajouter The Acts
 [ ] Profile:
