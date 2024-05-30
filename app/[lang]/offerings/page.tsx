@@ -7,20 +7,44 @@ import Link from "next/link";
 export default async function Offerings() {
     const session = await auth();
 
-    const allArt = await prisma.art.findMany({
-        include: {
-            associated_media: {
-                include: {
-                    Media: true
-                }
-            },
-            uploader: true,
-            authors: true,
-        }
-    })
+    let allArt: any[] = []
+    let allTags = 0
+    let allAuthors = 0
 
-    const allTags = await prisma.category.count()
-    const allAuthors = await prisma.author.count()
+
+    try {
+        allArt = await prisma.art.findMany({
+            include: {
+                associated_media: {
+                    include: {
+                        Media: true
+                    }
+                },
+                uploader: true,
+                authors: true,
+            }
+        })
+
+        allTags = await prisma.category.count()
+        allAuthors = await prisma.author.count()
+    } catch (error) {
+        console.error(error)
+    }
+
+    // allArt = await prisma.art.findMany({
+    //     include: {
+    //         associated_media: {
+    //             include: {
+    //                 Media: true
+    //             }
+    //         },
+    //         uploader: true,
+    //         authors: true,
+    //     }
+    // })
+
+    // allTags = await prisma.category.count()
+    // allAuthors = await prisma.author.count()
 
     return (
         <main>

@@ -1,3 +1,5 @@
+import Invitations from "@/app/_components/invitations";
+import { FiTriangle } from "react-icons/fi";
 
 export default function About() {
     return (
@@ -6,6 +8,10 @@ export default function About() {
             {/* <p>Tuliza Sindi Burundi, Kinshasa, Afrique du Sud, Bukavu | architecture professeur, observer, auditrice, critique, instigatrice, traductrice, poète, apprenante, collaboratrice, sœur</p> */}
             <p><b>Anna Abengowe</b> Nigéria, Angleterre | architecte, designer, professeure, maker, voyageure, curious, voice‑finder, joker, tante</p>
             <p><b>Mawena Yehouessi</b> Bénin, Togo, Sénégal, France | chercheuse, praticienne, curatrice, écrivaine/ traductrice, collusionist, avatar, amante, sœur et enfant</p>
+            <div className="divider my-4">
+                {/* <FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle> */}
+            </div>
+            <Invitations />
         </main>
     )
 }

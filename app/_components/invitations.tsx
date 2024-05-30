@@ -13,11 +13,17 @@ export default function Invitations() {
       ];
       
       return (
-        <div className="flex flex-row flex-wrap gap-4 z-20">
+        <div className="marquee">
+        {/* <p className="">This text will move from left to right indefinitely</p> */}
+        <div className="marquee-content">
+        <div className="flex flex-row flex-nowrap gap-4 z-20">
             Invitations:
+            
           {links.map((link, index) => (
             <Link key={index} href={link.url} className="hover:underline hover:cursor-pointer">{link.name}</Link>
           ))}
+        </div>
+        </div>
         </div>
       );
     // return (

@@ -19,16 +19,10 @@ export default async function Page({ params: { lang } } : { params: { lang: Loca
     // console.log('USER:', prismaUser)
 
     return (
-        <main className="flex flex-col items-center justify-between p-24">
+        <main className="flex flex-col items-center justify-between">
             <div className="z-20 text-3xl font-semibold">Welcome to :Her(e), Otherwise</div>
             <Invitations />
-
-                {/* <VideoPlayer /> */}
-                <div className="-order-1  absolute top-0 left-0 h-screen w-screen">
-                <div className="overlapper min-h-screen h-screen">
-                    <VideoPlayer />
-                </div>
-            </div>
+            <VideoPlayer />
 
         {/* <h1>Page in Lang</h1>
         <p>Lang: {lang}</p>
