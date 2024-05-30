@@ -1,8 +1,8 @@
 [x] Admin auth
-[ ] SAYY à remplacer par "Admin"
-[ ] Une page "about" qui s'appelle saay/yaas
+[x] SAYY à remplacer par "Admin"
+[x] Une page "about" qui s'appelle saay/yaas
 [ ] Home :
-    - [ ] Enlever le bouton pause.
+    - [x] Enlever le bouton pause.
     - [ ] Invitations : menu déroulant horizontal
     - [ ] Monter le welcome et les invitations, baisser la vidéo
 [ ] Auth:
