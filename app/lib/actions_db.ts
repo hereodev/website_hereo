@@ -111,7 +111,7 @@ export async function connectUserToAuthor({ userId, authorName } : { userId: str
     }
 }
 
-export async function uploadArt(data : {data: Art & {media?:UploadedFile[], authors?:string[]}}) {
+export async function uploadArt(data : {data: Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}}) {
     console.log("uploading art...", data);
     const { media, authors, ...artData } = data.data;
     let slug = slugify(artData.title);

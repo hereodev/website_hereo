@@ -23,6 +23,7 @@ const UploadForm = ({userId} : {userId: string}) => {
     const [category, setCategory] = useState<string>('');
     const [publish, setPublish] = useState<boolean>(true);
     const [authors, setAuthors] = useState<string[]>([]);
+    const [categories, setCategories] = useState<string[]>([]);
 
     const [editorContent, setEditorContent] = useState<string>('')
     const handleContentChange = (reason: any) => {
@@ -35,7 +36,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         formState: { errors },
         handleSubmit, 
         watch 
-    } = useForm<Art & {authors: any, media?:UploadedFile[]}>({
+    } = useForm<Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}>({
         // defaultValues: {
         //   title: art?.title || "",
         //   subtitle: art?.subtitle || "",
@@ -50,7 +51,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         console.log("media updated:", media)
     }, [media])
 
-    const onSubmit: SubmitHandler<Art & {media?:UploadedFile[], authors?:string[]}> = async (data) => {
+    const onSubmit: SubmitHandler<Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}> = async (data) => {
         setIsSubmitting(true);
         // console.log("data", data);
         // setTimeout(() => {
@@ -61,13 +62,15 @@ const UploadForm = ({userId} : {userId: string}) => {
         data.long_text = JSON.stringify(editorContent);
         data.media = media;
         data.authors = authors;
+        data.categories = categories;
         // data.category = category;
         // data.authors = selectedAuthors.map((author) => author.id);
+        // TODO: prevent sending if no categories, no authors
         console.log("DATA TO BE UPLOADED", data);
         let uploadedArt;
         try {
             uploadedArt = await uploadArt({data: JSON.parse(JSON.stringify(data))});
-            console.log("test", uploadedArt)
+            console.log("uploaded art from form:", uploadedArt)
         } catch (error) {
             console.error("Error uploading art", error)
         }
@@ -83,7 +86,7 @@ const UploadForm = ({userId} : {userId: string}) => {
     // const [errorMessage, dispatch] = useFormState(onSubmit, undefined);
 
     type InputProps = {
-        name: keyof (Art & {media?:UploadedFile[], authors?:string[]});
+        name: keyof (Art & {media?:UploadedFile[], authors?:string[], categories?:string[]});
         label: string;
         placeholder: string;
         required?: boolean;
@@ -142,7 +145,7 @@ const UploadForm = ({userId} : {userId: string}) => {
                 <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
 
                 {/* Catégorie */}
-                <CategoriesSelect categories={[]} selectedCategories={category} setSelectedCategories={setCategory} />
+                <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
 
                 <Authorship userId={userId} authors={authors} setAuthors={setAuthors} />
 

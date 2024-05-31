@@ -1,18 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { FiAlertCircle } from "react-icons/fi";
+import { FiAlertCircle, FiX } from "react-icons/fi";
+import { useSession } from "next-auth/react";
+import { UserWithRole } from "@/global";
 
 export default function CategoriesSelect(
-    { categories, selectedCategories, setSelectedCategories } :
-    { categories: string[], selectedCategories: string, setSelectedCategories: (categories: string) => void }
+    {  selectedCategories, setSelectedCategories } :
+    { selectedCategories: string[], setSelectedCategories: (categories: string[]) => void }
 ) {
 
 // Define the TopCategory type
 type TopCategory = "REALMS" | "LOCALITIES" | "SCALES" | "STRATEGIES";
 
 // Updated categoriesData based on the new list of tags
-const categoriesData = [
+let categoriesData = [
   { "id": 1, "name": "Sonic", "category_name": "REALMS" },
   { "id": 2, "name": "Chaos", "category_name": "REALMS" },
   { "id": 3, "name": "Dissonant", "category_name": "REALMS" },
@@ -83,39 +85,87 @@ const subCat = {
   ]
 };
 
-    const uniqueCategories = Array.from(new Set(categoriesData.map(category => category.category_name)));
+    // const uniqueCategories = Array.from(new Set(categoriesData.map(category => category.category_name)));
     // const [categories, setCategories] = useState(categoriesData);
-    const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
-    const [selectedSubCategoryId, setSelectedSubCategoryId] = useState<number | null>(null);
-    const [topCategory, setTopCategory] = useState<TopCategory | "">(""); 
-    const [selectedCategory, setSelectedCategory] = useState<string>("");
+    // const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+    // const [selectedSubCategoryId, setSelectedSubCategoryId] = useState<number | null>(null);
+    // const [topCategory, setTopCategory] = useState<TopCategory | "">(""); 
+    // const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [searchedCategory, setSearchedCategory] = useState<string>("");
+
+    const { data: session, update } = useSession()
 
     return (
         <div>
             <label className="form-control w-full">
                 <div className="label pb-1">
-                    <span className="label-text text-xl font-semibold text-primary">Prompt</span>
+                    <span className="label-text text-xl font-semibold text-primary">Prompt(s)</span>
                     <span className="label-text-alt text-error text-sm opacity-80">required*</span>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
-                    <select 
-                        // disabled={topCategory == ""}
-                        className="select select-bordered w-full max-w-xs"
-                        onChange={(e) => {
-                            setSelectedCategory(e.target.value)
-                            setSelectedCategories(e.target.value)
-                        }}
-                        // {...register("category", { required })}
-                    >
-                        <option selected disabled >Prompt</option>
-                        {
-                            categoriesData.sort((a,b)=>a.name.localeCompare(b.name)).map((cat, index) => (
-                                <option key={index}>{cat.name}</option>
-                            ))
-                        }
-                    </select>
+                    <input 
+                        type="text" 
+                        id="name"
+                        placeholder="Search for prompt"
+                        onChange={(e) => setSearchedCategory(e.target.value)}
+                        className={"input input-sm w-full input-bordered italic "}
+                    />
                 </div>
-                {selectedCategory}
+                <div className="flex flex-col max-h-24 overflow-y-scroll">
+                        {
+                        categoriesData.filter(
+                            (category) => {
+                                // if(searchedAuthor.length >= 2) {
+                                    return category.name.toLowerCase().includes(searchedCategory.toLowerCase());
+                                // } else {
+                                    // return true;
+                                // }
+                            }
+                        ).map((category, index) => {
+                            // a select with multiple options, with a least of all categories
+                            return (
+                                <div key={index} className="flex flex-row items-center gap-2 group hover:cursor-pointer w-full">
+                                    <label className={`w-full group-hover:underline ${selectedCategories.includes(category.name) ? "font-semibold" : ""}`}>
+                                    <input 
+                                        type="checkbox" 
+                                        name={`chbx-${category.name}`} 
+                                        className={`opacity-0 invisible w-0 `} 
+                                        onChange={(e) => {
+                                            if(e.target.checked) {
+                                                // console.log("checking", category.name)
+                                                setSelectedCategories([...selectedCategories, category.name])
+                                            } else {
+                                                // console.log("unchecking", category.name)
+                                                setSelectedCategories(selectedCategories.filter((a) => a !== category.name))
+                                            }
+                                        }}
+                                    />
+                                        {category.name}
+                                    </label>
+                                </div>
+                            )
+                        })
+                    }
+                    </div>
+
+                {selectedCategories.length > 0 && 
+                    <div className="flex w-full flex-row items-center gap-2">
+                        {
+
+                        selectedCategories.map((category, index) => {
+                            return (
+                                <div key={index} 
+                                className="group hover:cursor-pointer badge badge-secondary gap-2"
+                                onClick={(e) => setSelectedCategories(selectedCategories.filter((a) => a !== category))}
+                                >
+                                    {category}
+                                    <FiX className="font-bold group-hover:stroke-[5px]" />
+                                </div>
+                        )
+                            })
+                        }
+                        </div>
+                }
                 {/* {
                     errors[name] && (
                         <div className="label">

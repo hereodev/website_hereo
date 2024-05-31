@@ -81,14 +81,14 @@ export default function Nav({ lang } : { lang: string}) {
             }
 
             <div className="divider divider-horizontal mx-0"></div>
-            <span className="">
+            {/* <span className="">
                 <LocaleSwitcher />
-            </span>
-            <div className="divider divider-horizontal mx-0"></div>
+            </span> */}
+            {/* <div className="divider divider-horizontal mx-0"></div> */}
             <span className="">
                 {session?.user && 
                 <Link href={"/profile"}>
-                    <div className="avatar placeholder">
+                    <div className="avatar placeholder" title="Profile">
                         <div className="bg-info text-neutral-content rounded-full w-8">
                         <span className="text-xs">
                             {name ? (name.match(/[A-Z]/g) || []).slice(0, 2).join('') : 
@@ -102,23 +102,22 @@ export default function Nav({ lang } : { lang: string}) {
 
             </span>
             <span>
-        {/* {session ? 
-            <form
-                action={async (formData) => {
-                    await signOut()
-                    window.location.reload()
-                }}
-            >
-                <button type="submit" title="Sign Out">
-                    <FiLogOut />
-                </button>
-            </form>
-            :  */}
+        {session?.user ? 
+                // action={async (formData) => {
+                //     await signOut()
+                //     window.location.reload()
+                // }}
+            // <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
+            //     <FiLogOut />
+            //     Log Out
+            // </Link>
+            <></>
+            : 
             <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
                 <FiLogIn />
                 Login
             </Link>
-        {/* } */}
+        }
 
             </span>
         </div>
@@ -148,14 +147,14 @@ export default function Nav({ lang } : { lang: string}) {
                     }
                     {
                         session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
-                        <Link className="" href={"/saay"}>SAAY</Link>
+                        <Link className="" href={"/admin_saay_yaas"}>Admin</Link>
                     }
 
                     <div className="divider divider-vertical my-0"></div>
-                    <span className="">
+                    {/* <span className="">
                         <LocaleSwitcher />
-                    </span>
-                    <div className="divider divider-vertical my-0"></div>
+                    </span> */}
+                    {/* <div className="divider divider-vertical my-0"></div> */}
                     <div className="flex flex-row items-center gap-3">
                 {/* <NavUser lang={lang} /> */}
                 {session?.user && 
@@ -172,23 +171,32 @@ export default function Nav({ lang } : { lang: string}) {
             </div>
         </Link>
         }
-        {/* {session ? 
-            <form
-                action={async (formData) => {
-                    await signOut()
-                    window.location.reload()
-                }}
-            >
-                <button type="submit" title="Sign Out">
-                    <FiLogOut />
-                </button>
-            </form>
-            :  */}
+        {session?.user ? 
+                // action={async (formData) => {
+                //     await signOut()
+                //     window.location.reload()
+                // }}
+            // <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
+            //     <FiLogOut />
+            //     Log Out
+            // </Link> /////
+            //     <form
+            //     action={async (formData) => {
+            //         await signOut()
+            //         window.location.reload()
+            //     }}
+            // >
+            //     <button type="submit" title="Sign Out">
+            //         <FiLogOut />
+            //     </button>
+            // </form>
+            <></>
+            : 
             <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
                 <FiLogIn />
                 Login
             </Link>
-        {/* } */}
+        }
 
             </div>
 

@@ -58,12 +58,12 @@ const FilePreview: React.FC<FilePreviewProps> = ({ uploadedFile, userId, progres
     return (
         <div className={`file-preview flex flex-row max-w-screen ${(!progress || progress<100) && "opacity-50"}`}>
             <div className={`image-preview w-14 min-w-14 flex flex-col items-center justify-between mx-2`}>
-                {getFileIcon()}
+                <div className="grow flex flex-col items-center justify-center">{getFileIcon()}</div>
                 {progress === 100 ? (
                     <progress className="progress w-full" value={progress} max="100"></progress>
                 ) : (
                     <progress className="progress w-full" max="100"></progress>
-                )}                
+                )}
             </div>
             <form 
             // onSubmit={handleSubmit(onSubmit)} 

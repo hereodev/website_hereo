@@ -6,11 +6,11 @@
     - [x] Invitations : menu déroulant horizontal
     - [x] Monter le welcome et les invitations, baisser la vidéo
 [ ] Auth:
-    - [ ] vider le champ password
+    - [x] vider le champ password
 [ ] Upload:
     - [x] tiptap: enlever le placeholder ou alors pas le sélectionner 
     - [ ] FIXME: placeholder tiptap
-    - [ ] select-files: les gras sont en primary (titres etc)
+    - [x] select-files: les gras sont en primary (titres etc)
     - [ ] catégories : que les filles. rajouter The Acts
 [ ] Profile:
     - [ ] localités
