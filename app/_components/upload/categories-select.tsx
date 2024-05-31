@@ -112,6 +112,29 @@ const subCat = {
                     />
                 </div>
                 <div className="flex flex-col max-h-24 overflow-y-scroll">
+                    {
+                        session && (session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN") &&
+                        <div className="flex flex-row items-center gap-2 group hover:cursor-pointer w-full">
+                        <label className={`w-full group-hover:underline italic ${selectedCategories.includes("The Acts") ? "font-semibold" : ""}`}>
+                        <input 
+                            type="checkbox" 
+                            name={`chbx-ACTS`} 
+                            className={`opacity-0 invisible w-0 `} 
+                            onChange={(e) => {
+                                if(e.target.checked) {
+                                    // console.log("checking", category.name)
+                                    setSelectedCategories([...selectedCategories, "The Acts"])
+                                } else {
+                                    // console.log("unchecking", category.name)
+                                    setSelectedCategories(selectedCategories.filter((a) => a !== "The Acts"))
+                                }
+                            }}
+                        />
+                            The Acts
+                        </label>
+                    </div>
+
+                    }
                         {
                         categoriesData.filter(
                             (category) => {
@@ -121,7 +144,7 @@ const subCat = {
                                     // return true;
                                 // }
                             }
-                        ).map((category, index) => {
+                        ).sort((a,b) => a.name.localeCompare(b.name)).map((category, index) => {
                             // a select with multiple options, with a least of all categories
                             return (
                                 <div key={index} className="flex flex-row items-center gap-2 group hover:cursor-pointer w-full">
