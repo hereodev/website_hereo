@@ -59,7 +59,11 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                     email: true,
                 }
             },
-            authors: true,
+            authors: {
+              select: {
+                author: true,
+              }
+            },
         }
     })
     console.log("FOUND ART " + slug, art)
@@ -105,7 +109,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <button className="btn btn-primary">Edit my profile</button>
           } */}
           <h2>Credits</h2>
-          <p>Offered by: {art.authors.map(a => a.author_id).join(", ") || "People"}</p>
+          <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "People"}</p>
         </main>
       )
 
