@@ -131,6 +131,18 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
             slugExists = false;
         }
     }
+    // let catego = [];
+    // if(data.data.categories) {
+    //     catego = data.data.categories.map((category) => {
+    //         return {
+    //             await prisma.subcategory.findFirst({
+    //                 where: {
+    //                     name: category,
+    //                 }
+    //             })
+    //         };
+    //     });
+    // }
     let mediaRecords = [];
     if(media) {
         console.log("media to be uploaded",media)
