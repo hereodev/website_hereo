@@ -35,7 +35,7 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.ico" sizes="any" />
                 </head>
                 
-                <body className={`${displayFont.className} flex flex-col min-h-screen`}>
+                <body className={`${displayFont.className} flex flex-col min-h-screen mx-4 mb-6`}>
                     <Nav lang={params.lang} />
                     {/* <Navbar lang={params.lang} /> */}
                     <div className="h-[--height-navbar]"></div>

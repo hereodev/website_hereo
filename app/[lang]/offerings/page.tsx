@@ -3,6 +3,7 @@ import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
 import SearchBar from "./_components/search-bar";
 import Link from "next/link";
+import OfferingsMenu from "./_components/offerings-dashboard";
 
 export default async function Offerings() {
     const session = await auth();
@@ -56,25 +57,7 @@ export default async function Offerings() {
                 }
             </div>
         <div className={` grid grid-cols-1 md:grid-cols-3 gap-4 px-1`}>
-            <div className="flex flex-col w-full gap-2">
-                <SearchBar />
-                {/* <IndexSearchBar value={searchTerm} onChange={setSearchTerm} /> */}
-                {/* TODO: tags  */}
-                <div className="flex flex-row justify-between">
-                    <p className="border-t border-t-white">PROMPTS</p>
-                    <p>{allTags}</p>
-                </div>
-                <div className="flex flex-row justify-between">
-                    <p className="border-t border-t-white">PEOPLE</p>
-                    <p>{allAuthors}</p>
-                </div>
-                <div className="flex flex-row justify-between">
-                    <p className="border-t border-t-white">SITES OF BELONGING</p>
-                    <p>{allArt.length}</p>
-                    {/* Choisir par lieux (régions) */}
-                </div>
-                <div className="divider my-0"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div> 
-            </div>
+            <OfferingsMenu />
             {
                 allArt && allArt.map((art) => {
                     return (

@@ -106,6 +106,44 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         className="input input-bordered w-full"
                     />
                 </div>
+                <h2>Sites of belonging</h2>
+                <p>You can enter up to 3 sites of belonging.</p>
+                <div className="label w-full">
+                    <label htmlFor="site1" className="form-control w-full max-w-xs">
+                        <div className="label"><span className="label-text">Site n°1</span></div>
+                    </label>
+                    <input
+                        type="text"
+                        id="site1"
+                        defaultValue={""}
+                        // onChange={handleEmailChange}
+                        className="input input-bordered w-full"
+                    />
+                </div>
+                <div className="label w-full">
+                    <label htmlFor="site2" className="form-control w-full max-w-xs">
+                        <div className="label"><span className="label-text">Site n°2</span></div>
+                    </label>
+                    <input
+                        type="text"
+                        id="site2"
+                        defaultValue={""}
+                        // onChange={handleEmailChange}
+                        className="input input-bordered w-full"
+                    />
+                </div>
+                <div className="label w-full">
+                    <label htmlFor="site3" className="form-control w-full max-w-xs">
+                        <div className="label"><span className="label-text">Site n°3</span></div>
+                    </label>
+                    <input
+                        type="text"
+                        id="site3"
+                        defaultValue={""}
+                        // onChange={handleEmailChange}
+                        className="input input-bordered w-full"
+                    />
+                </div>
                 {/* <div className="w-full">
                     <label htmlFor="password" className="form-control w-full max-w-xs">
                         Password
