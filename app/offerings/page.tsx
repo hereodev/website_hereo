@@ -3,7 +3,7 @@ import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
 import SearchBar from "@/app/offerings/_components/search-bar";
 import Link from "next/link";
-import OfferingsMenu from "@/app/offerings/_components/offerings-dashboard";
+import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu";
 
 export default async function Offerings() {
     const session = await auth();
@@ -57,7 +57,11 @@ export default async function Offerings() {
                 }
             </div>
         <div className={` grid grid-cols-1 md:grid-cols-3 gap-4 px-1`}>
-            <OfferingsMenu />
+            <div>
+                <OfferingsTopMenu />
+                <div className="divider my-2"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div>
+            </div>
+
             {
                 allArt && allArt.map((art) => {
                     return (

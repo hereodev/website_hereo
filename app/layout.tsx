@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     },
 };
 
-export async function generateStaticParams() {
-    // Generate static pages for each language
-    return i18n.locales.map((locale) => ({ lang: locale }));
-}
+// export async function generateStaticParams() {
+//     // Generate static pages for each language
+//     return i18n.locales.map((locale) => ({ lang: locale }));
+// }
 
 export default function RootLayout({
     children, params

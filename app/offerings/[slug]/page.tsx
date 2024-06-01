@@ -6,7 +6,7 @@ import { UserWithRole } from "@/global"
 import prisma from "@/prisma"
 import { redirect } from "next/navigation"
 import { FaFilePdf } from "react-icons/fa"
-import OfferingsMenu from "@/app/offerings/_components/offerings-dashboard"
+import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu"
 import { FiTriangle } from "react-icons/fi"
 
 type Props = {
@@ -148,13 +148,13 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             </div>
 
           </div> */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row-reverse gap-4">
             <div className="flex-1 basis-[49%]">
-              <OfferingsMenu />
+              <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
             </div>
             <div className="basis-[2%] divider sm:divider-horizontal"></div>
             <div className="flex-1 basis-[49%]">
-              <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "People"}</p>
+              <OfferingsTopMenu />
             </div>
           </div>
         </main>

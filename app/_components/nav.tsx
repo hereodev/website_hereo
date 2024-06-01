@@ -47,7 +47,7 @@ export default function Nav({ lang } : { lang: string}) {
     const links = [
         // { href: '/', label: 'Home', labelFr:'Maison', public: true },
         { href: '/offerings', label: 'Offerings', labelFr:'Recueil', public: true },
-        { href: '/the-acts', label: 'Encounters', labelFr:'Rencontres', public: true },
+        { href: '/encounters', label: 'Encounters', labelFr:'Rencontres', public: true },
         { href: '/saay_yaas', label: 'About', labelFr:'A propos', public: true },
         // { href: '/protected', label: 'protected route', labelFr:'Protégé', public: true },
     ]
@@ -72,7 +72,7 @@ export default function Nav({ lang } : { lang: string}) {
                         return l.public
                     }
                 }).map(({ href, label, labelFr }) => (
-                    <Link key={href} className="hover:font-bold hover:cursor-pointer" href={`/${lang}${href}`}>{lang=="fr"?labelFr:label}</Link>
+                    <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
                 ))
             }
             {

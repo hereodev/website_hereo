@@ -1,13 +1,15 @@
 import SearchBar from "./search-bar";
 import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
+import OfferingsMenuItem from "./offerings-menu-item";
+import { Author } from "@prisma/client";
 
 
-
-export default async function OfferingsMenu() {
+export default async function OfferingsTopMenu() {
     let allArt: any[] = []
     let allTags = 0
-    let allAuthors = 0
+    let allAuthors: Author[] = [];
+    let countAuthors = 0;
 
 
     try {
@@ -24,14 +26,19 @@ export default async function OfferingsMenu() {
         })
 
         allTags = await prisma.category.count()
-        allAuthors = await prisma.author.count()
+        allAuthors = await prisma.author.findMany()
+        if(allAuthors) {
+            countAuthors = allAuthors.length
+        } else {
+            allAuthors = []
+        }
     } catch (error) {
         console.error(error)
     }
 
 
     return (
-        <div className="flex flex-col w-full gap-2">
+    <div className="flex flex-col w-full gap-2">
         <SearchBar />
         {/* <IndexSearchBar value={searchTerm} onChange={setSearchTerm} /> */}
         {/* TODO: tags  */}
@@ -39,10 +46,11 @@ export default async function OfferingsMenu() {
             <p className="border-t border-t-white">PROMPTS</p>
             <p>{allTags}</p>
         </div>
-        <div className="flex flex-row justify-between">
+        <OfferingsMenuItem label="PEOPLE" count={countAuthors} categories={allAuthors && allAuthors.map(a => a.name) || []} searchParamsEntry="authors" />
+        {/* <div className="flex flex-row justify-between">
             <p className="border-t border-t-white">PEOPLE</p>
-            <p>{allAuthors}</p>
-        </div>
+            <p>{countAuthors}</p>
+        </div> */}
         <div className="flex flex-row justify-between">
             <p className="border-t border-t-white">SITES OF BELONGING</p>
             <p>{allArt.length}</p>

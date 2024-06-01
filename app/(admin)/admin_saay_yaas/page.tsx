@@ -10,7 +10,7 @@ export default async function Page({ params: { lang } } : { params: { lang: stri
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <h1>Admin Page</h1>
-            <p className="text-xs">Lang: {lang}</p>
+            {/* <p className="text-xs">Lang: {lang}</p> */}
             <p>see all art projects</p>
             <p>see all artists</p>
             <p>see all users</p>
