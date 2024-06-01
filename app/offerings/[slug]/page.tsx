@@ -6,7 +6,7 @@ import { UserWithRole } from "@/global"
 import prisma from "@/prisma"
 import { redirect } from "next/navigation"
 import { FaFilePdf } from "react-icons/fa"
-import OfferingsMenu from "@/app/_components/offerings-dashboard"
+import OfferingsMenu from "@/app/offerings/_components/offerings-dashboard"
 import { FiTriangle } from "react-icons/fi"
 
 type Props = {
