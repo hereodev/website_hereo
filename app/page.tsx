@@ -2,11 +2,11 @@ import { type Locale } from "@/i18n-config"
 import { Metadata } from "next";
 import { User } from "@/app/_components/user";
 // import prisma from "@/prisma"
-import VideoPlayer from "../_components/video-player";
+import VideoPlayer from "@/app/_components/video-player";
 // import React from "react";
 // import ReactPlayer from 'react-player';
 import dynamic from 'next/dynamic'
-import Invitations from "../_components/invitations";
+import Invitations from "@/app/_components/invitations";
 
 export const metadata: Metadata = {
     title: "Lang Page" + " | " + process.env.NODE_ENV,

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Raleway } from "next/font/google";
 import "@/app/globals.css";
 import { i18n, type Locale } from "@/i18n-config";
-import Nav from "../_components/nav";
-// import Navbar from "../_components/navbar";
+import Nav from "@/app/_components/nav";
+// import Navbar from "@/app/_components/navbar";
 import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });

@@ -47,8 +47,8 @@ export default function Nav({ lang } : { lang: string}) {
     const links = [
         // { href: '/', label: 'Home', labelFr:'Maison', public: true },
         { href: '/offerings', label: 'Offerings', labelFr:'Recueil', public: true },
-        { href: '/the-acts', label: 'The Acts', labelFr:'Rencontres', public: true },
-        { href: '/saay_yaas', label: 'saay/yaas', labelFr:'saay/yaas', public: true },
+        { href: '/the-acts', label: 'Encounters', labelFr:'Rencontres', public: true },
+        { href: '/saay_yaas', label: 'About', labelFr:'A propos', public: true },
         // { href: '/protected', label: 'protected route', labelFr:'Protégé', public: true },
     ]
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {

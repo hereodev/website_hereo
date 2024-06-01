@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import prisma from "@/prisma";
 import { FiSearch, FiTriangle } from "react-icons/fi";
-import SearchBar from "./_components/search-bar";
+import SearchBar from "@/app/offerings/_components/search-bar";
 import Link from "next/link";
 
 export default async function Loading() {

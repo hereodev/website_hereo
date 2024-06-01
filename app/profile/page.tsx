@@ -79,8 +79,8 @@ export default async function Profile() {
           <EditableProfile userId={session.user.id} initialName={user.name} initialEmail={user.email} />
         }
         <div className="flex flex-row items-end gap-6">
-          <h2>My Art</h2>
-          <Link href="/offerings/upload" className={`${"btn btn-xs btn-primary mb-3"}`}>Upload Art</Link>
+          <h2>My Offering(s)</h2>
+          <Link href="/offerings/upload" className={`${"btn btn-xs btn-primary mb-3"}`}>Upload Offering</Link>
         </div>
         {
           userArt.length === 0 ? <p>No art uploaded yet.</p>

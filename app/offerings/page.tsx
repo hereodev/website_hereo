@@ -1,9 +1,9 @@
 import { auth } from "@/auth"
 import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
-import SearchBar from "./_components/search-bar";
+import SearchBar from "@/app/offerings/_components/search-bar";
 import Link from "next/link";
-import OfferingsMenu from "./_components/offerings-dashboard";
+import OfferingsMenu from "@/app/offerings/_components/offerings-dashboard";
 
 export default async function Offerings() {
     const session = await auth();

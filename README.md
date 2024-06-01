@@ -1,6 +1,8 @@
 [x] Admin auth
 [x] SAYY à remplacer par "Admin"
 [x] Une page "about" qui s'appelle saay/yaas
+[x] The Acts => Encounters
+[ ] English only
 [ ] Home :
     - [x] Enlever le bouton pause.
     - [x] Invitations : menu déroulant horizontal
@@ -9,15 +11,20 @@
     - [x] vider le champ password
 [ ] Upload:
     - [x] tiptap: enlever le placeholder ou alors pas le sélectionner 
+    - [ ] Language ???
     - [ ] FIXME: placeholder tiptap
     - [x] select-files: les gras sont en primary (titres etc)
-    - [ ] catégories : que les filles. rajouter The Acts
+    - [x] catégories : que les filles. rajouter The Acts
+[ ] TODO: changing the adinkra symbols in admin
 [ ] Profile:
-    - [ ] localités
+    - [ ] localités TODO: make working
 [ ] Offering:
     - [ ] pas beosin de retour arrière quand on est sur une page art
+    - [ ] offered by: anonymous.
+    - [ ] sites of belonging
 [ ] Offerings:
     - [ ] pointillés couleur selon tag. je choisis les couleurs.
+    - [ ] long_text: make it bigger.
     - [ ] images en fond du rectangle: oui
     - [ ] prompts au lieu de items
     - [ ] search: 4 catégories toujorus visibles + search bar
