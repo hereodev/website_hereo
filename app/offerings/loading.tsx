@@ -51,7 +51,7 @@ export default async function Loading() {
                     {id: 10, title: "Loading..."},
                 ].map((art) => {
                     return (
-                        <div key={art.id} className="border border-dashed border-base-content min-h-24 p-4">
+                        <div key={art.id} className="border rounded-2xl border-base-content min-h-24 p-4">
                             <h3 className="text-lg hover:underline">{art.title}</h3>
                         </div>
                     )

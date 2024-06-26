@@ -88,6 +88,11 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                 author: true,
               }
             },
+            SubCategory: {
+              select: {
+                Category: true,
+              } 
+            },
         }
     })
     console.log("FOUND ART " + slug, art)
@@ -97,6 +102,9 @@ export default async function Art({ params }: { params: { slug: string, lang: st
         <main>
           <h1>{art.title}</h1>
           {art.subtitle && <h2>{art.subtitle}</h2>}
+
+          <p className="my-2 w-full text-right">Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
+
           {/* <p>Art page : Slug #{slug}</p> */}
           {/* {
               art && <pre className="overflow-x-auto text-xs">{JSON.stringify(art, null, 2)}</pre>
@@ -106,7 +114,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           } */}
           {
   art.long_text && 
-  <div className="prose" dangerouslySetInnerHTML={{__html: art.long_text.slice(1, -1)}}></div>
+  <div className="prose w-full min-w-full" dangerouslySetInnerHTML={{__html: art.long_text}}></div>
 }
           {
             art.associated_media && 
@@ -155,6 +163,8 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           <div className="flex flex-col sm:flex-row-reverse gap-4">
             <div className="flex-1 basis-[49%]">
               <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
+              <p>Sites of belonging: []</p>
+              <p>Prompts: []</p>
             </div>
             <div className="basis-[2%] divider sm:divider-horizontal"></div>
             <div className="flex-1 basis-[49%]">

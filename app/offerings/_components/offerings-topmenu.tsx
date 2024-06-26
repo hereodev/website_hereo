@@ -2,7 +2,7 @@ import SearchBar from "./search-bar";
 import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
 import OfferingsMenuItem from "./offerings-menu-item";
-import { Author, Category } from "@prisma/client";
+import { Author, Category, Site } from "@prisma/client";
 
 
 export default async function OfferingsTopMenu() {
@@ -12,6 +12,8 @@ export default async function OfferingsTopMenu() {
     let countAuthors = 0;
 
     let allCategories: Category[] = []
+
+    let allSites: Site[] = []
 
 
     try {
@@ -30,6 +32,7 @@ export default async function OfferingsTopMenu() {
         allTags = await prisma.category.count()
         allAuthors = await prisma.author.findMany()
         allCategories = await prisma.category.findMany()
+        allSites = await prisma.site.findMany()
         if(allAuthors) {
             countAuthors = allAuthors.length
         } else {
@@ -68,15 +71,12 @@ export default async function OfferingsTopMenu() {
             categories={allAuthors && allAuthors.map(a => a.name) || []} 
             searchParamsEntry="authors" 
         />
-        {/* <div className="flex flex-row justify-between">
-            <p className="border-t border-t-white">PEOPLE</p>
-            <p>{countAuthors}</p>
-        </div> */}
-        <div className="flex flex-row justify-between">
-            <p className="border-t border-t-white">SITES OF BELONGING</p>
-            <p>{allArt.length}</p>
-            {/* Choisir par lieux (régions) */}
-        </div>
+        <OfferingsMenuItem 
+            label="SITES OF BELONGING" 
+            count={allSites.length} 
+            categories={allSites && allSites.map(s => s.description) || []} 
+            searchParamsEntry="sites"
+        />
     </div>
 
     )
