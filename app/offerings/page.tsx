@@ -4,11 +4,14 @@ import { FiTriangle } from "react-icons/fi";
 import SearchBar from "@/app/offerings/_components/search-bar";
 import Link from "next/link";
 import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu";
+import { Art } from "@prisma/client";
+import OfferingPreview from "./_components/offering-preview";
 
 export default async function Offerings() {
     const session = await auth();
 
-    let allArt: any[] = []
+    let allArt: Art[] = []
+    // let allArt: Art & {associated_media?: any[]}[] = []
     let allTags = 0
     let allAuthors = 0
 
@@ -65,10 +68,10 @@ export default async function Offerings() {
             {
                 allArt && allArt.map((art) => {
                     return (
-                        <div key={art.id} className="border border-dashed border-base-content min-h-24 p-4">
-                            <h3 className="text-lg hover:underline"><Link href={`/offerings/${art.slug}`}>{art.title}</Link></h3>
-                            {/* <p className="text-lg">{art.subtitle}</p> */}
-                        </div>
+                        <>
+                            {/* <pre className="text-xs overflow-scroll">{JSON.stringify(art, null, 2)}</pre> */}
+                            <OfferingPreview key={art.id} art={art} />
+                        </>
                     )
                 })
             }

@@ -101,9 +101,13 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           {/* {
               art && <pre className="overflow-x-auto text-xs">{JSON.stringify(art, null, 2)}</pre>
           } */}
+          {/* {
+            art.long_text && <div className="prose" dangerouslySetInnerHTML={{__html: art.long_text}}></div>
+          } */}
           {
-            art.long_text && <div dangerouslySetInnerHTML={{__html: art.long_text}}></div>
-          }
+  art.long_text && 
+  <div className="prose" dangerouslySetInnerHTML={{__html: art.long_text.slice(1, -1)}}></div>
+}
           {
             art.associated_media && 
             <div className="grid sm:grid-cols-2 sm:gap-4">

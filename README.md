@@ -2,7 +2,7 @@
 [x] SAYY à remplacer par "Admin"
 [x] Une page "about" qui s'appelle saay/yaas
 [x] The Acts => Encounters
-[ ] English only
+[x] English only
 [ ] Home :
     - [x] Enlever le bouton pause.
     - [x] Invitations : menu déroulant horizontal
@@ -16,17 +16,14 @@
     - [x] select-files: les gras sont en primary (titres etc)
     - [x] catégories : que les filles. rajouter The Acts
 [ ] TODO: changing the adinkra symbols in admin
-[ ] Profile:
-    - [ ] localités TODO: make working
 [ ] Offering:
     - [ ] pas beosin de retour arrière quand on est sur une page art
-    - [ ] offered by: anonymous.
+    - [x] offered by: anonymous.
     - [ ] sites of belonging
 [ ] Offerings:
-    - [ ] pointillés couleur selon tag. je choisis les couleurs.
-    - [ ] long_text: make it bigger.
+    - [ ] pointillés couleur selon tag. cf. couleurs mail mawena.
     - [ ] images en fond du rectangle: oui
-    - [ ] prompts au lieu de items
+    - [x] prompts au lieu de items
     - [ ] search: 4 catégories toujorus visibles + search bar
 [ ] DB auth
     - [x] sign up with hash password
@@ -35,14 +32,14 @@
     - [ ] reset password
     - [ ] FIXME: signing up doesnt send to signin page??
 [ ] Profile page
+    - [ ] localités TODO: make working
     - [x] FIXME name does not update
+    - [ ] Champ réseaux sociaux
 [ ] Upload
     - [x] Upload to Bunny: in dir named after uploader's ID
     - [x] Update DB with URL, uploader's Id, authors
     - [x] FIXME Tiptap weird focus
     - [x] Upload art text content to DB
-[ ] Profil
-    - [ ] Champ réseaux sociaux
 
 TODO finalisation :
 - [ ] Changer mail twilio

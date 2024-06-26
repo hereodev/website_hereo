@@ -72,12 +72,12 @@ export default function Nav({ lang } : { lang: string}) {
                         return l.public
                     }
                 }).map(({ href, label, labelFr }) => (
-                    <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
+                    <Link key={href} className="font-bold hover:underline hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
                 ))
             }
             {
                 session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
-                <Link className="" href={"/admin_saay_yaas"}>Admin</Link>
+                <Link className="font-bold hover:underline hover:cursor-pointer" href={"/admin_saay_yaas"}>Admin</Link>
             }
 
             <div className="divider divider-horizontal mx-0"></div>

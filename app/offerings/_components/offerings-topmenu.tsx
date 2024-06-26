@@ -2,7 +2,7 @@ import SearchBar from "./search-bar";
 import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
 import OfferingsMenuItem from "./offerings-menu-item";
-import { Author } from "@prisma/client";
+import { Author, Category } from "@prisma/client";
 
 
 export default async function OfferingsTopMenu() {
@@ -10,6 +10,8 @@ export default async function OfferingsTopMenu() {
     let allTags = 0
     let allAuthors: Author[] = [];
     let countAuthors = 0;
+
+    let allCategories: Category[] = []
 
 
     try {
@@ -27,6 +29,7 @@ export default async function OfferingsTopMenu() {
 
         allTags = await prisma.category.count()
         allAuthors = await prisma.author.findMany()
+        allCategories = await prisma.category.findMany()
         if(allAuthors) {
             countAuthors = allAuthors.length
         } else {
@@ -42,11 +45,29 @@ export default async function OfferingsTopMenu() {
         <SearchBar />
         {/* <IndexSearchBar value={searchTerm} onChange={setSearchTerm} /> */}
         {/* TODO: tags  */}
-        <div className="flex flex-row justify-between">
-            <p className="border-t border-t-white">PROMPTS</p>
-            <p>{allTags}</p>
-        </div>
-        <OfferingsMenuItem label="PEOPLE" count={countAuthors} categories={allAuthors && allAuthors.map(a => a.name) || []} searchParamsEntry="authors" />
+        {/* <div className="collapse rounded-none ">
+            <input type="checkbox" />
+            <div className="collapse-title p-0 flex flex-row justify-between">
+                <p className="border-t border-t-white">PROMPTS</p>
+                <p className="">{allTags}</p>
+            </div>
+            <div className="collapse-content">
+                <p>contenu 1</p>
+                <p>prompt XYZ</p>
+            </div>
+        </div> */}
+        <OfferingsMenuItem 
+            label="PROMPTS" 
+            count={allTags} 
+            categories={allCategories && allCategories.map(c => c.name) || []} 
+            searchParamsEntry="prompts" 
+        />
+        <OfferingsMenuItem 
+            label="PEOPLE" 
+            count={countAuthors} 
+            categories={allAuthors && allAuthors.map(a => a.name) || []} 
+            searchParamsEntry="authors" 
+        />
         {/* <div className="flex flex-row justify-between">
             <p className="border-t border-t-white">PEOPLE</p>
             <p>{countAuthors}</p>

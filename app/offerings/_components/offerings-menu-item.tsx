@@ -40,10 +40,16 @@ export default function OfferingsMenuItem({
     }, [chosenCategories]);
     return (
         <div>
-            <p>{chosenCategories.join(', ')}</p>
-            <div className="flex flex-row justify-between" onClick={() => setIsExtended(!isExtended)}>
+            {/* <p className="text-xs">{chosenCategories.join(', ')}</p> */}
+            <div className="flex flex-row justify-between hover:cursor-pointer hover:font-semibold" onClick={() => setIsExtended(!isExtended)}>
                 <p className="border-t border-t-white">{label.toUpperCase()}</p>
-                <p>{count}</p>
+                <p>
+                    {count}
+                    {
+                        chosenCategories.length > 0 && 
+                            <span className="text-primary text-sm"> | {chosenCategories.length}</span>
+                    }
+                </p>
             </div>
             {
                 isExtended && 
@@ -55,6 +61,7 @@ export default function OfferingsMenuItem({
                                 <label key={category} className="flex items-center gap-2">
                                     <input 
                                         type="checkbox" 
+                                        className="opacity-0 w-2"
                                         checked={chosenCategories.map(c => c.toLowerCase().trim()).includes(category.toLowerCase().trim())}
                                         onChange={(event) => {
                                             if(event.target.checked) {
@@ -64,7 +71,7 @@ export default function OfferingsMenuItem({
                                             }
                                         }}
                                     />
-                                    <span>{category}</span>
+                                    <span className={`${ chosenCategories.includes(category) && "font-extrabold text-primary" }`}>{category}</span>
                                 </label>
                             )
                         })
