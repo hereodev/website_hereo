@@ -62,7 +62,6 @@ model User {
   author_info    Author?
   uploaded_media Media[]
   Session        Session[]
-  Site           Site[]
 }
 
 model Authorship {
@@ -75,11 +74,12 @@ model Authorship {
 }
 
 model Author {
-  id              Int          @id @default(autoincrement())
-  name            String
-  user_id         String?      @unique(map: "author_user_unique") @db.Uuid
-  associated_user User?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "author_user_fk")
-  Authorship      Authorship[]
+  id               Int          @id @default(autoincrement())
+  name             String
+  user_id          String?      @unique(map: "author_user_unique") @db.Uuid
+  associated_user  User?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "author_user_fk")
+  Authorship       Authorship[]
+  sitesOfBelonging Site[]
 }
 
 model Account {
@@ -124,13 +124,13 @@ model SubCategory {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model Site {
-  id          Int    @id @default(autoincrement())
-  description String
-  user_id     String @db.Uuid
-  number      Int
-  User        User   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id        Int    @id @default(autoincrement())
+  text      String
+  author_id Int
+  number    Int
+  Author    Author @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@unique([user_id, number])
+  @@unique([author_id, number])
 }
 
 enum UserRole {

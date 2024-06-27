@@ -98,6 +98,10 @@ export default async function Art({ params }: { params: { slug: string, lang: st
     console.log("FOUND ART " + slug, art)
 
     if(art) {
+      const artText = art.long_text && /^".*"$/.test(art.long_text)
+      // Remove the '"' at the beginning and end of the string if they're there
+        ? art.long_text.slice(1, -1)
+        : art.long_text;
       return (
         <main>
           <h1>{art.title}</h1>
@@ -113,8 +117,8 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             art.long_text && <div className="prose" dangerouslySetInnerHTML={{__html: art.long_text}}></div>
           } */}
           {
-  art.long_text && 
-  <div className="prose w-full min-w-full" dangerouslySetInnerHTML={{__html: art.long_text}}></div>
+  artText && 
+  <div className="prose w-full min-w-full" dangerouslySetInnerHTML={{__html: artText}}></div>
 }
           {
             art.associated_media && 
@@ -140,7 +144,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                   </div>
                 )
               })
-                        }
+              }
             </div>
           }
           {/* <h2>Session (server)</h2>

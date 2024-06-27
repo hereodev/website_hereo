@@ -8,6 +8,7 @@ import EditableProfile from "@/app/_components/auth/editable-profile"
 import prisma from "@/prisma"
 import Link from "next/link"
 import { FiEdit, FiTrash } from "react-icons/fi"
+import Image from "next/image"
 
 type Props = {
     params: { id: string }
@@ -103,18 +104,25 @@ export default async function Profile() {
           </div>
         }
         <h2>My Media</h2>
+              <div className="flex flew-row gap-2 flex-wrap">
         {
           userMedia.length === 0 ? <p>No media uploaded yet.</p>
           :
           userMedia.map((media) => {
+            if(media.url === null || media.url === undefined) return null
             return (
-              <div key={media.id}>
-                <p>{media.title}</p>
-                {/* <img src={media.url} alt={media.title} /> */}
+              <div key={media.id} title={media.title || ""} className="w-24 h-24">
+                {/* <p>{media.title}</p> */}
+                <img 
+                  src={media.url} 
+                  alt={media.title || ""} 
+                  className="object-contain object-center w-full"
+                />
               </div>
             )
           })
         }
+        </div>
 
       </main>
     )

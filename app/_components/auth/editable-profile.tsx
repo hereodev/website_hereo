@@ -67,6 +67,26 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
         // TODO: send email to new adress.
     };
 
+    const handleSiteChange = useDebouncedCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value);
+        console.log(e.target.id.charAt(4))
+
+        if(userId) { 
+            const userUpdated = await fetch(`/api/user?userId=${userId}&site=${e.target.value}&num=${e.target.id.charAt(4)}`, {
+                method: 'PUT',
+            });
+
+            // const userUpdated = await changeName(userId, e.target.value); 
+            // console.log("userUpdated", userUpdated)
+            if(userUpdated.ok) {
+                console.log("site changed successfully")
+                setChangedName(true);
+            } else {
+                console.error("error changing site")
+            }
+        }
+
+    }, 1000);
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
@@ -108,6 +128,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                 </div>
                 <h2>Sites of belonging</h2>
                 <p>You can enter up to 3 sites of belonging.</p>
+                <p>Make sure you entered a name above for your sites of belonging to be saved.</p>
                 <div className="label w-full">
                     <label htmlFor="site1" className="form-control w-full max-w-xs">
                         <div className="label"><span className="label-text">Site n°1</span></div>
@@ -116,7 +137,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         type="text"
                         id="site1"
                         defaultValue={""}
-                        // onChange={handleEmailChange}
+                        onChange={handleSiteChange}
                         className="input input-bordered w-full"
                     />
                 </div>
@@ -128,7 +149,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         type="text"
                         id="site2"
                         defaultValue={""}
-                        // onChange={handleEmailChange}
+                        onChange={handleSiteChange}
                         className="input input-bordered w-full"
                     />
                 </div>
@@ -140,7 +161,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         type="text"
                         id="site3"
                         defaultValue={""}
-                        // onChange={handleEmailChange}
+                        onChange={handleSiteChange}
                         className="input input-bordered w-full"
                     />
                 </div>
