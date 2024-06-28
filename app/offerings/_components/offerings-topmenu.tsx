@@ -74,7 +74,7 @@ export default async function OfferingsTopMenu() {
         <OfferingsMenuItem 
             label="SITES OF BELONGING" 
             count={allSites.length} 
-            categories={allSites && allSites.map(s => s.description) || []} 
+            categories={allSites && allSites.map(s => s.text) || []} 
             searchParamsEntry="sites"
         />
     </div>

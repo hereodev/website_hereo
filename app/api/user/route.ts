@@ -58,23 +58,22 @@ export async function PUT(request: NextRequest) {
                     })
             }
         } else {
-                    sites = await prisma.site.upsert({
-                        where: {
-                            author_id_number: {
-                                author_id: author.id,
-                                number: parseInt(siteNum)
-                            }
-                        },
-                        update: {
-                            text: newSite
-                        },
-                        create: {
-                            author_id: author.id,
-                            number: parseInt(siteNum),
-                            text: newSite,
-                        }
-                    })
-            
+            sites = await prisma.site.upsert({
+                where: {
+                    author_id_number: {
+                        author_id: author.id,
+                        number: parseInt(siteNum)
+                    }
+                },
+                update: {
+                    text: newSite
+                },
+                create: {
+                    author_id: author.id,
+                    number: parseInt(siteNum),
+                    text: newSite,
+                }
+            })
         }
     
         if(sites) {
