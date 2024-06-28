@@ -168,7 +168,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <div className="flex-1 basis-[49%]">
               <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
               <p>Sites of belonging: []</p>
-              <p>Prompts: []</p>
+              <p>Keywords: []</p>
             </div>
             <div className="basis-[2%] divider sm:divider-horizontal"></div>
             <div className="flex-1 basis-[49%]">

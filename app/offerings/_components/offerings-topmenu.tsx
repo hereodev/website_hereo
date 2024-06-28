@@ -60,10 +60,10 @@ export default async function OfferingsTopMenu() {
             </div>
         </div> */}
         <OfferingsMenuItem 
-            label="PROMPTS" 
+            label="KEYWORDS" 
             count={allTags} 
             categories={allCategories && allCategories.map(c => c.name) || []} 
-            searchParamsEntry="prompts" 
+            searchParamsEntry="keywords" 
         />
         <OfferingsMenuItem 
             label="PEOPLE" 

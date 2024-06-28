@@ -24,7 +24,7 @@ export default async function Loading() {
             </label>
         </div>
                 <div className="flex flex-row justify-between">
-                    <p className="border-t border-t-white">PROMPTS</p>
+                    <p className="border-t border-t-white">KEYWORDS</p>
                     <p>?</p>
                 </div>
                 <div className="flex flex-row justify-between">

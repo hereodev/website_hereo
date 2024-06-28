@@ -21,7 +21,7 @@ export default async function Page({ params: { lang } } : { params: { lang: Loca
     return (
         <main className="flex flex-col items-center justify-between">
             {/* <div className="z-20 text-3xl font-semibold">Welcome.</div> */}
-            <Invitations welcome />
+            {/* <Invitations welcome /> */}
             <VideoPlayer />
 
         {/* <h1>Page in Lang</h1>
