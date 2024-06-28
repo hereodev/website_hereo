@@ -133,7 +133,7 @@ const UploadForm = ({userId} : {userId: string}) => {
 
     return(
         <div>
-            <h1>Upload Art</h1>
+            <h1>Upload Work</h1>
 
             <form 
                 onSubmit={handleSubmit(onSubmit)} 

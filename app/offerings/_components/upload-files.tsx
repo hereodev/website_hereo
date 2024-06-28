@@ -43,7 +43,7 @@ type FileUpload = {
 
     return (
         <main>
-            <h1>Upload Art</h1>
+            <h1>Upload Work</h1>
             <form onSubmit={onSubmit} className="form flex flex-col w-full">
                 <input 
                     type="file" 

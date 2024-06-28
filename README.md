@@ -3,6 +3,7 @@
 [x] Une page "about" qui s'appelle saay/yaas
 [x] The Acts => Encounters
 [x] English only
+[ ] cacher le menu des offerings, on clique sur le triangle ça le montre.
 [ ] Home :
     - [x] Enlever le bouton pause.
     - [x] Invitations : menu déroulant horizontal

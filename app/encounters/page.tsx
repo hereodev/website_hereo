@@ -97,7 +97,7 @@ export default function TheActs() {
             
     return (
         <main>
-            <h1>The Acts</h1>
+            <h1>Encounters</h1>
             <p>Coming soon.</p>
             <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                 {sortedEvents.map((event, index) => (

@@ -53,10 +53,10 @@ export default async function Offerings() {
     return (
         <main>
             <div className="w-full flex flex-row flex-nowrap items-center justify-between">
-                <h1>Offerings</h1>
+                <h1 className="">Offerings</h1>
                 {
                     session && session.user &&
-                    <Link href="/offerings/upload" className={`${"btn btn-outline btn-primary"}`}>Upload Art</Link>
+                    <Link href="/offerings/upload" className={`${"uppercase border p-2 hover:font-bold"}`}>Upload Work</Link>
                 }
             </div>
         <div className={` grid grid-cols-1 md:grid-cols-3 gap-4 px-1`}>

@@ -17,7 +17,7 @@ export default function UploadArt() {
 
     return (
         <main>
-            <h1>Upload Art</h1>
+            <h1>Upload Work</h1>
             <form action={upload} className="form">
                 <input 
                     type="file" 
