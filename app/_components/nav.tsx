@@ -7,8 +7,9 @@ import { UserWithRole } from "@/global";
 import prisma from "@/prisma";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { FiLogIn, FiLogOut, FiMenu, FiUser, FiX } from "react-icons/fi";
+import { FiLogIn, FiLogOut, FiMenu, FiTriangle, FiUser, FiX } from "react-icons/fi";
 import NavUser from "./nav-user";
+import { usePathname } from 'next/navigation';
 
 export default function Nav({ lang } : { lang: string}) {
     const { data: session, update } = useSession()
@@ -54,6 +55,9 @@ export default function Nav({ lang } : { lang: string}) {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMenuOpen(event.target.checked);
     };
+    const pathname = usePathname();
+    const parentPath = pathname.split("/")[1];
+    const hasChildPath = pathname.split("/").length > 2;
 
     return (
         <div className="navbar bg-base-100 bg-opacity-90 fixed top-0 left-0 z-50">
@@ -63,6 +67,10 @@ export default function Nav({ lang } : { lang: string}) {
                 :Her(e), Otherwise
             {/* </div> */}
         </Link>
+        {/* <div className="flex flex-row gap-3 px-12">
+            <p>{pathname.split("/")[1]}</p>
+            <p>{hasChildPath && pathname.split("/").length}</p>
+        </div> */}
         <div className="md:flex flex-row gap-4 hidden">
             {
                 links.filter((l:any)=> {
@@ -72,14 +80,34 @@ export default function Nav({ lang } : { lang: string}) {
                         return l.public
                     }
                 }).map(({ href, label, labelFr }) => (
-                    <Link key={href} className="font-bold hover:underline hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
+                    <Link 
+                        key={href} 
+                        className={`uppercase ${(href==parentPath && hasChildPath) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-row items-center gap-1 ${("/"+pathname.split("/")[1]) == href && "text-white"}`} 
+                        href={href}
+                    >
+                        {/* {("/"+pathname.split("/")[1]) == href && 
+                            <span><FiTriangle className="h-3 w-3 stroke-white" style={{transform:`rotate(${!hasChildPath ? 90 : 180}deg)`}} /></span>
+                        } */}
+                        {lang=="fr"?labelFr:label}
+                    </Link>
                 ))
             }
             {
                 session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
-                <Link className="font-bold hover:underline hover:cursor-pointer" href={"/admin_saay_yaas"}>Admin</Link>
+                <Link className={`uppercase ${("/admin_saay_yaas"==parentPath && hasChildPath) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-row items-center gap-1`} href={"/admin_saay_yaas"}>
+                    {/* {pathname.split("/")[1] == "admin_saay_yaas" && 
+                        <span><FiTriangle className="h-3 w-3 stroke-white" style={{transform:`rotate(${!hasChildPath ? 90 : 180}deg)`}} /></span>
+                    } */}
+                    Admin
+                </Link>
             }
-
+            {/* <>
+                <Link className={`uppercase text-white ${(href==parentPath && hasChildPath) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-col items-center justify-center`} href={"/admin_saay_yaas"}>
+                        <span><FiTriangle className="h-2 w-2 stroke-white" style={{transform:`rotate(180deg)`}} /></span>
+                    Test
+                        <span><FiTriangle className="h-2 w-2 stroke-white" style={{transform:`rotate(0deg)`}} /></span>
+                </Link>
+            </> */}
             <div className="divider divider-horizontal mx-0"></div>
             {/* <span className="">
                 <LocaleSwitcher />

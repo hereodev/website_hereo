@@ -44,39 +44,49 @@ export default async function OfferingsTopMenu() {
 
 
     return (
-    <div className="flex flex-col w-full gap-2">
-        <SearchBar />
-        {/* <IndexSearchBar value={searchTerm} onChange={setSearchTerm} /> */}
-        {/* TODO: tags  */}
-        {/* <div className="collapse rounded-none ">
-            <input type="checkbox" />
-            <div className="collapse-title p-0 flex flex-row justify-between">
-                <p className="border-t border-t-white">PROMPTS</p>
-                <p className="">{allTags}</p>
-            </div>
-            <div className="collapse-content">
-                <p>contenu 1</p>
-                <p>prompt XYZ</p>
-            </div>
-        </div> */}
-        <OfferingsMenuItem 
-            label="KEYWORDS" 
-            count={allTags} 
-            categories={allCategories && allCategories.map(c => c.name) || []} 
-            searchParamsEntry="keywords" 
-        />
-        <OfferingsMenuItem 
-            label="PEOPLE" 
-            count={countAuthors} 
-            categories={allAuthors && allAuthors.map(a => a.name) || []} 
-            searchParamsEntry="authors" 
-        />
-        <OfferingsMenuItem 
-            label="SITES OF BELONGING" 
-            count={allSites.length} 
-            categories={allSites && allSites.map(s => s.text) || []} 
-            searchParamsEntry="sites"
-        />
+    <div className="collapse min-w-64 w-64">
+    <input type="checkbox" />
+        <div className="collapse-content flex flex-col w-full gap-2">
+            <SearchBar />
+            {/* <IndexSearchBar value={searchTerm} onChange={setSearchTerm} /> */}
+            {/* TODO: tags  */}
+            {/* <div className="collapse rounded-none ">
+                <input type="checkbox" />
+                <div className="collapse-title p-0 flex flex-row justify-between">
+                    <p className="border-t border-t-white">PROMPTS</p>
+                    <p className="">{allTags}</p>
+                </div>
+                <div className="collapse-content">
+                    <p>contenu 1</p>
+                    <p>prompt XYZ</p>
+                </div>
+            </div> */}
+            <OfferingsMenuItem
+                label="KEYWORDS"
+                count={allTags}
+                categories={allCategories && allCategories.map(c => c.name) || []}
+                searchParamsEntry="keywords"
+            />
+            <OfferingsMenuItem
+                label="PEOPLE"
+                count={countAuthors}
+                categories={allAuthors && allAuthors.map(a => a.name) || []}
+                searchParamsEntry="authors"
+            />
+            <OfferingsMenuItem
+                label="SITES OF BELONGING"
+                count={allSites.length}
+                categories={allSites && allSites.map(s => s.text) || []}
+                searchParamsEntry="sites"
+            />
+        </div>
+
+    <div className="collapse-title p-0 m-0">
+        <div className="divider my-2"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div>
+    </div>
+
+
+
     </div>
 
     )

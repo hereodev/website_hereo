@@ -59,10 +59,9 @@ export default async function Offerings() {
                     <Link href="/offerings/upload" className={`${"uppercase border p-2 hover:font-bold"}`}>Upload Work</Link>
                 }
             </div>
-        <div className={` grid grid-cols-1 md:grid-cols-3 gap-4 px-1`}>
+        <div className={`flex flex-row flex-wrap gap-4 px-1`}>
             <div>
                 <OfferingsTopMenu />
-                <div className="divider my-2"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div>
             </div>
 
             {

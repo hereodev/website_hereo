@@ -19,7 +19,6 @@ export default function About() {
             <p><b>Anna Abengowe</b> Nigéria, Angleterre | architecte, designer, professeure, maker, voyageure, curious, voice‑finder, joker, tante</p>
             <p><b>Patti Anahory</b> Cabo Verde, São Tomé, New York | architecte, professeure, commissaire, commentatrice, critique, observer, designer, mère, collaboratrice</p>
             <p><b>Mawena Yehouessi</b> Bénin, Togo, Sénégal, France | chercheuse, praticienne, curatrice, écrivaine/ traductrice, collusionist, avatar, amante, sœur et enfant</p>
-
         </main>
     )
 }
