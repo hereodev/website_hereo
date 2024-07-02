@@ -30,14 +30,24 @@ export default async function OfferingsTopMenu() {
         })
 
         allTags = await prisma.category.count()
-        allAuthors = await prisma.author.findMany()
-        allCategories = await prisma.category.findMany()
-        allSites = await prisma.site.findMany()
-        if(allAuthors) {
-            countAuthors = allAuthors.length
-        } else {
-            allAuthors = []
-        }
+        // allAuthors = await prisma.author.findMany()
+        // allCategories = await prisma.category.findMany()
+        // allSites = await prisma.site.findMany()
+        // if(allAuthors) {
+        //     countAuthors = allAuthors.length
+        // } else {
+        //     allAuthors = []
+        // }
+        allAuthors = await prisma.author.findMany({
+            where: {
+              Authorship: {
+                some: {},
+              },
+            },
+          });
+          countAuthors = allAuthors.length;
+          allCategories = await prisma.category.findMany();
+          allSites = await prisma.site.findMany();
     } catch (error) {
         console.error(error)
     }

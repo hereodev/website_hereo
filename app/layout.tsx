@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: ":Her(e) Otherwise" + " | " + process.env.NODE_ENV,
     description: "Welcome to Her(e) Otherwise, a digital space for art, writing, and community.",
     icons: {
-        icon: '/favicon.ico', // /public path
+        icon: '/favicon_hereo.svg', // /public path
     },
 };
 
@@ -32,7 +32,7 @@ export default function RootLayout({
         <html lang={params.lang || "en-US"}>
             <Providers>
                 <head>
-                <link rel="icon" href="/favicon.ico" sizes="any" />
+                <link rel="icon" href="/favicon_hereo.svg" sizes="any" />
                 </head>
                 
                 <body className={`${displayFont.className} flex flex-col min-h-screen mx-4 mb-6`}>

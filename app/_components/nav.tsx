@@ -95,9 +95,6 @@ export default function Nav({ lang } : { lang: string}) {
             {
                 session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
                 <Link className={`uppercase ${("/admin_saay_yaas"==parentPath && hasChildPath) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-row items-center gap-1`} href={"/admin_saay_yaas"}>
-                    {/* {pathname.split("/")[1] == "admin_saay_yaas" && 
-                        <span><FiTriangle className="h-3 w-3 stroke-white" style={{transform:`rotate(${!hasChildPath ? 90 : 180}deg)`}} /></span>
-                    } */}
                     Admin
                 </Link>
             }
@@ -117,7 +114,7 @@ export default function Nav({ lang } : { lang: string}) {
                 {session?.user && 
                 <Link href={"/profile"}>
                     <div className="avatar placeholder" title="Profile">
-                        <div className="bg-info text-neutral-content rounded-full w-8">
+                        <div className="bg-none border border-base-content text-neutral-content rounded-full w-8">
                         <span className="text-xs">
                             {name ? (name.match(/[A-Z]/g) || []).slice(0, 2).join('') : 
                             <FiUser className="w-4 h-4 opacity-70" />
