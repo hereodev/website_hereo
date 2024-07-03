@@ -98,7 +98,7 @@ const UploadForm = ({userId} : {userId: string}) => {
         return (
             <label className="form-control w-full">
                 <div className="label pb-1">
-                    <span className="label-text text-xl font-semibold text-primary">{label}</span>
+                    <span className="label-text title-txt">{label}</span>
                     {
                         required && (
                             <span className="label-text-alt text-error text-sm opacity-80">required*</span>
@@ -144,6 +144,7 @@ const UploadForm = ({userId} : {userId: string}) => {
 
                 <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
 
+                <WatchedInput name="date" label="date" type="date" placeholder="date" />
                 {/* Catégorie */}
                 <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
 
@@ -153,7 +154,7 @@ const UploadForm = ({userId} : {userId: string}) => {
 
                 <label className="form-control">
                     <div className="label pb-1">
-                        <span className="label-text text-xl font-semibold text-primary">Content</span>
+                        <span className="label-text title-txt">Content</span>
                         {/* <span className="label-text-alt">Alt label</span> */}
                     </div>
                     {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
@@ -215,7 +216,7 @@ function UploadButton({ pending } : {pending: boolean}) {
     // const { pending } = useFormStatus();
  
     return (
-        <button className={`btn btn-primary mt-4 w-full`} disabled={pending} aria-disabled={pending}>
+        <button className={`btn btn-outline mt-4 w-full`} disabled={pending} aria-disabled={pending}>
             {
                 pending ?
                 <span className="text-primary text-2xl flex flex-row items-base gap-2">

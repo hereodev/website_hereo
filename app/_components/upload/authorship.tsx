@@ -73,7 +73,7 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
     return (
         <div className="form-control w-full">
             <div className="label pb-1">
-                <span className="label-text text-xl font-semibold text-primary">Author(s)</span>
+                <span className="label-text title-txt">Author(s)</span>
                     <span className="label-text-alt text-error text-sm opacity-80">required*</span>
             </div>
 
@@ -124,7 +124,7 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
                             <input 
                                 type="text" 
                                 id="name"
-                                placeholder="Search for author or add new one"
+                                placeholder="Search for author or add new one" // TODO: !!!!!
                                 onChange={(e) => setSearchedAuthor(e.target.value)}
                                 className={"input input-sm input-bordered italic " + (validateName ? "border-success text-success" : "")}
                             />

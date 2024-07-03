@@ -22,50 +22,145 @@ export async function addFileToDb({ file, userId } : { file: File, userId: strin
     return fileRecord;
 }
 
-export async function deleteFileFromDb({ fileId } : { fileId: number }) {
-    // console.log("deleting file...", file.name, userId);
-    const deletedFile = await prisma.media.delete({
+export async function deleteFileFromDbAndBunny({ fileId } : { fileId: number }) {
+
+    const fileToDelete = await prisma.media.findUnique({
         where: {
             id: fileId,
-        }
+        },
     });
-    return deletedFile;
+    if(fileToDelete) {
+        // delete from BunnyCDN
+        // const bunnyDelete = await fetch(`https://storage.bunnycdn.com/delete/${fileToDelete.url}`, {
+        //     method: "DELETE",
+        //     headers: {
+        //         "AccessKey": process.env.BUNNYCDN_ACCESS_KEY,
+        //     },
+        // });
+        // console.log("bunny delete response", bunnyDelete);
+        // delete from db
+        const deletedFile = await prisma.media.delete({
+            where: {
+                id: fileId,
+            }
+        });
+        return deletedFile;
+    }
+    // console.log("deleting file...", file.name, userId);
+}
+export async function logArtDetails({ artId }: { artId: number }) {
+    console.log("Fetching artwork details for ID:", artId);
+    const artDetails = await prisma.art.findUnique({
+        where: {
+            id: artId,
+        },
+        include: {
+            associated_media: true,
+            authors: true,
+        },
+    });
+
+    console.log("Artwork details:", artDetails);
+
+    if (artDetails && artDetails.associated_media.length > 0) {
+        console.log("Associated media details:", artDetails.associated_media);
+    }
+
+    const authorDetails = await prisma.authorship.findMany({
+        where: {
+            art_id: artId,
+        },
+    });
+
+    console.log("Authorship details:", authorDetails);
+
+    const mediaInArtDetails = await prisma.mediaInArt.findMany({
+        where: {
+            art_id: artId,
+        },
+    });
+
+    console.log("Media in Art details:", mediaInArtDetails);
+
+    // Note: No actual deletion is performed, only logging
 }
 
-export async function uploadArt2(
-    { files, userId, title, subtitle, longText }: 
-    { files: UploadedFile[], userId: string, title: string, subtitle?: string, longText?: string }
-) {
-    // console.log("uploading art...", file.name, userId);
-    // const { name, type } = file;
-    // const artRecord = await prisma.art.create({
-    //     data: {
-    //         title,
-    //         subtitle,
-    //         long_text: longText,
-    //         uploader: {
-    //             connect: { id: userId },
-    //         },
-    //         associated_media: {
-    //             create: {
-    //                 media: {
-    //                     create: {
-    //                         title: name,
-    //                         type,
-    //                         uploader: {
-    //                             connect: { id: userId },
-    //                         },
-    //                     },
-    //                 },
-    //             },
-    //         },
-    //     },
-    //     include: {
-    //         associated_media: true,
-    //     },
-    // });
-    // return artRecord;
+/**
+ * Deletes an artwork and its associated media, authorship records, and media references.
+ * If any operation fails, the transaction is rolled back.
+ *
+ * @param {object} params - The parameters for deleting art.
+ * @param {number} params.artId - The ID of the art to delete.
+ * @returns {Promise<object>} - The result of the deletion operations.
+ */
+export async function deleteArt({ artId }: { artId: number }) {
+    console.log("Deleting artwork with ID:", artId);
+
+    try {
+        const result = await prisma.$transaction(async (prisma) => {
+            // Find the artwork to delete with associated media and authors
+            const artToDelete = await prisma.art.findUnique({
+                where: { id: artId },
+                include: {
+                    associated_media: true,
+                    authors: true,
+                },
+            });
+
+            if (!artToDelete) {
+                throw new Error(`Art with ID ${artId} not found.`);
+            }
+
+            console.log("Found artwork:", artToDelete);
+
+            // Delete media references first to avoid foreign key constraint issues
+            const deletedMediaFk = await prisma.mediaInArt.deleteMany({
+                where: { art_id: artId },
+            });
+            console.log("Deleted media references:", deletedMediaFk);
+
+            // Delete associated media
+            let deletedMedia = {};
+            if (artToDelete.associated_media.length > 0) {
+                deletedMedia = await prisma.media.deleteMany({
+                    where: {
+                        id: {
+                            in: artToDelete.associated_media.map((media) => media.media_id),
+                        },
+                    },
+                });
+                console.log("Deleted associated media:", deletedMedia);
+            }
+
+            // Delete authorship records
+            const deletedAuthors = await prisma.authorship.deleteMany({
+                where: { art_id: artId },
+            });
+            console.log("Deleted authorship records:", deletedAuthors);
+
+            // Delete the artwork itself
+            const deletedArt = await prisma.art.delete({
+                where: { id: artId },
+            });
+            console.log("Deleted artwork:", deletedArt);
+
+            return {
+                deleted_art: deletedArt,
+                deleted_authors: deletedAuthors,
+                deleted_media: deletedMedia,
+                deleted_media_fk: deletedMediaFk,
+                deletion_successful: true,
+            };
+        });
+
+        return result;
+    } catch (error) {
+        console.error("Error deleting artwork:", error);
+        throw error;
+    }
 }
+
+
 
 export async function connectUserToAuthor({ userId, authorName } : { userId: string, authorName: string }) {
     //  if user already has an author, return that author, change the author name if it is different, and return.

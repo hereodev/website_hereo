@@ -5,6 +5,7 @@ import { i18n, type Locale } from "@/i18n-config";
 import Nav from "@/app/_components/nav";
 // import Navbar from "@/app/_components/navbar";
 import { Providers } from "./providers";
+import EventAlert from "./_components/event-alert";
 
 const inter = Inter({ subsets: ["latin"] });
 const displayFont = Raleway({ weight: ['400', '700'], subsets: ["latin"] });
@@ -40,6 +41,7 @@ export default function RootLayout({
                     {/* <Navbar lang={params.lang} /> */}
                     <div className="h-[--height-navbar]"></div>
                     {children}
+                    {/* <EventAlert /> */}
                 </body>
             </Providers>
         </html>

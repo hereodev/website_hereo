@@ -16,7 +16,6 @@
   }
 }
 
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -33,6 +32,15 @@
   --color-tag-light-blue: #01FFFF; /* Light Blue */
   --color-editable: #01FFFF; /* Light Blue */
   --color-timeline: #FFFF00; /* Bright Yellow */
+}
+
+.title-txt {
+  @apply uppercase text-lg border-t border-t-base-content;
+  /* @apply uppercase text-lg border-t border-t-base-content hover:border-none; */
+}
+
+.btn {
+  @apply rounded-none font-medium uppercase;
 }
 
 /* @media (prefers-color-scheme: dark) {

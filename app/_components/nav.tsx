@@ -48,7 +48,7 @@ export default function Nav({ lang } : { lang: string}) {
     const links = [
         // { href: '/', label: 'Home', labelFr:'Maison', public: true },
         { href: '/offerings', label: 'Offerings', labelFr:'Recueil', public: true },
-        { href: '/encounters', label: 'Encounters', labelFr:'Rencontres', public: true },
+        { href: '/encounters', label: 'Encounters', labelFr:'Rencontres', public: false },
         { href: '/about', label: 'About', labelFr:'A propos', public: true },
         // { href: '/protected', label: 'protected route', labelFr:'Protégé', public: true },
     ]
@@ -57,19 +57,19 @@ export default function Nav({ lang } : { lang: string}) {
     };
     const pathname = usePathname();
     const parentPath = pathname.split("/")[1];
-    const hasChildPath = pathname.split("/").length > 2;
+    const isNotTopPath = pathname.split("/").length > 2;
 
     return (
         <div className="navbar bg-base-100 bg-opacity-90 fixed top-0 left-0 z-50">
-        <Link href="/" className="flex-1 z-50 font-semibold uppercase text-2xl">
+        <Link href="/" className="flex-1 z-50 font-semibold text-2xl">
             {/* <h1 className="sr-only">Her(e) Otherwise</h1> */}
             {/* <div className="flex gap-4 w-full items-center text-2xl font-semibold uppercase text-white"> */}
-                :Her(e), Otherwise
+                :her(e), otherwise
             {/* </div> */}
         </Link>
         {/* <div className="flex flex-row gap-3 px-12">
             <p>{pathname.split("/")[1]}</p>
-            <p>{hasChildPath && pathname.split("/").length}</p>
+            <p>{isNotTopPath && pathname.split("/").length}</p>
         </div> */}
         <div className="md:flex flex-row gap-4 hidden">
             {
@@ -82,11 +82,11 @@ export default function Nav({ lang } : { lang: string}) {
                 }).map(({ href, label, labelFr }) => (
                     <Link 
                         key={href} 
-                        className={`uppercase ${(href==parentPath && hasChildPath) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-row items-center gap-1 ${("/"+pathname.split("/")[1]) == href && "text-white"}`} 
+                        className={`uppercase border-t border-t-black ${(isNotTopPath || (href!=parentPath)) && "hover:border-t-base-content"} hover:cursor-pointer flex flex-row items-center gap-1 ${("/"+pathname.split("/")[1]) == href && "text-white"}`} 
                         href={href}
                     >
                         {/* {("/"+pathname.split("/")[1]) == href && 
-                            <span><FiTriangle className="h-3 w-3 stroke-white" style={{transform:`rotate(${!hasChildPath ? 90 : 180}deg)`}} /></span>
+                            <span><FiTriangle className="h-3 w-3 stroke-white" style={{transform:`rotate(${!isNotTopPath ? 90 : 180}deg)`}} /></span>
                         } */}
                         {lang=="fr"?labelFr:label}
                     </Link>
@@ -94,12 +94,12 @@ export default function Nav({ lang } : { lang: string}) {
             }
             {
                 session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
-                <Link className={`uppercase ${("/admin_saay_yaas"==parentPath && hasChildPath) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-row items-center gap-1`} href={"/admin_saay_yaas"}>
+                <Link className={`uppercase ${(("/admin_saay_yaas"==parentPath && isNotTopPath) || ("/admin_saay_yaas"!=parentPath)) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-row items-center gap-1`} href={"/admin_saay_yaas"}>
                     Admin
                 </Link>
             }
             {/* <>
-                <Link className={`uppercase text-white ${(href==parentPath && hasChildPath) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-col items-center justify-center`} href={"/admin_saay_yaas"}>
+                <Link className={`uppercase text-white ${((href==parentPath && isNotTopPath) || (href!=parentPath)) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-col items-center justify-center`} href={"/admin_saay_yaas"}>
                         <span><FiTriangle className="h-2 w-2 stroke-white" style={{transform:`rotate(180deg)`}} /></span>
                     Test
                         <span><FiTriangle className="h-2 w-2 stroke-white" style={{transform:`rotate(0deg)`}} /></span>
@@ -132,13 +132,13 @@ export default function Nav({ lang } : { lang: string}) {
                 //     await signOut()
                 //     window.location.reload()
                 // }}
-            // <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
+            // <Link className="btn btn-sm btn-outline" href="/auth/signin" title="Sign In">
             //     <FiLogOut />
             //     Log Out
             // </Link>
             <></>
             : 
-            <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
+            <Link className="btn btn-sm btn-outline" href="/auth/signin" title="Sign In">
                 <FiLogIn />
                 Login
             </Link>
@@ -201,7 +201,7 @@ export default function Nav({ lang } : { lang: string}) {
                 //     await signOut()
                 //     window.location.reload()
                 // }}
-            // <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
+            // <Link className="btn btn-sm btn-outline" href="/auth/signin" title="Sign In">
             //     <FiLogOut />
             //     Log Out
             // </Link> /////
@@ -217,7 +217,7 @@ export default function Nav({ lang } : { lang: string}) {
             // </form>
             <></>
             : 
-            <Link className="btn btn-sm btn-primary btn-outline" href="/auth/signin" title="Sign In">
+            <Link className="btn btn-sm btn-outline" href="/auth/signin" title="Sign In">
                 <FiLogIn />
                 Login
             </Link>

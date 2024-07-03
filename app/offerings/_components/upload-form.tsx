@@ -33,7 +33,7 @@ export default function UploadArt() {
                     onChange={(e) => setFile(e.target.files?.[0])}
                 />
 
-                <input type="submit" value="Upload" className="btn btn-primary" />
+                <input type="submit" value="Upload" className="btn btn-outline" />
 
             </form>
         </main>

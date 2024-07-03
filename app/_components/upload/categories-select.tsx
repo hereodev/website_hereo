@@ -99,7 +99,7 @@ const subCat = {
         <div>
             <label className="form-control w-full">
                 <div className="label pb-1">
-                    <span className="label-text text-xl font-semibold text-primary">Prompt(s)</span>
+                    <span className="label-text title-txt">Prompt(s)</span>
                     <span className="label-text-alt text-error text-sm opacity-80">required*</span>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
@@ -111,11 +111,11 @@ const subCat = {
                         className={"input input-sm w-full input-bordered italic "}
                     />
                 </div>
-                <div className="flex flex-col max-h-24 overflow-y-scroll">
+                <div className="flex flex-col md:flex-wrap max-h-24 overflow-y-scroll">
                     {
                         session && (session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN") &&
-                        <div className="flex flex-row items-center gap-2 group hover:cursor-pointer w-full">
-                        <label className={`w-full group-hover:underline italic ${selectedCategories.includes("The Acts") ? "font-semibold" : ""}`}>
+                        <div className="flex flex-row items-center gap-2 group hover:cursor-pointer ">
+                        <label className={`w-full group-hover:underline hover:cursor-pointer italic ${selectedCategories.includes("Encounter") ? "font-semibold" : ""}`}>
                         <input 
                             type="checkbox" 
                             name={`chbx-ACTS`} 
@@ -123,14 +123,14 @@ const subCat = {
                             onChange={(e) => {
                                 if(e.target.checked) {
                                     // console.log("checking", category.name)
-                                    setSelectedCategories([...selectedCategories, "The Acts"])
+                                    setSelectedCategories([...selectedCategories, "Encounter"])
                                 } else {
                                     // console.log("unchecking", category.name)
-                                    setSelectedCategories(selectedCategories.filter((a) => a !== "The Acts"))
+                                    setSelectedCategories(selectedCategories.filter((a) => a !== "Encounter"))
                                 }
                             }}
                         />
-                            The Acts
+                            Encounter
                         </label>
                     </div>
 
@@ -147,8 +147,8 @@ const subCat = {
                         ).sort((a,b) => a.name.localeCompare(b.name)).map((category, index) => {
                             // a select with multiple options, with a least of all categories
                             return (
-                                <div key={index} className="flex flex-row items-center gap-2 group hover:cursor-pointer w-full">
-                                    <label className={`w-full group-hover:underline ${selectedCategories.includes(category.name) ? "font-semibold" : ""}`}>
+                                <div key={index} className="flex flex-row items-center gap-2 group hover:cursor-pointer ">
+                                    <label className={`w-full hover:cursor-pointer group-hover:underline ${selectedCategories.includes(category.name) ? "font-semibold" : ""}`}>
                                     <input 
                                         type="checkbox" 
                                         name={`chbx-${category.name}`} 
@@ -172,7 +172,7 @@ const subCat = {
                     </div>
 
                 {selectedCategories.length > 0 && 
-                    <div className="flex w-full flex-row items-center gap-2">
+                    <div className="flex w-full flex-row flex-wrap items-center gap-2">
                         {
 
                         selectedCategories.map((category, index) => {

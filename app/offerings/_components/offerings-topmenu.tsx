@@ -54,7 +54,7 @@ export default async function OfferingsTopMenu() {
 
 
     return (
-    <div className="collapse min-w-64 w-64">
+    <div className="collapse min-w-64 w-64 sm:w-full">
     <input type="checkbox" />
         <div className="collapse-content flex flex-col w-full gap-2">
             <SearchBar />

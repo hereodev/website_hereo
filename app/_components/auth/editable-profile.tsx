@@ -4,14 +4,17 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { changeName, changeEmail, myAction } from '@/app/lib/actions_auth';
 import { useDebouncedCallback } from 'use-debounce';
 import { FiCheck, FiCheckCircle } from 'react-icons/fi';
+import { Media } from '@prisma/client';
 
 interface EditableProfileProps {
     userId?: string | null | undefined;
     initialName?: string | null | undefined;
     initialEmail?: string | null | undefined;
+    initialSites?: string[] | null | undefined;
+    initialMedia?: Media[] | null | undefined;
 }
 
-const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, initialEmail }) => {
+const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, initialEmail, initialSites, initialMedia }) => {
         
     const [name, setName] = useState(initialName || "");
     const [email, setEmail] = useState(initialEmail || "");
@@ -126,6 +129,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         className="input input-bordered w-full"
                     />
                 </div>
+
                 <h2>Sites of belonging</h2>
                 <p>You can enter up to 3 sites of belonging.</p>
                 <p>Make sure you entered a name above for your sites of belonging to be saved.</p>
@@ -136,7 +140,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                     <input
                         type="text"
                         id="site1"
-                        defaultValue={""}
+                        defaultValue={initialSites && initialSites[0] || ""}
                         onChange={handleSiteChange}
                         className="input input-bordered w-full"
                     />
@@ -148,7 +152,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                     <input
                         type="text"
                         id="site2"
-                        defaultValue={""}
+                        defaultValue={initialSites && initialSites[1] || ""}
                         onChange={handleSiteChange}
                         className="input input-bordered w-full"
                     />
@@ -160,7 +164,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                     <input
                         type="text"
                         id="site3"
-                        defaultValue={""}
+                        defaultValue={initialSites && initialSites[2] || ""}
                         onChange={handleSiteChange}
                         className="input input-bordered w-full"
                     />
@@ -180,6 +184,8 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                 {/* <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md">
                     Change Password
                 </button> */}
+
+                
             </div>
         // </div>
     );

@@ -42,7 +42,7 @@ export default async function Profile({ params }: { params: { id: string, lang: 
         {/* {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
         <UserSessionComp /> */}
         { session && session.user && ((session.user as UserWithRole).id == params.id || ((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
-          <button className="btn btn-primary">Edit my profile</button>
+          <button className="btn btn-outline">Edit my profile</button>
         }
       </main>
     )

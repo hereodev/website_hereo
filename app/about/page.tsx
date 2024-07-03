@@ -1,4 +1,5 @@
 import Invitations from "@/app/_components/invitations";
+import Link from "next/link";
 import { FiTriangle } from "react-icons/fi";
 
 export default function About() {
@@ -19,6 +20,10 @@ export default function About() {
             <p><b>Anna Abengowe</b> Nigéria, Angleterre | architecte, designer, professeure, maker, voyageure, curious, voice‑finder, joker, tante</p>
             <p><b>Patti Anahory</b> Cabo Verde, São Tomé, New York | architecte, professeure, commissaire, commentatrice, critique, observer, designer, mère, collaboratrice</p>
             <p><b>Mawena Yehouessi</b> Bénin, Togo, Sénégal, France | chercheuse, praticienne, curatrice, écrivaine/ traductrice, collusionist, avatar, amante, sœur et enfant</p>
+
+            <h2>Our Sponsors</h2>
+            <p><Link href="http://www.grahamfoundation.org/">Graham Foundation</Link></p>
+            <p><Link href="https://www.arcenreve.eu/">Arc en rêve Centre d&apos;architecture</Link></p>
         </main>
     )
 }

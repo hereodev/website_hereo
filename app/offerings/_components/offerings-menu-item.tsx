@@ -12,7 +12,7 @@ export default function OfferingsMenuItem({
 }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
-    const { replace } = useRouter();
+    const { replace: routerReplace } = useRouter();
 
     // console.log("SERCHED?", searchParams.getAll(searchParamsEntry));
 
@@ -26,7 +26,7 @@ export default function OfferingsMenuItem({
         } else {
           params.delete('query');
         }
-        replace(`${pathname}?${params.toString()}`);
+        routerReplace(`${pathname}?${params.toString()}`);
     }
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export default function OfferingsMenuItem({
         } else {
             params.delete(searchParamsEntry);
         }
-        replace(`${pathname}?${params.toString()}`);
+        routerReplace(`${pathname}?${params.toString()}`);
     }, [chosenCategories]);
     return (
         <div>

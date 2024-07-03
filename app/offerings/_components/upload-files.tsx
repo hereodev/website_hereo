@@ -62,7 +62,7 @@ type FileUpload = {
                     }
                 />
 
-                <input type="submit" value="Upload" className="btn btn-primary" />
+                <input type="submit" value="Upload" className="btn btn-outline" />
 
             </form>
             <pre>{JSON.stringify(files, null, 2)}</pre>

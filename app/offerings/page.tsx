@@ -12,8 +12,8 @@ export default async function Offerings() {
 
     let allArt: Art[] = []
     // let allArt: Art & {associated_media?: any[]}[] = []
-    let allTags = 0
-    let allAuthors = 0
+    // let allTags = 0
+    // let allAuthors = 0
 
 
     try {
@@ -24,13 +24,14 @@ export default async function Offerings() {
                         Media: true
                     }
                 },
+                SubCategory: true,
                 uploader: true,
                 authors: true,
             }
         })
 
-        allTags = await prisma.category.count()
-        allAuthors = await prisma.author.count()
+        // allTags = await prisma.category.count()
+        // allAuthors = await prisma.author.count()
     } catch (error) {
         console.error(error)
     }
@@ -56,13 +57,13 @@ export default async function Offerings() {
                 <h1 className="">Offerings</h1>
                 {
                     session && session.user &&
-                    <Link href="/offerings/upload" className={`${"uppercase border p-2 hover:font-bold"}`}>Upload Work</Link>
+                    <Link href="/offerings/upload" className={`${"btn btn-outline p-2"}`}>Upload Work</Link>
                 }
             </div>
-        <div className={`flex flex-row flex-wrap gap-4 px-1`}>
             <div>
                 <OfferingsTopMenu />
             </div>
+        <div className={`flex flex-row flex-wrap gap-4 px-1`}>
 
             {
                 allArt && allArt.map((art) => {

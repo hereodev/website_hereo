@@ -26,7 +26,6 @@ const config: Config = {
         light: {
           ...require("daisyui/src/theming/themes")["halloween"],
           "base-100": "#000000",
-          // secondary: "teal",
           'tag-green': '#01FF00', // Bright Green
           'tag-blue': '#0000FF', // Blue
           'tag-red': '#FF0000', // Red
@@ -34,6 +33,8 @@ const config: Config = {
           'tag-light-blue': '#01FFFF', // Light Blue
           editable: '#01FFFF', // Light Blue
           timeline: '#FFFF00', // Bright Yellow
+          "primary": '#FFFF00',
+          "secondary": "#01FFFF",
         },
       },
     ],
