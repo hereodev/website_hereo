@@ -63,6 +63,7 @@ export default function OfferingsMenuItem({
                                         type="checkbox" 
                                         className="opacity-0 w-2"
                                         checked={chosenCategories.map(c => c.toLowerCase().trim()).includes(category.toLowerCase().trim())}
+                                        // || searchParams.getAll(searchParamsEntry).map(c => c.toLowerCase().trim()).includes(category.toLowerCase().trim())
                                         onChange={(event) => {
                                             if(event.target.checked) {
                                                 setChosenCategories([...chosenCategories, category])

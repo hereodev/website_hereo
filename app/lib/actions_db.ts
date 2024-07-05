@@ -3,7 +3,19 @@
 import { UploadedFile } from "@/global";
 import prisma from "@/prisma";
 import { Art, Author } from "@prisma/client";
-import slugify from "slugify";
+// import slugify from "slugify";
+
+function slugify(text: string): string {
+    return text
+    .normalize('NFD') // Decompose accented letters
+    .replace(/[\u0300-\u036f]/g, '') // Remove accents
+    .toLowerCase() // Normalize the string
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/[^a-z0-9-]/g, '') // Remove unwanted characters
+    .replace(/-+/g, '-') // Avoid multiple hyphens
+    .replace(/^-+|-+$/g, '') // Trim hyphens from start and end
+    .slice(0, 34); // Limit to 34 characters
+}
 
 export async function addFileToDb({ file, userId } : { file: File, userId: string }) {
     console.log("uploading file...", file.name, userId);
@@ -356,6 +368,160 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
 
     return {artRecord, artinMedia};
     // return Promise.resolve("foo");
+}
+
+export async function updateArt({ artId, data }: { artId: number, data: Art & { media?: UploadedFile[], authors?: string[], categories?: string[] } }) {
+    console.log("updating art...", data);
+    const { media, authors, ...artData } = data;
+    let slug = slugify(artData.title);
+    // check if another Art with the same slug exists, if it does, add a number to the slug, incrementing it until it is unique
+    let slugExists = true;
+    let slugNumber = 1;
+    while (slugExists) {
+        const existingArt = await prisma.art.findUnique({
+            where: {
+                slug: slug,
+            },
+        });
+        if (existingArt && existingArt.id !== artId) {
+            slugNumber++;
+            slug = slugify(`${artData.title} ${slugNumber}`);
+        } else {
+            slugExists = false;
+        }
+    }
+
+    let mediaRecords = [];
+    if (media) {
+        console.log("media to be uploaded", media);
+        for (const file of media) {
+            console.log("file", file);
+            const uploadedMedia = await prisma.media.create({
+                data: {
+                    uploader_id: artData.uploader_id,
+                    title: file.title,
+                    type: file.type,
+                    url: file.url,
+                    alt: file.alt,
+                    description: file.alt,
+                    storage: "BunnyCDN",
+                    author: file.author,
+                    date: file.date,
+                },
+            });
+            console.log("uploaded file", uploadedMedia);
+            mediaRecords.push(uploadedMedia);
+        }
+    }
+
+    let artAuthors: Author[] = [];
+    if (authors) {
+        for (const author of authors) {
+            const authorRecord = await prisma.author.findFirst({
+                where: {
+                    name: author,
+                },
+            });
+            if (!authorRecord) {
+                const newAuthor = await prisma.author.create({
+                    data: {
+                        name: author,
+                    },
+                });
+                artAuthors.push(newAuthor);
+            } else {
+                artAuthors.push(authorRecord);
+            }
+        }
+    }
+
+    const updatedArt = await prisma.art.update({
+        where: {
+            id: artId,
+        },
+        data: {
+            slug: slug,
+            title: artData.title,
+            subtitle: artData.subtitle,
+            long_text: artData.long_text,
+        },
+    });
+
+    const existingMediaInArt = await prisma.mediaInArt.findMany({
+        where: {
+            art_id: artId,
+        },
+    });
+
+    const mediaToDelete = existingMediaInArt.filter((mediaInArt) => {
+        return !mediaRecords.some((mediaRecord) => mediaRecord.id === mediaInArt.media_id);
+    });
+
+    const mediaInArtToDelete = mediaToDelete.map((mediaInArt) => mediaInArt.media_id);
+
+    const deletedMediaInArt = await prisma.mediaInArt.deleteMany({
+        where: {
+            media_id: {
+                in: mediaInArtToDelete,
+            },
+        },
+    });
+
+    const deletedMedia = await prisma.media.deleteMany({
+        where: {
+            id: {
+                in: mediaToDelete.map((mediaInArt) => mediaInArt.media_id),
+            },
+        },
+    });
+
+    const existingAuthorships = await prisma.authorship.findMany({
+        where: {
+            art_id: artId,
+        },
+    });
+
+    const authorshipsToDelete = existingAuthorships.filter((authorship) => {
+        return !artAuthors.some((author) => author.id === authorship.author_id);
+    });
+
+    const authorshipsToDeleteIds = authorshipsToDelete.map((authorship) => authorship.author_id);
+
+    const deletedAuthorships = await prisma.authorship.deleteMany({
+        where: {
+            author_id: {
+                in: authorshipsToDeleteIds,
+            },
+        },
+    });
+
+    const deletedAuthors = await prisma.author.deleteMany({
+        where: {
+            id: {
+                in: authorshipsToDelete.map((authorship) => authorship.author_id),
+            },
+        },
+    });
+
+    const createdAuthorships = await Promise.all(
+        artAuthors.map((author) => {
+            return prisma.authorship.create({
+                data: {
+                    art_id: artId,
+                    author_id: author.id,
+                },
+            });
+        })
+    );
+
+    return {
+        updatedArt,
+        deletedMediaInArt,
+        deletedMedia,
+        deletedAuthorships,
+        deletedAuthors,
+        createdAuthorships,
+    };
 }
 
 export async function getAssociatedAuthor({ userId } : { userId: string }) {

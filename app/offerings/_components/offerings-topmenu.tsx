@@ -24,7 +24,13 @@ export default async function OfferingsTopMenu() {
                         Media: true
                     }
                 },
-                uploader: true,
+                            uploader: {
+                select: {
+                    name: true,
+                    email: true, role:true,
+                }
+            }
+,
                 authors: true,
             }
         })

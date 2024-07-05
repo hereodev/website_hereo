@@ -7,7 +7,15 @@ import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu";
 import { Art } from "@prisma/client";
 import OfferingPreview from "./_components/offering-preview";
 
-export default async function Offerings() {
+export default async function Offerings({
+    searchParams,
+  }: {
+    searchParams?: {
+      query?: string;
+      page?: string;
+      keywords?: string;
+    };
+  }) {
     const session = await auth();
 
     let allArt: Art[] = []
@@ -25,7 +33,13 @@ export default async function Offerings() {
                     }
                 },
                 SubCategory: true,
-                uploader: true,
+                            uploader: {
+                select: {
+                    name: true,
+                    email: true, role:true,
+                }
+            }
+,
                 authors: true,
             }
         })
@@ -43,7 +57,13 @@ export default async function Offerings() {
     //                 Media: true
     //             }
     //         },
-    //         uploader: true,
+    //                     uploader: {
+            //     select: {
+            //         name: true,
+            //         email: true, role:true,
+            //     }
+            // }
+// ,
     //         authors: true,
     //     }
     // })
@@ -60,6 +80,7 @@ export default async function Offerings() {
                     <Link href="/offerings/upload" className={`${"btn btn-outline p-2"}`}>Upload Work</Link>
                 }
             </div>
+            {searchParams && searchParams.keywords}
             <div>
                 <OfferingsTopMenu />
             </div>

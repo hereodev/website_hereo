@@ -8,7 +8,7 @@ import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 
 interface TiptapEditorProps {
-    initialContent?: string;
+    initialContent?: string | null;
     setContent: (content: string) => void;
 }
 

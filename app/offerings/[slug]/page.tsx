@@ -7,7 +7,8 @@ import prisma from "@/prisma"
 import { redirect } from "next/navigation"
 import { FaFilePdf } from "react-icons/fa"
 import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu"
-import { FiTriangle } from "react-icons/fi"
+import { FiEdit2, FiTriangle } from "react-icons/fi"
+import Link from "next/link"
 
 type Props = {
     params: { slug: string }
@@ -81,6 +82,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                 select: {
                     name: true,
                     email: true,
+                    id: true,
                 }
             },
             authors: {
@@ -95,7 +97,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             },
         }
     })
-    console.log("FOUND ART " + slug, art)
+    // console.log("FOUND ART " + slug, art)
 
     if(art) {
       const artText = art.long_text && /^".*"$/.test(art.long_text)
@@ -104,22 +106,32 @@ export default async function Art({ params }: { params: { slug: string, lang: st
         : art.long_text;
       return (
         <main>
-          <h1>{art.title}</h1>
+          <div className="flex flex-row w-full justify-between items-center">
+            <h1>{art.title}</h1>
+            <div className="flex flex-row justify-center items-center gap-2">
+              {
+                session && session.user && art.uploader.id == session.user.id && //|| (((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
+                <Link href={`/offerings/${art.slug}/edit`} className="btn btn-outline">
+                  <FiEdit2 />
+                  Edit
+                </Link>
+              }
+              {
+                session && session.user && art.uploader.id == session.user.id && //|| (((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
+                <Link href={`/offerings/upload`} className="btn btn-outline">
+                  Upload work
+                </Link>
+              }
+            </div>
+          </div>
           {art.subtitle && <h2>{art.subtitle}</h2>}
 
           <p className="my-2 w-full text-right">Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
 
-          {/* <p>Art page : Slug #{slug}</p> */}
-          {/* {
-              art && <pre className="overflow-x-auto text-xs">{JSON.stringify(art, null, 2)}</pre>
-          } */}
-          {/* {
-            art.long_text && <div className="prose" dangerouslySetInnerHTML={{__html: art.long_text}}></div>
-          } */}
           {
-  artText && 
-  <div className="prose w-full min-w-full" dangerouslySetInnerHTML={{__html: artText}}></div>
-}
+            artText && 
+            <div className="prose w-full min-w-full" dangerouslySetInnerHTML={{__html: artText}}></div>
+          }
           {
             art.associated_media && 
             <div className="grid sm:grid-cols-2 sm:gap-4">

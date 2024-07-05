@@ -29,7 +29,7 @@ export default function SearchBar() {
                 <FiSearch className="w-4 h-4 opacity-70" />
                 <input
                     type="text" 
-                    disabled
+                    // disabled
                     className="grow"
                     placeholder="I've seen the future..."
                     defaultValue={searchParams.get('query')?.toString()}

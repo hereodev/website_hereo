@@ -3,13 +3,13 @@
 import { useEffect, useState } from 'react';
 import UploadFiles from './upload-files';
 import { UploadedFile } from '@/global';
-import { Art } from '@prisma/client';
+import { Art, Media, User } from '@prisma/client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // import { useFormState, useFormStatus } from 'react-dom';
 import { FiAlertCircle, FiArrowRight } from 'react-icons/fi';
 import SubmitButton from '@/app/_components/submit-button';
 import Tiptap from './tiptap3';
-import { uploadArt } from '@/app/lib/actions_db';
+import { updateArt, uploadArt } from '@/app/lib/actions_db';
 import { redirect } from 'next/navigation';
 import CategoriesSelect from './categories-select';
 import Link from 'next/link';
@@ -17,9 +17,11 @@ import Authorship from './authorship';
 
 type UploadFormProps = {
   userId: string;
+//   art: Art & {associated_media?:Media, media?:UploadedFile[], uploader?:User, authors?:string[], categories?:string[]};
+    art: any;
 };
-
-const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
+// Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}
+const EditForm: React.FC<UploadFormProps> = ({ userId, art }) => {
     // const [name, setName] = useState("");
 
     const [media, setMedia] = useState<UploadedFile[]>([]);
@@ -41,10 +43,10 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
         handleSubmit, 
         watch 
     } = useForm<Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}>({
-        // defaultValues: {
-        //   title: art?.title || "",
-        //   subtitle: art?.subtitle || "",
-        // }
+        defaultValues: {
+          title: art.title,
+          subtitle: art.subtitle,
+        }
     });
 
     const handleMediaChange = (newMedia: UploadedFile[]) => {
@@ -57,32 +59,26 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
 
     const onSubmit: SubmitHandler<Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}> = async (data) => {
         setIsSubmitting(true);
-        // console.log("data", data);
-        // setTimeout(() => {
-        //     setIsSubmitting(false);
-        // }, 3000);
 
         data.uploader_id = userId;
         data.long_text = JSON.stringify(editorContent);
         data.media = media;
         data.authors = authors;
         data.categories = categories;
-        // data.category = category;
-        // data.authors = selectedAuthors.map((author) => author.id);
-        // TODO: prevent sending if no categories, no authors
         console.log("DATA TO BE UPLOADED", data);
         let uploadedArt;
         try {
-            uploadedArt = await uploadArt({data: JSON.parse(JSON.stringify(data))});
+            uploadedArt = {updatedArt: {slug: "test"}};
+            // uploadedArt = await updateArt({artId: art.id, data: JSON.parse(JSON.stringify(data))}); // FIXME:
             console.log("uploaded art from form:", uploadedArt)
         } catch (error) {
             console.error("Error uploading art", error)
         }
 
-        if(uploadedArt?.artRecord?.slug) {
+        if(uploadedArt?.updatedArt?.slug) {
             setIsSubmitting(false);
-            setSubmitted(uploadedArt.artRecord.slug);
-            // redirect(`/offerings/${uploadedArt.artRecord.slug}`)
+            setSubmitted(uploadedArt.updatedArt.slug);
+            // redirect(`/offerings/${uploadedArt.updatedArt.slug}`)
         }
         
     }
@@ -93,12 +89,13 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
         name: keyof (Art & {media?:UploadedFile[], authors?:string[], categories?:string[]});
         label: string;
         placeholder: string;
+        defaultVal: string | null;
         required?: boolean;
         description?: string;
         errorMessage?: string;
         type?: string;
     }
-    const WatchedInput = ({name, label, placeholder, required = false, description, errorMessage, type = "text"}: InputProps) => {
+    const WatchedInput = ({name, label, placeholder, defaultVal, required = false, description, errorMessage, type = "text"}: InputProps) => {
         return (
             <label className="form-control w-full">
                 <div className="label pb-1">
@@ -115,6 +112,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
                     className="input input-bordered w-full" 
                     {...register(name, { required })} 
                     aria-invalid={errors[name] ? "true" : "false"}
+                    defaultValue={defaultVal || ""}
                 />
                 {
                     errors[name] && (
@@ -137,6 +135,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
 
     return(
         <div>
+            <pre className="max-w-64 max-h-32 overflow-scroll text-xs">{JSON.stringify(watch, null, 2)}</pre>
             <h1>Upload Work</h1>
 
             <form 
@@ -144,33 +143,28 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
                 encType="multipart/form-data" 
                 className="flex flex-col gap-4"
             >
-                <WatchedInput name="title" label="Title" required placeholder="Title" />
+                <WatchedInput name="title" label="Title" required placeholder="Title" defaultVal={art.title} />
 
-                <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
+                <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" defaultVal={art.subtitle} />
 
-                <WatchedInput name="date" label="date" type="date" placeholder="date" />
-                {/* Catégorie */}
-                <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
+                {/* <WatchedInput name="date" label="date" type="date" placeholder="date" defaultVal={art.date?.toString() || ""} /> */}
 
-                <Authorship userId={userId} authors={authors} setAuthors={setAuthors} />
+                {/* <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} /> */}
+
+                {/* <Authorship userId={userId} authors={authors} setAuthors={setAuthors} /> */}
 
                 {/* TODO: URL Vidéo */}
 
                 <label className="form-control">
                     <div className="label pb-1">
                         <span className="label-text title-txt">Content</span>
-                        {/* <span className="label-text-alt">Alt label</span> */}
                     </div>
-                    {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
-                    <Tiptap setContent={setEditorContent} />
+                    <Tiptap setContent={setEditorContent} initialContent={art.long_text} />
                 </label>
-                {/* <p>{editorContent}</p> */}
 
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
-                {/* <h4>Selected Files:</h4>
-                <pre className="overflow-x-auto text-xs">{JSON.stringify({media: media}, null, 2)}</pre> */}
 
-                <div className="form-control w-full">
+                {/* <div className="form-control w-full">
                     <div className="label pb-1">
                         <span className="label-text-alt text-error text-sm opacity-80">required*</span>
                     </div>
@@ -191,7 +185,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
                         </span>
                     </div>
 
-                </div>
+                </div> */}
 
                 {/* Legal accept */}
 
@@ -211,6 +205,8 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
 
                 }
             </form>
+            <button className='btn btn-secondary btn-outline' onClick={() => console.log("data", watch())}>Watch</button>
+
         </div>
     )
 }
@@ -235,4 +231,4 @@ function UploadButton({ pending } : {pending: boolean}) {
 }
 
 
-export default UploadForm;
+export default EditForm;
