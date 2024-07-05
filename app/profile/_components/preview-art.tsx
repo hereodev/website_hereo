@@ -36,9 +36,9 @@ export default function PreviewArt({ art } : {art: Art}) {
     return (
         <div key={art.slug} className={`flex flex-row items-center w-full border border-dashed p-1`}>
         <Link href={`/offerings/${art.slug}`} className="grow hover:underline text-xs">{art.title}</Link>
-        <button className="btn btn-square hover:text-primary" title="Edit" aria-disabled={true} disabled>
+        <Link href={`/offerings/${art.slug}/edit`} className="btn btn-square hover:text-primary" title="Edit">
           <FiEdit />
-        </button>
+        </Link>
         <button className="btn btn-square hover:text-error" title="Delete" 
           // aria-disabled={true} disabled
           onClick={async () => {

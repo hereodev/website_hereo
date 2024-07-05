@@ -33,10 +33,10 @@ export default async function EditOffering({ params }: { params: { slug: string 
         return (
             <main>
                 <div>
-                    <p>This page will let you edit this artwork: {params.slug}</p>
+                    <p>This page will soon let you edit this artwork: {params.slug}</p>
                     <pre className="max-w-64 max-h-32 overflow-scroll text-xs">{JSON.stringify(offering, null, 2)}</pre>
 
-                    <EditForm art={offering} userId={session.user.id} />
+                    {/* <EditForm art={offering} userId={session.user.id} /> */}
                 </div>
             </main>
         )

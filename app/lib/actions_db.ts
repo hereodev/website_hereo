@@ -372,156 +372,156 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
 
 export async function updateArt({ artId, data }: { artId: number, data: Art & { media?: UploadedFile[], authors?: string[], categories?: string[] } }) {
     console.log("updating art...", data);
-    const { media, authors, ...artData } = data;
-    let slug = slugify(artData.title);
-    // check if another Art with the same slug exists, if it does, add a number to the slug, incrementing it until it is unique
-    let slugExists = true;
-    let slugNumber = 1;
-    while (slugExists) {
-        const existingArt = await prisma.art.findUnique({
-            where: {
-                slug: slug,
-            },
-        });
-        if (existingArt && existingArt.id !== artId) {
-            slugNumber++;
-            slug = slugify(`${artData.title} ${slugNumber}`);
-        } else {
-            slugExists = false;
-        }
-    }
+    // const { media, authors, ...artData } = data;
+    // let slug = slugify(artData.title);
+    // // check if another Art with the same slug exists, if it does, add a number to the slug, incrementing it until it is unique
+    // let slugExists = true;
+    // let slugNumber = 1;
+    // while (slugExists) {
+    //     const existingArt = await prisma.art.findUnique({
+    //         where: {
+    //             slug: slug,
+    //         },
+    //     });
+    //     if (existingArt && existingArt.id !== artId) {
+    //         slugNumber++;
+    //         slug = slugify(`${artData.title} ${slugNumber}`);
+    //     } else {
+    //         slugExists = false;
+    //     }
+    // }
 
-    let mediaRecords = [];
-    if (media) {
-        console.log("media to be uploaded", media);
-        for (const file of media) {
-            console.log("file", file);
-            const uploadedMedia = await prisma.media.create({
-                data: {
-                    uploader_id: artData.uploader_id,
-                    title: file.title,
-                    type: file.type,
-                    url: file.url,
-                    alt: file.alt,
-                    description: file.alt,
-                    storage: "BunnyCDN",
-                    author: file.author,
-                    date: file.date,
-                },
-            });
-            console.log("uploaded file", uploadedMedia);
-            mediaRecords.push(uploadedMedia);
-        }
-    }
+    // let mediaRecords = [];
+    // if (media) {
+    //     console.log("media to be uploaded", media);
+    //     for (const file of media) {
+    //         console.log("file", file);
+    //         const uploadedMedia = await prisma.media.create({
+    //             data: {
+    //                 uploader_id: artData.uploader_id,
+    //                 title: file.title,
+    //                 type: file.type,
+    //                 url: file.url,
+    //                 alt: file.alt,
+    //                 description: file.alt,
+    //                 storage: "BunnyCDN",
+    //                 author: file.author,
+    //                 date: file.date,
+    //             },
+    //         });
+    //         console.log("uploaded file", uploadedMedia);
+    //         mediaRecords.push(uploadedMedia);
+    //     }
+    // }
 
-    let artAuthors: Author[] = [];
-    if (authors) {
-        for (const author of authors) {
-            const authorRecord = await prisma.author.findFirst({
-                where: {
-                    name: author,
-                },
-            });
-            if (!authorRecord) {
-                const newAuthor = await prisma.author.create({
-                    data: {
-                        name: author,
-                    },
-                });
-                artAuthors.push(newAuthor);
-            } else {
-                artAuthors.push(authorRecord);
-            }
-        }
-    }
+    // let artAuthors: Author[] = [];
+    // if (authors) {
+    //     for (const author of authors) {
+    //         const authorRecord = await prisma.author.findFirst({
+    //             where: {
+    //                 name: author,
+    //             },
+    //         });
+    //         if (!authorRecord) {
+    //             const newAuthor = await prisma.author.create({
+    //                 data: {
+    //                     name: author,
+    //                 },
+    //             });
+    //             artAuthors.push(newAuthor);
+    //         } else {
+    //             artAuthors.push(authorRecord);
+    //         }
+    //     }
+    // }
 
-    const updatedArt = await prisma.art.update({
-        where: {
-            id: artId,
-        },
-        data: {
-            slug: slug,
-            title: artData.title,
-            subtitle: artData.subtitle,
-            long_text: artData.long_text,
-        },
-    });
+    // const updatedArt = await prisma.art.update({
+    //     where: {
+    //         id: artId,
+    //     },
+    //     data: {
+    //         slug: slug,
+    //         title: artData.title,
+    //         subtitle: artData.subtitle,
+    //         long_text: artData.long_text,
+    //     },
+    // });
 
-    const existingMediaInArt = await prisma.mediaInArt.findMany({
-        where: {
-            art_id: artId,
-        },
-    });
+    // const existingMediaInArt = await prisma.mediaInArt.findMany({
+    //     where: {
+    //         art_id: artId,
+    //     },
+    // });
 
-    const mediaToDelete = existingMediaInArt.filter((mediaInArt) => {
-        return !mediaRecords.some((mediaRecord) => mediaRecord.id === mediaInArt.media_id);
-    });
+    // const mediaToDelete = existingMediaInArt.filter((mediaInArt) => {
+    //     return !mediaRecords.some((mediaRecord) => mediaRecord.id === mediaInArt.media_id);
+    // });
 
-    const mediaInArtToDelete = mediaToDelete.map((mediaInArt) => mediaInArt.media_id);
+    // const mediaInArtToDelete = mediaToDelete.map((mediaInArt) => mediaInArt.media_id);
 
-    const deletedMediaInArt = await prisma.mediaInArt.deleteMany({
-        where: {
-            media_id: {
-                in: mediaInArtToDelete,
-            },
-        },
-    });
+    // const deletedMediaInArt = await prisma.mediaInArt.deleteMany({
+    //     where: {
+    //         media_id: {
+    //             in: mediaInArtToDelete,
+    //         },
+    //     },
+    // });
 
-    const deletedMedia = await prisma.media.deleteMany({
-        where: {
-            id: {
-                in: mediaToDelete.map((mediaInArt) => mediaInArt.media_id),
-            },
-        },
-    });
+    // const deletedMedia = await prisma.media.deleteMany({
+    //     where: {
+    //         id: {
+    //             in: mediaToDelete.map((mediaInArt) => mediaInArt.media_id),
+    //         },
+    //     },
+    // });
 
-    const existingAuthorships = await prisma.authorship.findMany({
-        where: {
-            art_id: artId,
-        },
-    });
+    // const existingAuthorships = await prisma.authorship.findMany({
+    //     where: {
+    //         art_id: artId,
+    //     },
+    // });
 
-    const authorshipsToDelete = existingAuthorships.filter((authorship) => {
-        return !artAuthors.some((author) => author.id === authorship.author_id);
-    });
+    // const authorshipsToDelete = existingAuthorships.filter((authorship) => {
+    //     return !artAuthors.some((author) => author.id === authorship.author_id);
+    // });
 
-    const authorshipsToDeleteIds = authorshipsToDelete.map((authorship) => authorship.author_id);
+    // const authorshipsToDeleteIds = authorshipsToDelete.map((authorship) => authorship.author_id);
 
-    const deletedAuthorships = await prisma.authorship.deleteMany({
-        where: {
-            author_id: {
-                in: authorshipsToDeleteIds,
-            },
-        },
-    });
+    // const deletedAuthorships = await prisma.authorship.deleteMany({
+    //     where: {
+    //         author_id: {
+    //             in: authorshipsToDeleteIds,
+    //         },
+    //     },
+    // });
 
-    const deletedAuthors = await prisma.author.deleteMany({
-        where: {
-            id: {
-                in: authorshipsToDelete.map((authorship) => authorship.author_id),
-            },
-        },
-    });
+    // const deletedAuthors = await prisma.author.deleteMany({
+    //     where: {
+    //         id: {
+    //             in: authorshipsToDelete.map((authorship) => authorship.author_id),
+    //         },
+    //     },
+    // });
 
-    const createdAuthorships = await Promise.all(
-        artAuthors.map((author) => {
-            return prisma.authorship.create({
-                data: {
-                    art_id: artId,
-                    author_id: author.id,
-                },
-            });
-        })
-    );
+    // const createdAuthorships = await Promise.all(
+    //     artAuthors.map((author) => {
+    //         return prisma.authorship.create({
+    //             data: {
+    //                 art_id: artId,
+    //                 author_id: author.id,
+    //             },
+    //         });
+    //     })
+    // );
 
-    return {
-        updatedArt,
-        deletedMediaInArt,
-        deletedMedia,
-        deletedAuthorships,
-        deletedAuthors,
-        createdAuthorships,
-    };
+    // return {
+    //     updatedArt,
+    //     deletedMediaInArt,
+    //     deletedMedia,
+    //     deletedAuthorships,
+    //     deletedAuthors,
+    //     createdAuthorships,
+    // };
 }
 
 export async function getAssociatedAuthor({ userId } : { userId: string }) {
