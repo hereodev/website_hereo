@@ -82,6 +82,9 @@ export default async function Offerings({
             </div>
             {searchParams && searchParams.keywords}
             <div>
+                <SearchBar />
+            </div>
+            <div>
                 <OfferingsTopMenu />
             </div>
         <div className={`flex flex-row flex-wrap gap-4 px-1`}>

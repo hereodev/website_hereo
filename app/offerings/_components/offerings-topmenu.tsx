@@ -63,7 +63,7 @@ export default async function OfferingsTopMenu() {
     <div className="collapse min-w-64 w-64 sm:w-full">
     <input type="checkbox" />
         <div className="collapse-content flex flex-col w-full gap-2">
-            <SearchBar />
+            {/* <SearchBar /> */}
             {/* <IndexSearchBar value={searchTerm} onChange={setSearchTerm} /> */}
             {/* TODO: tags  */}
             {/* <div className="collapse rounded-none ">
