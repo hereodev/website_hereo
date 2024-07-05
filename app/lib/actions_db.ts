@@ -522,6 +522,14 @@ export async function updateArt({ artId, data }: { artId: number, data: Art & { 
     //     deletedAuthors,
     //     createdAuthorships,
     // };
+    return {
+        updatedArt:null,
+        deletedMediaInArt:null,
+        deletedMedia:null,
+        deletedAuthorships:null,
+        deletedAuthors:null,
+        createdAuthorships:null,
+    }
 }
 
 export async function getAssociatedAuthor({ userId } : { userId: string }) {
