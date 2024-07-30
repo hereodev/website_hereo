@@ -5,7 +5,7 @@ import { User } from "next-auth"
 import { UserWithRole } from "@/global"
 import prisma from "@/prisma"
 import { redirect } from "next/navigation"
-import { FaFilePdf } from "react-icons/fa"
+import { FaFileAlt, FaFilePdf, FaFilePowerpoint, FaFileWord } from "react-icons/fa"
 import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu"
 import { FiEdit2, FiTriangle } from "react-icons/fi"
 import Link from "next/link"
@@ -58,7 +58,6 @@ export async function generateMetadata(
   }
 
 export default async function Art({ params }: { params: { slug: string, lang: string } }) {
-
     const session = await auth();
 
     const slug = params.slug || "";
@@ -100,6 +99,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
     // console.log("FOUND ART " + slug, art)
 
     if(art) {
+    
       const artText = art.long_text && /^".*"$/.test(art.long_text)
       // Remove the '"' at the beginning and end of the string if they're there
         ? art.long_text.slice(1, -1)
@@ -136,23 +136,58 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             art.associated_media && 
             <div className="grid sm:grid-cols-2 sm:gap-4">
               {
-              art.associated_media.map((media) => {
+              art.associated_media
+              .sort((a, b) => {
+                const isAImageOrVideo = a.Media?.type?.includes("image") || a.Media?.type?.includes("video");
+                const isBImageOrVideo = b.Media?.type?.includes("image") || b.Media?.type?.includes("video");
+                if (isAImageOrVideo && !isBImageOrVideo) return 1;
+                if (!isAImageOrVideo && isBImageOrVideo) return -1;
+                return 0;
+              })
+              .map((media) => {
                 return (
                   media.Media &&
                   <div key={media.media_id}>
                     {/* {media.Media.title && <h3>{media.Media.title}</h3>} */}
-                    {
+                    {/* {
                       media.Media.type && media.Media.type.includes("image") && media.Media.url ?
                         <img src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} />
                       : media.Media.type && media.Media.type.includes("video") && media.Media.url ?
                         <video src={media.Media.url} controls></video>
                       :
                         media.Media.url && media.Media.title &&
-                        <a href={media.Media.url}>
+                        <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
                           <FaFilePdf className="w-12 h-12" />
                           {media.Media.title}
                         </a>
-                    }
+                    } */}
+                    {
+        media.Media.type && media.Media.type.includes("image") && media.Media.url ?
+          <img src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} />
+        : media.Media.type && media.Media.type.includes("video") && media.Media.url ?
+          <video src={media.Media.url} controls></video>
+        : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ?
+          <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+            <FaFilePdf className="w-12 h-12" />
+            {media.Media.title}
+          </a>
+        : media.Media.type && (media.Media.type === "application/vnd.ms-powerpoint" || media.Media.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation") && media.Media.url ?
+          <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+            <FaFilePowerpoint className="w-12 h-12" />
+            {media.Media.title}
+          </a>
+        : media.Media.type && media.Media.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && media.Media.url ?
+          <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+            <FaFileWord className="w-12 h-12" />
+            {media.Media.title}
+          </a>
+        :
+          media.Media.url && media.Media.title &&
+          <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+            <FaFileAlt className="w-12 h-12" />
+            {media.Media.title}
+          </a>
+      }
                   </div>
                 )
               })
