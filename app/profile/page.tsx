@@ -150,6 +150,7 @@ export default async function Profile() {
           }
           </div>
         }
+                {/* 
         <h2>My Media</h2>
         <p>Soon this area will allow you to delete/edit your uploaded media.</p>
               <div className="flex flew-row gap-2 flex-wrap">
@@ -160,9 +161,9 @@ export default async function Profile() {
             if(media.url === null || media.url === undefined) return null
             return (
               <div key={media.id} title={media.title || ""} className="w-24 h-24">
-                {/* <p>{media.title}</p> */}
-                {/* <p>{media.description}</p> */}
-                {/* <pre className="text-xs w-24 h-24 overflow-scroll">{JSON.stringify(media, null, 2)}</pre> */}
+                <p>{media.title}</p> 
+                <p>{media.description}</p> 
+                <pre className="text-xs w-24 h-24 overflow-scroll">{JSON.stringify(media, null, 2)}</pre> 
                 <img 
                   src={media.url} 
                   alt={media.title || ""} 
@@ -173,6 +174,7 @@ export default async function Profile() {
           })
         }
         </div>
+                */}
 
       </main>
     )

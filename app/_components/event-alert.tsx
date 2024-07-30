@@ -6,7 +6,7 @@ import { GoMegaphone } from "react-icons/go";
 
 export default function EventAlert() {
     return (
-        <div role="alert" className="alert alert-info shadow-lg fixed bottom-4 mx-auto w-[98vw]">
+        <div role="alert" className="alert alert-primary shadow-lg fixed bottom-4 mx-auto w-[98vw]">
             <GoMegaphone />
             {/* <span></span> */}
             <div>

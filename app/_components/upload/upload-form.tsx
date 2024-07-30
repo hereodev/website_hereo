@@ -148,7 +148,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
 
                 <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
 
-                <WatchedInput name="date" label="date" type="date" placeholder="date" />
+                {/* <WatchedInput name="date" label="date" type="date" placeholder="date" /> */}
                 {/* Catégorie */}
                 <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
 
