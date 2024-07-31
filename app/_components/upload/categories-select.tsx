@@ -111,10 +111,10 @@ const subCat = {
                         className={"input input-sm w-full input-bordered italic "}
                     />
                 </div>
-                <div className="flex flex-col md:flex-wrap max-h-24 overflow-y-scroll">
+                <div className="flex flex-col md:flex-wrap max-h-24 md:max-h-64 gap-1 overflow-scroll">
                     {
                         session && (session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN") &&
-                        <div className="flex flex-row items-center gap-2 group hover:cursor-pointer ">
+                        <div className="flex flex-row items-center group hover:cursor-pointer ">
                         <label className={`w-full group-hover:underline hover:cursor-pointer italic ${selectedCategories.includes("Encounter") ? "font-semibold" : ""}`}>
                         <input 
                             type="checkbox" 
@@ -147,7 +147,7 @@ const subCat = {
                         ).sort((a,b) => a.name.localeCompare(b.name)).map((category, index) => {
                             // a select with multiple options, with a least of all categories
                             return (
-                                <div key={index} className="flex flex-row items-center gap-2 group hover:cursor-pointer ">
+                                <div key={index} className="flex flex-row items-center group hover:cursor-pointer ">
                                     <label className={`w-full hover:cursor-pointer group-hover:underline ${selectedCategories.includes(category.name) ? "font-semibold" : ""}`}>
                                     <input 
                                         type="checkbox" 

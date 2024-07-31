@@ -1,4 +1,5 @@
 import { User } from "next-auth";
+import { Art, Media, SubCategory, User, Author, Authorship, MediaInArt } from "@prisma/client";
 
 export type UserWithRole = User & {
     id: string;
@@ -21,4 +22,49 @@ type UploadedFile = {
     date?: string;
     title?: string;
     url?: string;
+};
+
+
+interface MediaWithDetails extends Media {
+    associated_media: MediaInArt[];
+  }
+  
+  interface AuthorshipWithDetails extends Authorship {
+    author: Author;
+  }
+  
+export interface ArtWithDetails extends Art {
+    associated_media: (MediaInArt & { Media: Media })[];
+    SubCategory: SubCategory | null;
+    uploader: Pick<User, 'name' | 'email' | 'role'>;
+    authors: AuthorshipWithDetails[];
+}
+  
+  // Define the main type for the query result
+export type AllArt = ArtWithDetails[];
+
+export type ExtendedArt = Art & {
+    SubCategory: {
+      name: string;
+      Category: {
+        id: number;
+        name: string;
+      } | null;
+    } | null;
+    authors: {
+      author: {
+        name: string;
+        associated_user: {
+          name: string;
+        } | null;
+      };
+    }[];
+    associated_media: {
+      Media: any;
+    }[];
+    uploader: {
+      name: string | null;
+      email: string;
+      role: UserRole;
+    };
 };

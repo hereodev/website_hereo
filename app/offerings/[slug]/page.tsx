@@ -9,6 +9,8 @@ import { FaFileAlt, FaFilePdf, FaFilePowerpoint, FaFileWord } from "react-icons/
 import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu"
 import { FiEdit2, FiTriangle } from "react-icons/fi"
 import Link from "next/link"
+import PictureZoom from "../_components/picture-zoom"
+
 
 type Props = {
     params: { slug: string }
@@ -91,6 +93,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             },
             SubCategory: {
               select: {
+                name: true,
                 Category: true,
               } 
             },
@@ -126,7 +129,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           </div>
           {art.subtitle && <h2>{art.subtitle}</h2>}
 
-          <p className="my-2 w-full text-right">Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
+          <p className="my-2 w-full text-left">Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
 
           {
             artText && 
@@ -148,46 +151,34 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                 return (
                   media.Media &&
                   <div key={media.media_id}>
-                    {/* {media.Media.title && <h3>{media.Media.title}</h3>} */}
-                    {/* {
+                    {
                       media.Media.type && media.Media.type.includes("image") && media.Media.url ?
-                        <img src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} />
+                        // <Zoom><img src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} /></Zoom>
+                        <PictureZoom src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} />
                       : media.Media.type && media.Media.type.includes("video") && media.Media.url ?
                         <video src={media.Media.url} controls></video>
-                      :
-                        media.Media.url && media.Media.title &&
+                      : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ?
                         <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
                           <FaFilePdf className="w-12 h-12" />
                           {media.Media.title}
                         </a>
-                    } */}
-                    {
-        media.Media.type && media.Media.type.includes("image") && media.Media.url ?
-          <img src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} />
-        : media.Media.type && media.Media.type.includes("video") && media.Media.url ?
-          <video src={media.Media.url} controls></video>
-        : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ?
-          <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-            <FaFilePdf className="w-12 h-12" />
-            {media.Media.title}
-          </a>
-        : media.Media.type && (media.Media.type === "application/vnd.ms-powerpoint" || media.Media.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation") && media.Media.url ?
-          <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-            <FaFilePowerpoint className="w-12 h-12" />
-            {media.Media.title}
-          </a>
-        : media.Media.type && media.Media.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && media.Media.url ?
-          <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-            <FaFileWord className="w-12 h-12" />
-            {media.Media.title}
-          </a>
-        :
-          media.Media.url && media.Media.title &&
-          <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-            <FaFileAlt className="w-12 h-12" />
-            {media.Media.title}
-          </a>
-      }
+                      : media.Media.type && (media.Media.type === "application/vnd.ms-powerpoint" || media.Media.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation") && media.Media.url ?
+                        <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+                          <FaFilePowerpoint className="w-12 h-12" />
+                          {media.Media.title}
+                        </a>
+                      : media.Media.type && media.Media.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && media.Media.url ?
+                        <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+                          <FaFileWord className="w-12 h-12" />
+                          {media.Media.title}
+                        </a>
+                      :
+                        media.Media.url && media.Media.title &&
+                        <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+                          <FaFileAlt className="w-12 h-12" />
+                          {media.Media.title}
+                        </a>
+                    }
                   </div>
                 )
               })
@@ -215,7 +206,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <div className="flex-1 basis-[49%]">
               <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
               <p>Sites of belonging: []</p>
-              <p>Keywords: []</p>
+              <p>Keywords: {art.SubCategory?.name}</p>
             </div>
             <div className="basis-[2%] divider sm:divider-horizontal"></div>
             <div className="flex-1 basis-[49%]">

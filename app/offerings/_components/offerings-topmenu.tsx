@@ -24,13 +24,12 @@ export default async function OfferingsTopMenu() {
                         Media: true
                     }
                 },
-                            uploader: {
-                select: {
-                    name: true,
-                    email: true, role:true,
-                }
-            }
-,
+                uploader: {
+                    select: {
+                        name: true,
+                        email: true, role:true,
+                    }
+                },
                 authors: true,
             }
         })
