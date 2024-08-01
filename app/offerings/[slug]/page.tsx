@@ -91,13 +91,22 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                 author: true,
               }
             },
-            SubCategory: {
-              select: {
-                name: true,
-                Category: true,
-              } 
-            },
-        }
+            SubCategories: {
+              include: {
+                  SubCategory: {
+                      select: {
+                          name: true,
+                          Category: {
+                              select: {
+                                  id: true,
+                                  name: true
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+  }
     })
     // console.log("FOUND ART " + slug, art)
 
@@ -206,7 +215,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <div className="flex-1 basis-[49%]">
               <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
               <p>Sites of belonging: []</p>
-              <p>Keywords: {art.SubCategory?.name}</p>
+              <p>Keywords: {art.SubCategories.map(subCat => subCat.SubCategory.name).join(", ")}</p>
             </div>
             <div className="basis-[2%] divider sm:divider-horizontal"></div>
             <div className="flex-1 basis-[49%]">
