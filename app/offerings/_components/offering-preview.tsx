@@ -21,6 +21,7 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
     const borderColor = "border-" + (catColors[art.SubCategory?.Category?.name.toUpperCase() as keyof typeof catColors] || "white");
     return (
         // <div className={`max-w-64 max-h-64 border ${borderColor}`}>
+        //     {borderColor}
         //     <p>{art.SubCategory && art.SubCategory.name} {art.SubCategory && art.SubCategory.Category?.name}</p>
         //     <pre className="max-w-64 max-h-60 overflow-scroll text-xs">{JSON.stringify(art, null, 2)}</pre>
         // </div>
