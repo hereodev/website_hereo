@@ -18,7 +18,7 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
         SCALES: "tag-red",
     }
 
-    const borderColor = "border-" + (catColors[art.SubCategory?.Category?.name.toUpperCase() as keyof typeof catColors] || "white");
+    const borderColor = "border-" + (catColors[art.SubCategory?.Category?.name.toUpperCase() as keyof typeof catColors] || "base-content");
     return (
         // <div className={`max-w-64 max-h-64 border ${borderColor}`}>
         //     {borderColor}
@@ -42,7 +42,7 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
             </div>
             <div className={`avatar placeholder ${pictures.length>0 && "opacity-0 group-hover:opacity-100"}`}>
                 <div className="w-64 h-64 rounded-full text-3xl text-base-content text-center p-10">
-                    {art.title.length > 12 ? art.title.slice(0, 12) + "..." : art.title}
+                    {art.title.length > 46 ? art.title.slice(0, 46) + "..." : art.title}
                 </div>
             </div>
         </Link>
