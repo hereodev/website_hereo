@@ -220,7 +220,7 @@ export async function connectUserToAuthor({ userId, authorName } : { userId: str
 
 export async function uploadArt(data : {data: Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}}) {
     console.log("uploading art...", data);
-    const { media, authors, ...artData } = data.data;
+    const { media, authors, categories, ...artData } = data.data;
     let slug = slugify(artData.title);
     // check if another Art with the same slug exists, if it does, add a number to the slug, incrementing it until it is unique
     let slugExists = true;
@@ -249,6 +249,22 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
     //             })
     //         };
     //     });
+    // }
+    // let subcategoryIds: number[] = [];
+    // if (categories) {
+    //     for (const category of categories) {
+    //         const subCategory = await prisma.subCategory.findFirst({
+    //             where: { name: category },
+    //         });
+    //         if (!subCategory) {
+    //             const newSubCategory = await prisma.subCategory.create({
+    //                 data: { name: category },
+    //             });
+    //             subcategoryIds.push(newSubCategory.id);
+    //         } else {
+    //             subcategoryIds.push(subCategory.id);
+    //         }
+    //     }
     // }
     let mediaRecords = [];
     if(media) {
@@ -300,7 +316,6 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
             title: artData.title,
             subtitle: artData.subtitle,
             long_text: artData.long_text,
-
             // uploader: {
             //     connect: { id: artData.uploader_id },
             // },
@@ -365,7 +380,31 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
     //         },
     //     });
     }
-
+    if (categories) {
+        for (const category of categories) {
+            const subCategory = await prisma.subCategory.findFirst({
+                where: { name: category },
+            });
+            if (subCategory) {
+                await prisma.artSubCategory.create({
+                    data: {
+                        art_id: artRecord.id,
+                        subcategory_id: subCategory.id,
+                    },
+                });
+            } else {
+                const newSubCategory = await prisma.subCategory.create({
+                    data: { name: category },
+                });
+                await prisma.artSubCategory.create({
+                    data: {
+                        art_id: artRecord.id,
+                        subcategory_id: newSubCategory.id,
+                    },
+                });
+            }
+        }
+    }
     return {artRecord, artinMedia};
     // return Promise.resolve("foo");
 }

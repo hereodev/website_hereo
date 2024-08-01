@@ -37,12 +37,21 @@ export default async function Offerings({
                         Media: true
                     }
                 },
-                SubCategory: {
-                    select: {
-                      name: true,
-                      Category: true,
-                    } 
-                  },
+                SubCategories: {
+                    include: {
+                        SubCategory: {
+                            select: {
+                                name: true,
+                                Category: {
+                                    select: {
+                                        id: true,
+                                        name: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 uploader: {
                     select: {
                         name: true,
@@ -116,19 +125,21 @@ const filterArt = (art: ExtendedArt) => {
     // do the same for keywords (Category) and sites (Site)
     if (keywords) {
         const searchedKeywords = keywords.split(',').map(kw => kw.trim());
-        console.log('keywords', keywords)
-        if (art.SubCategory?.Category?.name) {
-            const categoryName = art.SubCategory.Category.name.toLowerCase();
-            matches = matches && searchedKeywords.some(keywordEntry => keywordEntry.toLowerCase().includes(categoryName));
+        console.log('keywords', keywords);
+        if (art.SubCategories) {
+            const categoryNames = art.SubCategories.map(subCat => subCat.SubCategory.Category?.name?.toLowerCase()).filter(Boolean);
+            matches = matches && searchedKeywords.some(keywordEntry => 
+                categoryNames.some(categoryName => keywordEntry.toLowerCase().includes(categoryName ?? ''))
+            );
         }
     }
-
     if (sites) {
         const searchedSites = sites.split(',').map(site => site.trim());
-        if (art.SubCategory?.Category?.name) {
-            const siteName = art.SubCategory.Category.name.toLowerCase();
-            matches = matches && searchedSites.some(siteEntry => siteEntry.toLowerCase().includes(siteName));
-        }
+        // This is wrong. Site is not a property of art, but a property of a User connected to the art by Author field (if there is a user)
+        // if (art.SubCategory?.Category?.name) {
+        //     const siteName = art.SubCategory.Category.name.toLowerCase();
+        //     matches = matches && searchedSites.some(siteEntry => siteEntry.toLowerCase().includes(siteName));
+        // }
     }
 
 
@@ -137,7 +148,9 @@ const filterArt = (art: ExtendedArt) => {
         matches = matches && (
             art.title.toLowerCase().includes(queryLower) ||
             art.subtitle?.toLowerCase().includes(queryLower) ||
-            (art.subcategory_id !== null && art.subcategory_id.toString().toLowerCase().includes(queryLower)) ||
+            (art.SubCategories && art.SubCategories.some(subCat => 
+                subCat.SubCategory.name !== null && subCat.SubCategory.name.toLowerCase().includes(queryLower)
+            )) ||
             art.authors.some(authorEntry => authorEntry.author.name.toLowerCase().includes(queryLower)) ||
             (art.long_text !== null && art.long_text.toLowerCase().includes(queryLower))
         );
