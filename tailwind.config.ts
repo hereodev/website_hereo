@@ -13,6 +13,17 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        'tag-green': '#01FF00', // Bright Green
+        'tag-blue': '#0000FF', // Blue
+        'tag-red': '#FF0000', // Red
+        'tag-purple': '#FF00FF', // Purple
+        'tag-light-blue': '#01FFFF', // Light Blue
+        editable: '#01FFFF', // Light Blue
+        timeline: '#FFFF00', // Bright Yellow
+        "primary": '#FFFF00',
+        "secondary": "#01FFFF",
+      }
     },
   },
   plugins: [
