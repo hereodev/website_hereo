@@ -12,7 +12,7 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
     const [files, setFiles] = useState<File[]>([]);
     // const [fileUploads, setFileUploads] = useState<UploadedFile[]>([]);
     const [rejectedFiles, setRejectedFiles] = useState<File[]>([]);
-	const maxSizeMb = 10;
+	const maxSizeMb = 20;
 	const accept = {
 		"image/*": [".png", ".gif", ".jpeg", ".jpg"],
 		"video/*": [".mp4", ".mkv", ".avi"],
