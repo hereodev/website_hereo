@@ -147,7 +147,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           }
           {
             art.associated_media && 
-            <div className="grid sm:grid-cols-2 sm:gap-4">
+            <div className={`grid ${art.associated_media.length <= 1 ? 'grid-cols-1' : 'sm:grid-cols-2 sm:gap-4'}`}>
               {
               art.associated_media
               .sort((a, b) => {
@@ -160,7 +160,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
               .map((media) => {
                 return (
                   media.Media &&
-                  <div key={media.media_id}>
+                  <div key={media.media_id} className={art.associated_media.length <=1 ? "col-span-2" : ""}>
                     {/* {
                       media.Media.type && media.Media.type.includes("image") && media.Media.url ?
                         // <Zoom><img src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} /></Zoom>
@@ -198,7 +198,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
       }
     </>
   ) : media.Media.type && media.Media.type.includes("video") && media.Media.url ? (
-    <video src={media.Media.url} controls></video>
+      <VideoPlayer videoSrc={media.Media.url} cn={"w-full"} />
   ) : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ? (
     <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
       <FaFilePdf className="w-12 h-12" />
