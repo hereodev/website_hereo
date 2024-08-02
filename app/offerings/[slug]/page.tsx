@@ -5,7 +5,7 @@ import { User } from "next-auth"
 import { UserWithRole } from "@/global"
 import prisma from "@/prisma"
 import { redirect } from "next/navigation"
-import { FaFileAlt, FaFilePdf, FaFilePowerpoint, FaFileWord } from "react-icons/fa"
+import { FaExternalLinkAlt, FaFileAlt, FaFilePdf, FaFilePowerpoint, FaFileWord } from "react-icons/fa"
 import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu"
 import { FiEdit2, FiTriangle } from "react-icons/fi"
 import Link from "next/link"
@@ -223,9 +223,9 @@ export default async function Art({ params }: { params: { slug: string, lang: st
       <FaFileAlt className="w-12 h-12" />
       {media.Media.title}
     </a>
-  ) : media.Media.url && !media.Media.title ? (
+  ) : media.Media.url && media.Media.type == "link" ? (
     <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-      <FaFileAlt className="w-12 h-12" />
+      <FaExternalLinkAlt className="w-12 h-12" />
       {"See more at " + new URL(media.Media.url).hostname}
     </a>
   ) : null
