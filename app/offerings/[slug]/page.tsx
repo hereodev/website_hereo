@@ -255,9 +255,15 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           </div> */}
           <div className="flex flex-col sm:flex-row-reverse gap-4">
             <div className="flex-1 basis-[49%]">
+            {art.authors.length > 0 && (
               <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
-              <p>Sites of belonging: []</p>
+            )}
+            {art.SubCategories.length > 0 && (
               <p>Keywords: {art.SubCategories.map(subCat => subCat.SubCategory.name).join(", ")}</p>
+            )}
+            {/* {art.SitesOfBelonging && art.SitesOfBelonging.length > 0 && ( */}
+              {/* <p>Sites of belonging: {art.SitesOfBelonging.join(", ")}</p> */}
+            {/* )} */}
             </div>
             <div className="basis-[2%] divider sm:divider-horizontal"></div>
             <div className="flex-1 basis-[49%]">
