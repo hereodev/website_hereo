@@ -1,7 +1,7 @@
 "use client";
 
 import { useDebouncedCallback } from "use-debounce";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiX } from "react-icons/fi";
 import { useState } from "react";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
@@ -15,8 +15,10 @@ export default function SearchBar() {
         const params = new URLSearchParams(searchParams);
         if (term) {
             params.set('query', term);
+            setSearchTerm(term);
         } else {
             params.delete('query');
+            setSearchTerm("");
         }
         replace(`${pathname}?${params.toString()}`);
 
@@ -37,6 +39,15 @@ export default function SearchBar() {
                         handleSearch(e.target.value);
                     }}
                 />
+                {
+                    searchParams.get('query') &&
+                    <FiX onClick={() => {
+                        setSearchTerm("");
+                        const params = new URLSearchParams(searchParams);
+                        params.delete("query");
+                        replace(`${pathname}?${params.toString()}`);
+                    }} className="w-4 h-4 opacity-70 hover:cursor-pointer" />
+                }
             </label>
         </div>
     );

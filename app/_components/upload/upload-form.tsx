@@ -40,7 +40,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
         formState: { errors },
         handleSubmit, 
         watch 
-    } = useForm<Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}>({
+    } = useForm<Art & {media?:UploadedFile[], link?:string, authors?:string[], categories?:string[]}>({
         // defaultValues: {
         //   title: art?.title || "",
         //   subtitle: art?.subtitle || "",
@@ -55,7 +55,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
         console.log("media updated:", media)
     }, [media])
 
-    const onSubmit: SubmitHandler<Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}> = async (data) => {
+    const onSubmit: SubmitHandler<Art & {media?:UploadedFile[], link?:string, authors?:string[], categories?:string[]}> = async (data) => {
         setIsSubmitting(true);
         // console.log("data", data);
         // setTimeout(() => {
@@ -90,7 +90,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
     // const [errorMessage, dispatch] = useFormState(onSubmit, undefined);
 
     type InputProps = {
-        name: keyof (Art & {media?:UploadedFile[], authors?:string[], categories?:string[]});
+        name: keyof (Art & {media?:UploadedFile[], link?:string, authors?:string[], categories?:string[]});
         label: string;
         placeholder: string;
         required?: boolean;
@@ -166,9 +166,14 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
                 </label>
                 {/* <p>{editorContent}</p> */}
 
+                <label className="form-control w-full">
+                    <div className="label"><span className="label-text title-txt">Media</span></div>
+                </label>
                 <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
                 {/* <h4>Selected Files:</h4>
                 <pre className="overflow-x-auto text-xs">{JSON.stringify({media: media}, null, 2)}</pre> */}
+
+                <WatchedInput name="link" label="Link" placeholder="Link" />
 
                 <div className="form-control w-full">
                     <div className="label pb-1">

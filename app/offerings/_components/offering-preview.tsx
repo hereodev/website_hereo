@@ -18,7 +18,11 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
         SCALES: "tag-red",
     }
 
-    const borderColor = "border-" + (catColors[art.SubCategory?.Category?.name.toUpperCase() as keyof typeof catColors] || "base-content");
+    var borderColor = "border-" 
+    if(art.SubCategories[0]) {
+        borderColor+= (catColors[art.SubCategories[0].SubCategory.name.toUpperCase() as keyof typeof catColors] || "base-content");
+    }
+    // borderColor+= (catColors[art.SubCategories[0].SubCategory.name.toUpperCase() as keyof typeof catColors] || "base-content");
     return (
         // <div className={`max-w-64 max-h-64 border ${borderColor}`}>
         //     {borderColor}

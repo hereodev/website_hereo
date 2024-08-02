@@ -218,9 +218,9 @@ export async function connectUserToAuthor({ userId, authorName } : { userId: str
     }
 }
 
-export async function uploadArt(data : {data: Art & {media?:UploadedFile[], authors?:string[], categories?:string[]}}) {
+export async function uploadArt(data : {data: Art & {media?:UploadedFile[], link?:string, authors?:string[], categories?:string[]}}) {
     console.log("uploading art...", data);
-    const { media, authors, categories, ...artData } = data.data;
+    const { media, authors, categories, link, ...artData } = data.data;
     let slug = slugify(artData.title);
     // check if another Art with the same slug exists, if it does, add a number to the slug, incrementing it until it is unique
     let slugExists = true;
@@ -267,6 +267,18 @@ export async function uploadArt(data : {data: Art & {media?:UploadedFile[], auth
     //     }
     // }
     let mediaRecords = [];
+    // if there is a link, add a media with uploader_id, url, and the storage string is the domain name.
+    if(link) {
+        const uploadedMedia = await prisma.media.create({
+            data: {
+                uploader_id: artData.uploader_id,
+                type: "link",
+                url: link,
+                storage: "link",
+            },
+        });
+        mediaRecords.push(uploadedMedia);
+    }
     if(media) {
         console.log("media to be uploaded",media)
         for (const file of media) {
