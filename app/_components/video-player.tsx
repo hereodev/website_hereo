@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic'
 import { FiPause } from "react-icons/fi";
 
-export default function VideoPlayer({ lang } : { lang?: string }) {
+export default function VideoPlayer({ videoSrc = "https://hereotherwise.b-cdn.net/assets_website/intro_EN.mp4" } : { videoSrc?: string }) {
 
-    let videoSrc = 'https://hereotherwise.b-cdn.net/assets_website/intro_EN.mp4';
-    let videoSrcFr = 'https://hereotherwise.b-cdn.net/assets_website/intro_FR.mp4';
+    // let videoSrc = 'https://hereotherwise.b-cdn.net/assets_website/intro_EN.mp4';
+    // let videoSrcFr = 'https://hereotherwise.b-cdn.net/assets_website/intro_FR.mp4';
     const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
     const [hasWindow, setHasWindow] = useState(false);
 
@@ -27,7 +27,7 @@ export default function VideoPlayer({ lang } : { lang?: string }) {
             hasWindow &&
                 <ReactPlayer
                     // url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
-                    url={lang && lang == "fr" ? videoSrcFr : videoSrc}
+                    url={videoSrc}
                     // height={'100vh'}
                     height="100%"
                     controls={false}

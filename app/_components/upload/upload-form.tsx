@@ -144,59 +144,64 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
                 encType="multipart/form-data" 
                 className="flex flex-col gap-4"
             >
-                <WatchedInput name="title" label="Title" required placeholder="Title" />
+                {
+                    !submitted && 
+                    <>
+                        <WatchedInput name="title" label="Title" required placeholder="Title" />
 
-                <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
+                        <WatchedInput name="subtitle" label="Subtitle" placeholder="Subtitle" />
 
-                {/* <WatchedInput name="date" label="date" type="date" placeholder="date" /> */}
-                {/* Catégorie */}
-                <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
+                        {/* <WatchedInput name="date" label="date" type="date" placeholder="date" /> */}
+                        {/* Catégorie */}
+                        <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
 
-                <Authorship userId={userId} authors={authors} setAuthors={setAuthors} />
+                        <Authorship userId={userId} authors={authors} setAuthors={setAuthors} />
 
-                {/* TODO: URL Vidéo */}
+                        {/* TODO: URL Vidéo */}
 
-                <label className="form-control">
-                    <div className="label pb-1">
-                        <span className="label-text title-txt">Content</span>
-                        {/* <span className="label-text-alt">Alt label</span> */}
-                    </div>
-                    {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
-                    <Tiptap setContent={setEditorContent} />
-                </label>
-                {/* <p>{editorContent}</p> */}
+                        <label className="form-control">
+                            <div className="label pb-1">
+                                <span className="label-text title-txt">Content</span>
+                                {/* <span className="label-text-alt">Alt label</span> */}
+                            </div>
+                            {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
+                            <Tiptap setContent={setEditorContent} />
+                        </label>
+                        {/* <p>{editorContent}</p> */}
 
-                <label className="form-control w-full">
-                    <div className="label"><span className="label-text title-txt">Media</span></div>
-                </label>
-                <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
-                {/* <h4>Selected Files:</h4>
-                <pre className="overflow-x-auto text-xs">{JSON.stringify({media: media}, null, 2)}</pre> */}
+                        <label className="form-control w-full">
+                            <div className="label"><span className="label-text title-txt">Media</span></div>
+                        </label>
+                        <UploadFiles userId={userId} media={media} setMedia={setMedia}  />
+                        {/* <h4>Selected Files:</h4>
+                        <pre className="overflow-x-auto text-xs">{JSON.stringify({media: media}, null, 2)}</pre> */}
 
-                <WatchedInput name="link" label="Link" placeholder="Link" />
+                        <WatchedInput name="link" label="Link" placeholder="Link" />
 
-                <div className="form-control w-full">
-                    <div className="label pb-1">
-                        <span className="label-text-alt text-error text-sm opacity-80">required*</span>
-                    </div>
-                    <label className="label-text flex flex-row gap-2">
-                    <input 
-                        type="checkbox" 
-                        name="chbx-me" 
-                        className="checkbox checkbox-primary" 
-                        placeholder="Please enter your name"
-                        defaultChecked={publish}
-                        onChange={(e) => setPublish(e.target.checked)}
-                    />                    
-                        <span className="text-xl font-semibold">Make available on Her(e) Otherwise</span>
-                    </label>
-                    <div className="label">
-                        <span className="label-text-alt flex flex-row items-center">
-                            You can decide to remove your work from this website at any time.
-                        </span>
-                    </div>
+                        <div className="form-control w-full">
+                            <div className="label pb-1">
+                                <span className="label-text-alt text-error text-sm opacity-80">required*</span>
+                            </div>
+                            <label className="label-text flex flex-row gap-2">
+                            <input 
+                                type="checkbox" 
+                                name="chbx-me" 
+                                className="checkbox checkbox-primary" 
+                                placeholder="Please enter your name"
+                                defaultChecked={publish}
+                                onChange={(e) => setPublish(e.target.checked)}
+                            />                    
+                                <span className="text-xl font-semibold">Make available on Her(e) Otherwise</span>
+                            </label>
+                            <div className="label">
+                                <span className="label-text-alt flex flex-row items-center">
+                                    You can decide to remove your work from this website at any time.
+                                </span>
+                            </div>
 
-                </div>
+                        </div>
+                    </>
+                }
 
                 {/* Legal accept */}
 

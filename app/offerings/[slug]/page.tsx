@@ -10,6 +10,7 @@ import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu"
 import { FiEdit2, FiTriangle } from "react-icons/fi"
 import Link from "next/link"
 import PictureZoom from "../_components/picture-zoom"
+import VideoPlayer from "@/app/_components/video-player"
 
 
 type Props = {
@@ -160,7 +161,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                 return (
                   media.Media &&
                   <div key={media.media_id}>
-                    {
+                    {/* {
                       media.Media.type && media.Media.type.includes("image") && media.Media.url ?
                         // <Zoom><img src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} /></Zoom>
                         <PictureZoom src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} />
@@ -187,7 +188,44 @@ export default async function Art({ params }: { params: { slug: string, lang: st
                           <FaFileAlt className="w-12 h-12" />
                           {media.Media.title}
                         </a>
-                    }
+                    } */}
+                    {
+  media.Media.type && media.Media.type.includes("image") && media.Media.url ? (
+    <>
+      <PictureZoom src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} />
+      {
+        media.Media.description && <p>{media.Media.description}</p>
+      }
+    </>
+  ) : media.Media.type && media.Media.type.includes("video") && media.Media.url ? (
+    <video src={media.Media.url} controls></video>
+  ) : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ? (
+    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+      <FaFilePdf className="w-12 h-12" />
+      {media.Media.title}
+    </a>
+  ) : media.Media.type && (media.Media.type === "application/vnd.ms-powerpoint" || media.Media.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation") && media.Media.url ? (
+    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+      <FaFilePowerpoint className="w-12 h-12" />
+      {media.Media.title}
+    </a>
+  ) : media.Media.type && media.Media.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && media.Media.url ? (
+    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+      <FaFileWord className="w-12 h-12" />
+      {media.Media.title}
+    </a>
+  // ) : media.Media.url && (new URL(media.Media.url).hostname.includes("youtube.com") || new URL(media.Media.url).hostname.includes("vimeo.com")) ? (
+  ) : media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "vimeo.com") ? (
+    // <p>{media.Media.url}</p>
+    <VideoPlayer videoSrc={media.Media.url} />
+    // TODO: embed video
+  ) : media.Media.url && media.Media.title ? (
+    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+      <FaFileAlt className="w-12 h-12" />
+      {media.Media.title}
+    </a>
+  ) : null
+}
                   </div>
                 )
               })
