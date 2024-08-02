@@ -218,11 +218,15 @@ export default async function Art({ params }: { params: { slug: string, lang: st
   ) : media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "vimeo.com") ? (
     // <p>{media.Media.url}</p>
     <VideoPlayer videoSrc={media.Media.url} />
-    // TODO: embed video
   ) : media.Media.url && media.Media.title ? (
     <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
       <FaFileAlt className="w-12 h-12" />
       {media.Media.title}
+    </a>
+  ) : media.Media.url && !media.Media.title ? (
+    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+      <FaFileAlt className="w-12 h-12" />
+      {"See more at " + new URL(media.Media.url).hostname}
     </a>
   ) : null
 }
