@@ -19,8 +19,8 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
     }
 
     var borderColor = "border-" 
-    if(art.SubCategories[0]) {
-        borderColor+= (catColors[art.SubCategories[0].SubCategory.name.toUpperCase() as keyof typeof catColors] || "base-content");
+    if(art.SubCategories[0].SubCategory.Category) {
+        borderColor+= (catColors[art.SubCategories[0].SubCategory.Category?.name.toUpperCase() as keyof typeof catColors] || "base-content");
     }
     // borderColor+= (catColors[art.SubCategories[0].SubCategory.name.toUpperCase() as keyof typeof catColors] || "base-content");
     return (
