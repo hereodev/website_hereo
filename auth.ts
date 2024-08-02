@@ -10,7 +10,7 @@ import bcrypt from 'bcrypt';
 
 interface AdapterUser {
   id: string;
-  role?: string;
+  role?: "USER" | "ADMIN" | "SUPERADMIN";
 }
 async function getUser(email: string) {
   try {

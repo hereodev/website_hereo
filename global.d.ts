@@ -1,7 +1,7 @@
 import { User } from "next-auth";
 import { Art, Media, SubCategory, ArtSubCategory, User as PrismaUser, Author, Authorship, MediaInArt } from "@prisma/client";
 
-export type UserWithRole = PrismaUser & {
+export type UserWithRole = User & {
   id: string;
   name: string | null; 
   email: string; 
