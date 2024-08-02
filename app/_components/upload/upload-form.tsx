@@ -213,7 +213,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
                                 <p>Your offering was successfully uploaded</p>
                             </div>
                             <Link href={`/offerings/${submitted}`} className="btn btn-success">Go to your offering</Link>
-                            <Link href={`/offerings/`} className="btn btn-success">Submit another</Link>
+                            <Link href={`/offerings/upload`} className="btn btn-success">Submit another</Link>
                         </div>
                     )
                     :

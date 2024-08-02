@@ -85,7 +85,7 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                 {/* <input className="hidden" /> */}
                 {/* <div className="indicator"> */}
                     {/* <span className="indicator-item badge badge-secondary">new</span>  */}
-                    <button className="btn bg-primary bg-opacity-70 text-primary-content h-[140px] border border-base-content border-opacity-30 rounded-l-sm join-item uppercase">Choose Files</button>
+                    <button type="button" className="btn bg-primary bg-opacity-70 text-primary-content h-[140px] border border-base-content border-opacity-30 rounded-l-sm join-item uppercase">Choose Files</button>
                 {/* </div> */}
                 <input {...getInputProps()} multiple className="file-input file-input-bordered join-item flex flex-col items-center" />
                 {isDragActive ? (
