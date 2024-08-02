@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic'
 import { FiPause } from "react-icons/fi";
 
-export default function VideoPlayer({ videoSrc = "https://hereotherwise.b-cdn.net/assets_website/intro_EN.mp4", cn } : { videoSrc?: string, cn?: string }) {
+export default function VideoPlayer({ videoSrc = "https://hereotherwise.b-cdn.net/assets_website/intro_EN.mp4", cn, ctrls=false } : { videoSrc?: string, cn?: string, ctrls?: boolean }) {
 
     // let videoSrc = 'https://hereotherwise.b-cdn.net/assets_website/intro_EN.mp4';
     // let videoSrcFr = 'https://hereotherwise.b-cdn.net/assets_website/intro_FR.mp4';
@@ -30,7 +30,7 @@ export default function VideoPlayer({ videoSrc = "https://hereotherwise.b-cdn.ne
                     url={videoSrc}
                     // height={'100vh'}
                     height="100%"
-                    controls={false}
+                    controls={ctrls}
                     // playIcon={<button>Play</button>}
                     // light={false}
                     muted={true}

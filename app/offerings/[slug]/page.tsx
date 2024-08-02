@@ -160,35 +160,9 @@ export default async function Art({ params }: { params: { slug: string, lang: st
               .map((media) => {
                 return (
                   media.Media &&
-                  <div key={media.media_id} className={art.associated_media.length <=1 ? "col-span-2" : ""}>
-                    {/* {
-                      media.Media.type && media.Media.type.includes("image") && media.Media.url ?
-                        // <Zoom><img src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} /></Zoom>
-                        <PictureZoom src={media.Media.url} alt={media.Media.alt || media.Media.title || ""} />
-                      : media.Media.type && media.Media.type.includes("video") && media.Media.url ?
-                        <video src={media.Media.url} controls></video>
-                      : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ?
-                        <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-                          <FaFilePdf className="w-12 h-12" />
-                          {media.Media.title}
-                        </a>
-                      : media.Media.type && (media.Media.type === "application/vnd.ms-powerpoint" || media.Media.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation") && media.Media.url ?
-                        <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-                          <FaFilePowerpoint className="w-12 h-12" />
-                          {media.Media.title}
-                        </a>
-                      : media.Media.type && media.Media.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && media.Media.url ?
-                        <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-                          <FaFileWord className="w-12 h-12" />
-                          {media.Media.title}
-                        </a>
-                      :
-                        media.Media.url && media.Media.title &&
-                        <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-                          <FaFileAlt className="w-12 h-12" />
-                          {media.Media.title}
-                        </a>
-                    } */}
+                  <div key={media.media_id} 
+                  // className={`min-h-64 ${art.associated_media.length > 1 && ((media.Media.type && media.Media.type.includes("video")) || media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "vimeo.com")) ? "col-span-2" : ""}`}
+                  >
                     {
   media.Media.type && media.Media.type.includes("image") && media.Media.url ? (
     <>
@@ -198,7 +172,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
       }
     </>
   ) : media.Media.type && media.Media.type.includes("video") && media.Media.url ? (
-      <VideoPlayer videoSrc={media.Media.url} cn={"w-full"} />
+      <VideoPlayer videoSrc={media.Media.url} ctrls={true} cn={"h-12"} />
   ) : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ? (
     <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
       <FaFilePdf className="w-12 h-12" />
