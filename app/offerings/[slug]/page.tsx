@@ -225,7 +225,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
     </a>
   ) : media.Media.url && media.Media.type == "link" ? (
     <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
-      <FaExternalLinkAlt className="w-12 h-12" />
+      <FaExternalLinkAlt className="w-6 h-6" />
       {"See more at " + new URL(media.Media.url).hostname}
     </a>
   ) : null
