@@ -109,7 +109,7 @@ const UploadFiles = ({userId, media, setMedia} : { userId: string, media: Upload
                     }, 5000);
                     return (
                         <div key={index} className="flex flex-row text-sm justify-between items-center border border-error rounded p-2 m-2">
-                            <p><span className="italic">{file.name}</span> is not an accepted format</p>
+                            <p><span className="italic">{file.name}</span> is not an accepted format, or is too heavy.</p>
                             <button onClick={removeFile}>OK</button>
                         </div>
                     )

@@ -200,36 +200,33 @@ export default async function Art({ params }: { params: { slug: string, lang: st
   ) : media.Media.type && media.Media.type.includes("video") && media.Media.url ? (
     <video src={media.Media.url} controls></video>
   ) : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ? (
-    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
       <FaFilePdf className="w-12 h-12" />
       {media.Media.title}
     </a>
   ) : media.Media.type && (media.Media.type === "application/vnd.ms-powerpoint" || media.Media.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation") && media.Media.url ? (
-    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
       <FaFilePowerpoint className="w-12 h-12" />
       {media.Media.title}
     </a>
   ) : media.Media.type && media.Media.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && media.Media.url ? (
-    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
       <FaFileWord className="w-12 h-12" />
       {media.Media.title}
     </a>
-  // ) : media.Media.url && (new URL(media.Media.url).hostname.includes("youtube.com") || new URL(media.Media.url).hostname.includes("vimeo.com")) ? (
   ) : media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "vimeo.com") ? (
-    // <p>{media.Media.url}</p>
     <VideoPlayer videoSrc={media.Media.url} />
   ) : media.Media.url && media.Media.title ? (
-    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
       <FaFileAlt className="w-12 h-12" />
       {media.Media.title}
     </a>
   ) : media.Media.url && media.Media.type == "link" ? (
-    <a href={media.Media.url} className="flex items-center justify-center w-full h-full">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full">
       <FaExternalLinkAlt className="w-6 h-6" />
       {"See more at " + new URL(media.Media.url).hostname}
     </a>
-  ) : null
-}
+  ) : null}
                   </div>
                 )
               })
