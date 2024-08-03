@@ -14,7 +14,7 @@ export default async function Loading() {
                 <h1>Offerings</h1>
             <div className="divider my-0"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div> 
             </div>
-            <div className="flex flex-row flex-wrap gap-6 mx-auto w-fit">
+            <div className="flex flex-row flex-wrap gap-6 justify-around">
                 {
                     emptyArray.map((art, index) => {
                         return (
