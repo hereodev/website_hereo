@@ -188,7 +188,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
       <FaFileWord className="w-12 h-12" />
       {media.Media.title}
     </a>
-  ) : media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "vimeo.com") ? (
+  ) : media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "youtu.be" || new URL(media.Media.url).hostname === "vimeo.com") ? (
     <VideoPlayer videoSrc={media.Media.url} />
   ) : media.Media.url && media.Media.title ? (
     <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
