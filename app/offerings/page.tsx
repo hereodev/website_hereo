@@ -173,65 +173,6 @@ const filteredArt = allArt ? allArt.filter(filterArt) : [];
                     <Link href="/offerings/upload" className={`${"btn btn-outline p-2"}`}>Upload Work</Link>
                 }
             </div>
-            {
-                searchParams &&
-                <div className="flex flex-col gap-2">
-
-                    {searchParams && searchParams.keywords &&
-                        <div className="flex flex-row flex-nowrap items-center gap-2">
-                            {/* <FiTriangle className="text-2xl text-base-content" /> */}
-                            <p className="text-sm">Keywords:</p> 
-                            <div className="flex flex-row flex-wrap gap-2">
-                                {searchParams.keywords.split(',').map((kw, i) => {
-                                    return (
-                                        <div key={i} className="badge badge-outline gap-2 group hover:cursor-pointer">
-                                            {kw}
-                                            <FaX className="text-xs group-hover:text-white" />
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                            
-                        </div>
-                    }
-                    {/* Do the same for sites and authors */}
-                    {searchParams && searchParams.authors &&
-                        <div className="flex flex-row flex-nowrap items-center gap-2">
-                            {/* <FiTriangle className="text-2xl text-base-content" /> */}
-                            <p className="text-sm">Authors:</p> 
-                            <div className="flex flex-row flex-wrap gap-2">
-                                {searchParams.authors.split(',').map((kw, i) => {
-                                    return (
-                                        <div key={i} className="badge badge-outline gap-2 group hover:cursor-pointer">
-                                            {kw}
-                                            <FaX className="text-xs group-hover:text-white" />
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                            
-                        </div>
-                    }
-                    {/* Do the same for sites and authors */}
-                    {searchParams && searchParams.sites &&
-                        <div className="flex flex-row flex-nowrap items-center gap-2">
-                            {/* <FiTriangle className="text-2xl text-base-content" /> */}
-                            <p className="text-sm">Sites:</p> 
-                            <div className="flex flex-row flex-wrap gap-2">
-                                {searchParams.sites.split(',').map((kw, i) => {
-                                    return (
-                                        <div key={i} className="badge badge-outline gap-2 group hover:cursor-pointer">
-                                            {kw}
-                                            <FaX className="text-xs group-hover:text-white" />
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                            
-                        </div>
-                    }
-                </div>
-            }
             <div>
                 <SearchBar />
             </div>

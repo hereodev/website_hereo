@@ -97,6 +97,62 @@ export async function logArtDetails({ artId }: { artId: number }) {
     // Note: No actual deletion is performed, only logging
 }
 
+export async function updateArtTitle({ artId, newTitle }: { artId: number, newTitle: string }) {
+    console.log("Updating title for artwork with ID:", artId);
+
+    const updatedArt = await prisma.art.update({
+        where: {
+            id: artId,
+        },
+        data: {
+            title: newTitle,
+            slug: slugify(newTitle),
+        },
+    });
+
+    console.log("Updated artwork:", updatedArt);
+    return updatedArt;
+}
+/**
+ * Updates the subtitle of an artwork.
+ * 
+ * @param {Object} params - The parameters.
+ * @param {number} params.artId - The ID of the artwork to update.
+ * @param {string} params.newSubtitle - The new subtitle for the artwork.
+ * @returns {Promise<Object>} - The updated artwork.
+ */
+export async function updateArtSubtitle({ artId, newSubtitle }: { artId: number, newSubtitle: string }) {
+    console.log("Updating subtitle for artwork with ID:", artId);
+
+    const updatedArt = await prisma.art.update({
+        where: { id: artId },
+        data: { subtitle: newSubtitle },
+    });
+
+    console.log("Updated artwork:", updatedArt);
+    return updatedArt;
+}
+
+/**
+ * Updates the long text of an artwork.
+ * 
+ * @param {Object} params - The parameters.
+ * @param {number} params.artId - The ID of the artwork to update.
+ * @param {string} params.newLongText - The new long text for the artwork.
+ * @returns {Promise<Object>} - The updated artwork.
+ */
+export async function updateArtLongText({ artId, newLongText }: { artId: number, newLongText: string }) {
+    console.log("Updating long text for artwork with ID:", artId);
+
+    const updatedArt = await prisma.art.update({
+        where: { id: artId },
+        data: { long_text: newLongText },
+    });
+
+    console.log("Updated artwork:", updatedArt);
+    return updatedArt;
+}
+
 /**
  * Deletes an artwork and its associated media, authorship records, and media references.
  * If any operation fails, the transaction is rolled back.

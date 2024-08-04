@@ -1,9 +1,20 @@
+[x] rond vide si pas d'image, titre au centre
+[x] pdf en premier pour pas être raté$
+[ ] make available on here otherwise : small caps
+[ ] put it in a box and put it somewhere (the offerings top menu)
+[ ] arrow in yellow
+[ ] arrow on the left
+[ ] pop-up invitations
+[ ] pop-up événement
+[ ] decide on keywords.
+
 [x] Admin auth
 [x] SAYY à remplacer par "Admin"
 [x] Une page "about" qui s'appelle saay/yaas
 [x] The Acts => Encounters
 [x] English only
 [ ] cacher le menu des offerings, on clique sur le triangle ça le montre.
+[ ] nothing bold besides the title of the website
 [ ] Home :
     - [x] Enlever le bouton pause.
     - [x] Invitations : menu déroulant horizontal
