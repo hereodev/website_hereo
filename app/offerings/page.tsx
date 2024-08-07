@@ -1,6 +1,6 @@
 import { auth } from "@/auth"
 import prisma from "@/prisma";
-import { FiTriangle } from "react-icons/fi";
+import { FiPlus, FiTriangle } from "react-icons/fi";
 import SearchBar from "@/app/offerings/_components/search-bar";
 import Link from "next/link";
 import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu";
@@ -170,7 +170,10 @@ const filteredArt = allArt ? allArt.filter(filterArt) : [];
                 <h1 className="">Offerings</h1>
                 {
                     session && session.user &&
-                    <Link href="/offerings/upload" className={`${"btn btn-outline p-2"}`}>Upload Work</Link>
+                    <Link href="/offerings/upload" className={`btn btn-outline p-2 flex gap-2`}>
+                        <FiPlus />
+                        Upload Work
+                    </Link>
                 }
             </div>
             <div>

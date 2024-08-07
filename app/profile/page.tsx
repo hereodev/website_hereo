@@ -7,7 +7,7 @@ import { redirect } from "next/navigation"
 import EditableProfile from "@/app/_components/auth/editable-profile"
 import prisma from "@/prisma"
 import Link from "next/link"
-import { FiEdit, FiTrash } from "react-icons/fi"
+import { FiEdit, FiPlus, FiTrash } from "react-icons/fi"
 import Image from "next/image"
 import { deleteArt, logArtDetails } from "../lib/actions_db"
 import PreviewArt from "./_components/preview-art"
@@ -124,7 +124,10 @@ export default async function Profile() {
         }
         <div className="flex flex-row items-end gap-6">
           <h2>My Offering(s)</h2>
-          <Link href="/offerings/upload" className={`${"btn btn-xs btn-outline mb-4"}`}>Upload Work</Link>
+          <Link href="/offerings/upload" className={`${"btn btn-xs btn-outline mb-4 flex gap-2"}`}>
+            <FiPlus />
+            Upload Work
+          </Link>
         </div>
         {
           userArt.length === 0 ? <p>No art uploaded yet.</p>

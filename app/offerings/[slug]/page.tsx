@@ -7,7 +7,7 @@ import prisma from "@/prisma"
 import { redirect } from "next/navigation"
 import { FaExternalLinkAlt, FaFileAlt, FaFilePdf, FaFilePowerpoint, FaFileWord } from "react-icons/fa"
 import OfferingsTopMenu from "@/app/offerings/_components/offerings-topmenu"
-import { FiEdit2, FiTriangle } from "react-icons/fi"
+import { FiEdit2, FiPlus, FiTriangle } from "react-icons/fi"
 import Link from "next/link"
 import PictureZoom from "../_components/picture-zoom"
 import VideoPlayer from "@/app/_components/video-player"
@@ -131,7 +131,8 @@ export default async function Art({ params }: { params: { slug: string, lang: st
               }
               {
                 session && session.user && art.uploader.id == session.user.id && //|| (((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
-                <Link href={`/offerings/upload`} className="btn btn-outline">
+                <Link href={`/offerings/upload`} className="btn btn-outline flex gap-2">
+                  <FiPlus />
                   Upload work
                 </Link>
               }
