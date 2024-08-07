@@ -19,7 +19,7 @@ export default async function Loading() {
                     emptyArray.map((art, index) => {
                         return (
                             <div key={index} className="avatar">
-                        <div className="w-64 h-64 rounded-full bg-slate-200">
+                        <div className="w-64 h-64 rounded-full border border-white">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 {/* <img
                                     src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"

@@ -60,7 +60,7 @@ export default function Nav({ lang } : { lang: string}) {
     const isNotTopPath = pathname.split("/").length > 2;
 
     return (
-        <div className="navbar bg-base-100 bg-opacity-90 fixed top-0 left-0 z-50">
+        <div className="navbar bg-base-100 bg-opacity-90 fixed top-0 left-0 z-50 px-2">
         <Link href="/" className="flex-1 z-50 font-semibold text-2xl">
             {/* <h1 className="sr-only">Her(e) Otherwise</h1> */}
             {/* <div className="flex gap-4 w-full items-center text-2xl font-semibold uppercase text-white"> */}
