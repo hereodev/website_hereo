@@ -1,7 +1,7 @@
 
 ## ABOUT
 - [ ] HOVER over anything should make the item highlight in the CITRON color on all the pages
-- [ ] ARROWS at the center of the page are non-responsive. What are they supposed to do?
+- [-] ARROWS at the center of the page are non-responsive. What are they supposed to do?
     => They're just for aesthetics, and to put an emphasis on the invitations and divide the page (intro / invitations / about us). I removed them for clarity.
 
 ## INVITATIONS
@@ -41,9 +41,9 @@
 ## MENU
 - [x] HIGHLIGHT CITRON when HOVER over it (always - everywhere - a consistent logic).
 - [x] ARROW also turns CITRON when hover over it.
-- [ ] SITES OF BELONGING? How does it operate?
+- [-] SITES OF BELONGING? How does it operate?
   => once authors will have entered a site of belonging (on their profile), they will appear here. so far only mine are there (test ones that I'm going to remove.)
-- [ ] What are the NUMBERS on right side 4|1 20 etc.?
+- [-] What are the NUMBERS on right side 4|1 20 etc.?
   => it's: [how many are selected] | [how many are available]
 
 ## SIGN-IN
