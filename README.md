@@ -13,8 +13,8 @@
 [x] Une page "about" qui s'appelle saay/yaas
 [x] The Acts => Encounters
 [x] English only
-[ ] cacher le menu des offerings, on clique sur le triangle ça le montre.
-[ ] nothing bold besides the title of the website
+[x] cacher le menu des offerings, on clique sur le triangle ça le montre.
+[x] nothing bold besides the title of the website
 [ ] Home :
     - [x] Enlever le bouton pause.
     - [x] Invitations : menu déroulant horizontal

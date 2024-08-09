@@ -112,6 +112,11 @@ h2 {
   background-color: black;
 }
 
+/* styles.css or within a <style> tag */
+.yellow-filter:hover {
+  filter: sepia(1) saturate(10000%) hue-rotate(90deg);
+}
+
 .invitation-text > p,
 .invitation-text > * > p {
     @apply py-4 text-sm;
@@ -126,6 +131,7 @@ h2 {
   object-position: center;
   overflow: clip;
 }
+
 
 @layer utilities {
   .text-balance {
