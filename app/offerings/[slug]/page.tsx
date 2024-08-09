@@ -124,14 +124,14 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <div className="flex flex-row justify-center items-center gap-2">
               {
                 session && session.user && art.uploader.id == session.user.id && //|| (((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
-                <Link href={`/offerings/${art.slug}/edit`} className="btn btn-outline">
+                <Link href={`/offerings/${art.slug}/edit`} className="btn btn-outline hover:btn-primary">
                   <FiEdit2 />
                   Edit
                 </Link>
               }
               {
                 session && session.user && art.uploader.id == session.user.id && //|| (((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
-                <Link href={`/offerings/upload`} className="btn btn-outline flex gap-2">
+                <Link href={`/offerings/upload`} className="btn btn-outline hover:btn-primary flex gap-2">
                   <FiPlus />
                   Upload work
                 </Link>
@@ -212,7 +212,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
           <UserSessionComp />
           { session && session.user && ((session.user as UserWithRole).slug == params.slug || ((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
-            <button className="btn btn-outline">Edit my profile</button>
+            <button className="btn btn-outline hover:btn-primary">Edit my profile</button>
           } */}
           {/* <h2>Credits</h2> */}
           <div className="divider my-8"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div> 

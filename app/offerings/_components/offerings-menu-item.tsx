@@ -41,8 +41,8 @@ export default function OfferingsMenuItem({
     return (
         <div>
             {/* <p className="text-xs">{chosenCategories.join(', ')}</p> */}
-            <div className="flex flex-row justify-between hover:cursor-pointer hover:font-semibold" onClick={() => setIsExtended(!isExtended)}>
-                <p className="border-t border-t-white">{label.toUpperCase()}</p>
+            <div className="flex flex-row justify-between group hover:cursor-pointer" onClick={() => setIsExtended(!isExtended)}>
+                <p className="border-t border-t-white group-hover:font-semibold group-hover:text-primary group-hover:border-t-primary">{label.toUpperCase()}</p>
                 <p>
                     {count}
                     {

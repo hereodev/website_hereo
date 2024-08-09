@@ -108,6 +108,37 @@ h2 {
   100% { transform: translateX(-100%); }
 }
 
+blockquote {
+  font-style: italic;
+  /* color: #555; */
+  border-left: 2px solid #ccc;
+  margin: 20px 0;
+  padding: 10px 20px;
+  quotes: "“" "”" "‘" "’";
+}
+
+blockquote::before {
+  /* content: open-quote; */
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-right: 10px;
+  vertical-align: -0.4em;
+  /* color: #ccc; */
+}
+
+blockquote::after {
+  /* content: close-quote; */
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-left: 10px;
+  vertical-align: -0.4em;
+  /* color: #ccc; */
+}
+
+blockquote p {
+  display: inline;
+}
+
 .vp-center {
   background-color: black;
 }

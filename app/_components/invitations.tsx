@@ -107,13 +107,36 @@ export default function Invitations({welcome=false}: {welcome?: boolean}) {
 function InvitationModal({slug, title, content}: {slug: string, title: string, content?: string}) {
 
   return (
-    <dialog id={slug} className="modal text-base-content">
-  <div className="modal-box w-[90vw] max-w-[90vw] h-[80vh]">
-    <h3 className="font-bold text-lg">{title}</h3>
-    {/* <div className=" max-w-[80vw] break-words whitespace-normal">
-      <p className="py-4 text-sm">« Des fantasmes qui ne nous représentent pas, mais représentent l&apos;imaginaire blanc. Ils constituent certains aspects du moi blanc, re-projetés sur nous comme s&apos;ils étaient des images de nous-mêmes, objectives et dignes de foi. Cela dit, ils ne sont pas notre problème à nous. » — Grada Kilomba </p>
-      <p className="py-4 text-sm">Chères et amies et collègues, Lorsqu&apos;on leur a demandé d&apos;interpréter le « brief » pour le projet d&apos;architecture Saison Africa 2020, les membres du collectif de commissaires et d&apos;architectes saay/ yaas ont été inspirées par des stratégies qui reconnaissaient pleinement les formes d&apos;expression, de résilience et de contenu créatif venues d&apos;Afrique ou des diasporas africaines2,tout en fournissant un contrepoids aux idées préconçues, aux perceptions figées et aux notions homogénéisantes si communes lorsqu&apos;il s&apos;agit de l&apos;Afrique… « pour expliquer à ceux qui ont le privilège de ne pas savoir »3. considérait l&apos;exposition « classique » d&apos;architecture comme un format trop statique, offrant des possibilités critiques aussi limitées que limitatives : la plateforme en ligne her(e), otherwise est née de ce constat.</p>
-    </div> */}
+//     <dialog id={slug} className="modal text-base-content">
+//   <div className="modal-box w-[90vw] max-w-[90vw] h-[80vh] overflow-y-scroll">
+//     <h3 className="font-bold text-lg">{title}</h3>
+//     {/* <div className=" max-w-[80vw] break-words whitespace-normal">
+//       <p className="py-4 text-sm">« Des fantasmes qui ne nous représentent pas, mais représentent l&apos;imaginaire blanc. Ils constituent certains aspects du moi blanc, re-projetés sur nous comme s&apos;ils étaient des images de nous-mêmes, objectives et dignes de foi. Cela dit, ils ne sont pas notre problème à nous. » — Grada Kilomba </p>
+//       <p className="py-4 text-sm">Chères et amies et collègues, Lorsqu&apos;on leur a demandé d&apos;interpréter le « brief » pour le projet d&apos;architecture Saison Africa 2020, les membres du collectif de commissaires et d&apos;architectes saay/ yaas ont été inspirées par des stratégies qui reconnaissaient pleinement les formes d&apos;expression, de résilience et de contenu créatif venues d&apos;Afrique ou des diasporas africaines2,tout en fournissant un contrepoids aux idées préconçues, aux perceptions figées et aux notions homogénéisantes si communes lorsqu&apos;il s&apos;agit de l&apos;Afrique… « pour expliquer à ceux qui ont le privilège de ne pas savoir »3. considérait l&apos;exposition « classique » d&apos;architecture comme un format trop statique, offrant des possibilités critiques aussi limitées que limitatives : la plateforme en ligne her(e), otherwise est née de ce constat.</p>
+//     </div> */}
+//     {
+//       slug === 'invitation-francais' ? <Francais />
+//       : slug === 'invitation-english' ? <English />
+//       : slug === 'invitation-hausa' ? <Hausa />
+//       : slug === 'invitation-isizulu' ? <IsiZulu />
+//       : slug === 'invitation-lgbo' ? <Lgbo />
+//       // : slug === 'invitation-sesotho' ? <Sesotho />
+//       : slug === 'invitation-swahili' ? <Swahili />
+//       : slug === 'invitation-yoruba' ? <Yoruba />
+//       : <English />
+//     }
+//     <div className="modal-action">
+//       <form method="dialog">
+//         {/* if there is a button, it will close the modal */}
+//         <button className="btn">Close</button>
+//       </form>
+//     </div>
+//   </div>
+// </dialog>
+<dialog id={slug} className="modal text-base-content">
+<div className="modal-box w-[90vw] max-w-[90vw] h-[80vh] overflow-y-auto">
+  <h3 className="font-bold text-lg">{title}</h3>
+  <div className="invitation-content break-words whitespace-normal w-full">
     {
       slug === 'invitation-francais' ? <Francais />
       : slug === 'invitation-english' ? <English />
@@ -125,15 +148,14 @@ function InvitationModal({slug, title, content}: {slug: string, title: string, c
       : slug === 'invitation-yoruba' ? <Yoruba />
       : <English />
     }
-    <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button, it will close the modal */}
-        <button className="btn">Close</button>
-      </form>
-    </div>
   </div>
+  <div className="modal-action">
+    <form method="dialog">
+      <button className="btn hover:btn-outline hover:btn-primary">Close</button>
+    </form>
+  </div>
+</div>
 </dialog>
-
   )
 }
 

@@ -37,13 +37,13 @@ const Tiptap = () => {
             <div className="flex flex-row gap-1">
               <button
                 onClick={(e) => {e?.preventDefault(); editor.chain().focus().toggleBold().run()}}
-                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('bold') && "btn-outline opacity-100"}`}
+                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('bold') && "btn-outline hover:btn-primary opacity-100"}`}
                 title="Bold"
               >
                 <FaBold className="h-4 w-4" />
               </button>
               <button
-                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('italic') && "btn-outline opacity-100"}`}
+                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('italic') && "btn-outline hover:btn-primary opacity-100"}`}
                 onClick={(e) => {e?.preventDefault(); editor.chain().focus().toggleItalic().run()}}
                 title="Italic"
               >
@@ -51,28 +51,28 @@ const Tiptap = () => {
               </button>
                 {/* boutons : souligné, heading, strike, text color, highlighting, center/left/right */}
               <button
-                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('underline') && "btn-outline opacity-100"}`}
+                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('underline') && "btn-outline hover:btn-primary opacity-100"}`}
                 onClick={() => editor.chain().focus().toggleUnderline().run()}
                 title='Underline'
               >
                 <FaUnderline className="h-4 w-4" />
               </button>
               <button
-                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('strike') && "btn-outline opacity-100"}`}
+                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('strike') && "btn-outline hover:btn-primary opacity-100"}`}
                 onClick={() => editor.chain().focus().toggleStrike().run()}
                 title='Strikethrough'
               >
                 <FaStrikethrough className="h-4 w-4" />
               </button>
               <button
-                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('bulletList') && "btn-outline opacity-100"}`}
+                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('bulletList') && "btn-outline hover:btn-primary opacity-100"}`}
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 title='Bullet List'
               >
                 <FaList className="h-4 w-4" />
               </button>
               <button
-                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('heading', { level: 1 }) && "btn-outline opacity-100"}`}
+                className={`btn btn-square btn-sm opacity-80 hover:opacity-90 ${editor.isActive('heading', { level: 1 }) && "btn-outline hover:btn-primary opacity-100"}`}
                 onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
                 title='Heading 1'
               >

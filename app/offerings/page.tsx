@@ -170,7 +170,7 @@ const filteredArt = allArt ? allArt.filter(filterArt) : [];
                 <h1 className="">Offerings</h1>
                 {
                     session && session.user &&
-                    <Link href="/offerings/upload" className={`btn btn-outline p-2 flex gap-2`}>
+                    <Link href="/offerings/upload" className={`btn btn-outline hover:btn-primary p-2 flex gap-2`}>
                         <FiPlus />
                         Upload Work
                     </Link>

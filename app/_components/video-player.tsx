@@ -18,7 +18,7 @@ export default function VideoPlayer({ videoSrc = "https://hereotherwise.b-cdn.ne
 
     return (
         <div>
-            {/* <div className="absolute btn btn-outline btn-primary top-20 right-16 z-50">
+            {/* <div className="absolute btn btn-outline hover:btn-primary btn-primary top-20 right-16 z-50">
                 <FiPause />
                 PAUSE
             </div> */}

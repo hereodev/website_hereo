@@ -1,61 +1,50 @@
-[x] rond vide si pas d'image, titre au centre
-[x] pdf en premier pour pas être raté$
-[ ] make available on here otherwise : small caps
-[ ] put it in a box and put it somewhere (the offerings top menu)
-[ ] arrow in yellow
-[ ] arrow on the left
-[ ] pop-up invitations
-[ ] pop-up événement
-[ ] decide on keywords.
 
-[x] Admin auth
-[x] SAYY à remplacer par "Admin"
-[x] Une page "about" qui s'appelle saay/yaas
-[x] The Acts => Encounters
-[x] English only
-[x] cacher le menu des offerings, on clique sur le triangle ça le montre.
-[x] nothing bold besides the title of the website
-[ ] Home :
-    - [x] Enlever le bouton pause.
-    - [x] Invitations : menu déroulant horizontal
-    - [x] Monter le welcome et les invitations, baisser la vidéo
-[ ] Auth:
-    - [x] vider le champ password
-[ ] Upload:
-    - [x] tiptap: enlever le placeholder ou alors pas le sélectionner 
-    - [ ] Language ???
-    - [ ] FIXME: placeholder tiptap
-    - [x] select-files: les gras sont en primary (titres etc)
-    - [x] catégories : que les filles. rajouter The Acts
-[ ] TODO: changing the adinkra symbols in admin
-[ ] Offering:
-    - [ ] pas beosin de retour arrière quand on est sur une page art
-    - [x] offered by: anonymous.
-    - [ ] sites of belonging
-[ ] Offerings:
-    - [ ] pointillés couleur selon tag. cf. couleurs mail mawena.
-    - [ ] images en fond du rectangle: oui
-    - [x] prompts au lieu de items
-    - [ ] search: 4 catégories toujorus visibles + search bar
-[ ] DB auth
-    - [x] sign up with hash password
-    - [ ] sign up e-mail: shape up + remove from spam
-    - [x] signin from DB with bcrypt
-    - [ ] reset password
-    - [ ] FIXME: signing up doesnt send to signin page??
-[ ] Profile page
-    - [ ] localités TODO: make working
-    - [x] FIXME name does not update
-    - [ ] Champ réseaux sociaux
-[ ] Upload
-    - [x] Upload to Bunny: in dir named after uploader's ID
-    - [x] Update DB with URL, uploader's Id, authors
-    - [x] FIXME Tiptap weird focus
-    - [x] Upload art text content to DB
+## ABOUT
+- [ ] HOVER over anything should make the item highlight in the CITRON color on all the pages
+- [ ] ARROWS at the center of the page are non-responsive. What are they supposed to do?
+    => They're just for aesthetics, and to put an emphasis on the invitations and divide the page (intro / invitations / about us). I removed them for clarity.
 
-TODO finalisation :
-- [ ] Changer mail twilio
-- [ ] Changer nom de domaine
-- [x] Bunny: enable replication to US East
+## INVITATIONS
+- [x] The text of the invitations should read with a VERTICAL SCROLL, no horizontal scroll.
+- [x] Insert actual text for each invitation.
+    => I don't have the Sesotho text.
 
-[ ] The acts: événements et poster du contenu. Plutôt comme un blog, pour Patti et Hannah.
+## ABOUT US
+- [ ] INSERT our PORTRAITS.
+- [ ] CHANGE curators' descriptions to ENGLISH (except Mawena, if she wants) and insert our BIOS.
+- [ ] Changes to Anna’s descriptor and bio - will send to you.
+
+## SPONSORS
+- [x] Insert arc en reve’s LOGO (see attached). We are waiting for Graham Foundation’s logo.
+  => Found it. Please check.
+- [x] Make slight change to the about blurb:
+  > “This platform responds to the urgent need to gather an open, interactive, and expanding community of black women engaged in the broadest possible range of self-determined acts and operations within the disciplines of architecture and urban design, and within the discourse of all spatial practices.”
+
+## OFFERINGS
+- [ ] Search bar: REMOVE the text "I’ve seen the future". Leave empty with only the magnifying glass symbol.
+  
+### DISPLAY of offerings
+- [ ] When hovering or selecting one of the offerings (‘round image/title), right now it responds by becoming fainter. It should do the opposite - that selected offering should be HIGHLIGHTED.
+- [ ] HIGHLIGHT the selected project as well as the OTHER ONES that are part of SAME CATEGORY.
+- [ ] IF HIGHLIGHTING is not a possibility, make all perimeter contour lines CITRON color (as opposed to different colors).
+- [ ] ALIGN offering circles at lowest row to the left side (left justify).
+- [ ] On CELL PHONE viewing, the menu does not leave the screen - FIX.
+- [ ] THE DEAD WILL RISE + INVISIBLE BOUNDARIES projects/offerings are duplicated - verify.
+- [ ] VIDEO: When an offering is a video, why is the video displayed small on a long white bar? What are other options? We prefer removal of the white bar so that the video sits on the black background. Also, move the arrows and text down to the bottom third of the page so that the video sits roughly in the middle and can be larger than it currently is.
+- [ ] ARROW always in middle.
+
+## MENU
+- [ ] HIGHLIGHT CITRON when HOVER over it (always - everywhere - a consistent logic).
+- [ ] ARROW also turns CITRON when hover over it.
+- [ ] SITES OF BELONGING? How does it operate?
+- [ ] What are the NUMBERS on right side 4|1 20 etc.?
+
+## SIGN-IN
+- [ ] Log in or sign up should all be in CITRON color.
+- [ ] Add Key symbol below email (password bar).
+- [ ] LOG-in in second page should go back.
+
+## GENERAL
+- [ ] When cursor HOVERS over any item that could open, it should highlight in CITRON always.
+- [ ] We notice a SLOWNESS in responsiveness of the site - especially the loading of the offering image circles. Is this something which could be addressed?
+- [ ] Could you remind us how long you will be available to make changes on the website such as typos we may find or other minor adjustments?

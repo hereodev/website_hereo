@@ -110,7 +110,7 @@ function LoginButton() {
     const { pending } = useFormStatus();
  
     return (
-        <button className="btn btn-outline mt-4 w-full" aria-disabled={pending}>
+        <button className="btn btn-outline hover:btn-primary mt-4 w-full" aria-disabled={pending}>
             {
                 pending ?
                 <span>Logging in...</span>

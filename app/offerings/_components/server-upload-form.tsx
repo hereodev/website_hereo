@@ -25,7 +25,7 @@ export default function UploadArt() {
                     className="file-input w-full max-w-xs" 
                 />
 
-                <input type="submit" value="Upload" className="btn btn-outline" />
+                <input type="submit" value="Upload" className="btn btn-outline hover:btn-primary" />
 
             </form>
         </main>

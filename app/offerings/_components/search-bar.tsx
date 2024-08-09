@@ -27,13 +27,14 @@ export default function SearchBar() {
 
     return (
         <div className="search-bar w-full">
-            <label className="input flex items-center gap-2 px-0">
-                <FiSearch className="w-4 h-4 opacity-70" />
+            <label className="input flex items-center gap-2 px-0 group">
+                <FiSearch className="w-4 h-4 opacity-70 group-hover:text-primary" />
                 <input
                     type="text" 
                     // disabled
-                    className="grow"
-                    placeholder="I've seen the future..."
+                    className="grow group-hover:border group-hover:border-primary"
+                    placeholder=""
+                    // placeholder="I've seen the future..."
                     defaultValue={searchParams.get('query')?.toString()}
                     onChange={(e) => {
                         handleSearch(e.target.value);

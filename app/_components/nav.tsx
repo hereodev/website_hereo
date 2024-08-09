@@ -61,7 +61,7 @@ export default function Nav({ lang } : { lang: string}) {
 
     return (
         <div className="navbar bg-base-100 bg-opacity-90 fixed top-0 left-0 z-50 px-2">
-        <Link href="/" className="flex-1 z-50 font-semibold text-2xl">
+        <Link href="/" className="flex-1 z-50 font-semibold text-2xl hover:text-primary">
             {/* <h1 className="sr-only">Her(e) Otherwise</h1> */}
             {/* <div className="flex gap-4 w-full items-center text-2xl font-semibold uppercase text-white"> */}
                 :her(e), otherwise
@@ -82,7 +82,7 @@ export default function Nav({ lang } : { lang: string}) {
                 }).map(({ href, label, labelFr }) => (
                     <Link 
                         key={href} 
-                        className={`uppercase border-t border-t-black ${(isNotTopPath || (href!=parentPath)) && "hover:border-t-base-content"} hover:cursor-pointer flex flex-row items-center gap-1 ${("/"+pathname.split("/")[1]) == href && "text-white"}`} 
+                        className={`uppercase border-t border-t-black ${(isNotTopPath || (href!=parentPath)) && "hover:border-t-primary"} hover:cursor-pointer hover:text-primary flex flex-row items-center gap-1 ${("/"+pathname.split("/")[1]) == href && "text-white"}`} 
                         href={href}
                     >
                         {/* {("/"+pathname.split("/")[1]) == href && 
@@ -94,12 +94,12 @@ export default function Nav({ lang } : { lang: string}) {
             }
             {
                 session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
-                <Link className={`uppercase ${(("/admin_saay_yaas"==parentPath && isNotTopPath) || ("/admin_saay_yaas"!=parentPath)) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-row items-center gap-1`} href={"/admin_saay_yaas"}>
+                <Link className={`uppercase ${(("/admin_saay_yaas"==parentPath && isNotTopPath) || ("/admin_saay_yaas"!=parentPath)) && "hover:border-t-primary"} border-t border-t-black hover:cursor-pointer hover:text-primary flex flex-row items-center gap-1`} href={"/admin_saay_yaas"}>
                     Admin
                 </Link>
             }
             {/* <>
-                <Link className={`uppercase text-white ${((href==parentPath && isNotTopPath) || (href!=parentPath)) && "hover:border-t-base-content"} border-t border-t-black hover:cursor-pointer flex flex-col items-center justify-center`} href={"/admin_saay_yaas"}>
+                <Link className={`uppercase text-white ${((href==parentPath && isNotTopPath) || (href!=parentPath)) && "hover:border-t-primary"} border-t border-t-black hover:cursor-pointer flex flex-col items-center justify-center`} href={"/admin_saay_yaas"}>
                         <span><FiTriangle className="h-2 w-2 stroke-white" style={{transform:`rotate(180deg)`}} /></span>
                     Test
                         <span><FiTriangle className="h-2 w-2 stroke-white" style={{transform:`rotate(0deg)`}} /></span>
@@ -114,8 +114,8 @@ export default function Nav({ lang } : { lang: string}) {
                 {session?.user && 
                 <Link href={"/profile"}>
                     <div className="avatar placeholder" title="Profile">
-                        <div className="bg-none border border-base-content text-neutral-content rounded-full w-8">
-                        <span className="text-xs">
+                        <div className="bg-none border border-base-content group hover:border-primary text-neutral-content rounded-full w-8">
+                        <span className="text-xs group-hover:text-primary">
                             {name ? (name.match(/[A-Z]/g) || []).slice(0, 2).join('') : 
                             <FiUser className="w-4 h-4 opacity-70" />
                             }
@@ -132,13 +132,13 @@ export default function Nav({ lang } : { lang: string}) {
                 //     await signOut()
                 //     window.location.reload()
                 // }}
-            // <Link className="btn btn-sm btn-outline" href="/auth/signin" title="Sign In">
+            // <Link className="btn btn-sm btn-outline hover:btn-primary" href="/auth/signin" title="Sign In">
             //     <FiLogOut />
             //     Log Out
             // </Link>
             <></>
             : 
-            <Link className="btn btn-sm btn-outline" href="/auth/signin" title="Sign In">
+            <Link className="btn btn-sm btn-outline hover:btn-primary" href="/auth/signin" title="Sign In">
                 <FiLogIn />
                 Login
             </Link>
@@ -201,7 +201,7 @@ export default function Nav({ lang } : { lang: string}) {
                 //     await signOut()
                 //     window.location.reload()
                 // }}
-            // <Link className="btn btn-sm btn-outline" href="/auth/signin" title="Sign In">
+            // <Link className="btn btn-sm btn-outline hover:btn-primary" href="/auth/signin" title="Sign In">
             //     <FiLogOut />
             //     Log Out
             // </Link> /////
@@ -217,7 +217,7 @@ export default function Nav({ lang } : { lang: string}) {
             // </form>
             <></>
             : 
-            <Link className="btn btn-sm btn-outline" href="/auth/signin" title="Sign In">
+            <Link className="btn btn-sm btn-outline hover:btn-primary" href="/auth/signin" title="Sign In">
                 <FiLogIn />
                 Login
             </Link>

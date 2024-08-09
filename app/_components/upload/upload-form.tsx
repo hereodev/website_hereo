@@ -229,7 +229,7 @@ function UploadButton({ pending } : {pending: boolean}) {
     // const { pending } = useFormStatus();
  
     return (
-        <button className={`btn btn-outline mt-4 w-full`} disabled={pending} aria-disabled={pending}>
+        <button className={`btn btn-outline hover:btn-primary mt-4 w-full`} disabled={pending} aria-disabled={pending}>
             {
                 pending ?
                 <span className="text-primary text-2xl flex flex-row items-base gap-2">

@@ -124,7 +124,7 @@ export default async function Profile() {
         }
         <div className="flex flex-row items-end gap-6">
           <h2>My Offering(s)</h2>
-          <Link href="/offerings/upload" className={`${"btn btn-xs btn-outline mb-4 flex gap-2"}`}>
+          <Link href="/offerings/upload" className={`${"btn btn-xs btn-outline hover:btn-primary mb-4 flex gap-2"}`}>
             <FiPlus />
             Upload Work
           </Link>

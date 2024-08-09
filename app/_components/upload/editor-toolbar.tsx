@@ -15,7 +15,7 @@ export default function EditorToolbar({ editor } : Props) {
 	// const formatActive = (format: string) => editor && editor.isActive(format);
     const btnIconCss = "h-5 md:h-6 w-5 md:w-6";
     const btnCss = "btn btn-square btn-sm opacity-80 hover:opacity-90"
-    const selectedStyleCss = "btn-outline opacity-100"
+    const selectedStyleCss = "btn-outline hover:btn-primary opacity-100"
 
     const divider = <div className="divider divider-horizontal mx-0"></div>
 
