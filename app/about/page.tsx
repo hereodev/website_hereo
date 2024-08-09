@@ -24,16 +24,16 @@ export default function About() {
             {/* <p><b>Anna Abengowe</b> Nigéria, Angleterre | architecte, designer, professeure, maker, voyageure, curious, voice‑finder, joker, tante</p>
             <p><b>Patti Anahory</b> Cabo Verde, São Tomé, New York | architecte, professeure, commissaire, commentatrice, critique, observer, designer, mère, collaboratrice</p>
             <p><b>Mawena Yehouessi</b> Bénin, Togo, Sénégal, France | chercheuse, praticienne, curatrice, écrivaine/ traductrice, collusionist, avatar, amante, sœur et enfant</p> */}
-            <div className="pb-2">
+            <div className="pb-4">
                 <p><b>Anna Abengowe</b> Nigeria, England | architect, pedagogue, designer, expositor, traveler, searcher, voice-finder, curious,
                 interested, joker, aunty</p>
                 <p>Anna Nnenna Abengowe was appointed Deputy Director and Academic Lead at the Graduate School of Architecture (GSA), University of Johannesburg in 2022. She holds an M Arch from Princeton University School of Architecture. She pursues the development of new areas and platforms of pedagogy, research, and practice that are current and transnationally relevant to the built environment of architecture, urbanity, and related spatial practices on the African continent. She is a cofounder of the saay/yaas curatorial collective and creative co-director of the he(r)e, otherwise digital platform (2021). She is the co-recipient of a 2022 Graham Foundation Grant. She has been published in <i>Architectural Guide: Sub-Saharan Africa</i> (DOM 2021) and <i>E-Flux</i> (2022). She is a design associate at the Institute for Creative Repair (ICR), an advisory contributor at matri-archi, and an academic advisor at the African Futures Institute (AFI). She resides in Johannesburg.</p>
             </div>
 
-            <div className="pb-2">
+            <div className="pb-4">
                 <p><b>Patti Anahory</b> Cape Verde, São Tomé, New York | architect, teacher, curator, commentator, critic, observer, designer, mother, collaborator</p>
             </div>
-            <div className="pb-2">
+            <div className="pb-4">
                 <p><b>Mawena Yehouessi</b> Benin, Togo, Senegal, France | researcher, practitioner, curator, writer/translator, collusionist, avatar, lover, sister, and child</p>
             </div>
 

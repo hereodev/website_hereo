@@ -47,8 +47,8 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
                     }
                 </div>
             </div>
-            <div className={`avatar placeholder ${pictures.length>0 && "opacity-0 group-hover:opacity-100"}`}>
-                <div className="w-64 h-64 rounded-full text-3xl text-base-content group-hover:text-black text-center p-10">
+            <div className={`avatar placeholder group-hover:text-primary ${pictures.length>0 && "opacity-0 group-hover:opacity-100"}`}>
+                <div className="w-64 h-64 rounded-full text-3xl mix-blend-difference  text-center p-10">
                     {art.title.length > 46 ? art.title.slice(0, 46) + "..." : art.title}
                 </div>
             </div>
