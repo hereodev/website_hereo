@@ -35,7 +35,7 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
         className="overlapper group group-hover:cursor-pointer">
             <div className="avatar group-hover:opacity-30">
                 <div className={`w-64 h-64 rounded-full border `} style={{borderColor: borderColor.replace("border", "var(--color")+")" }}>
-                {/* <div className={`w-64 h-64 rounded-full ${pictures.length==0 && "border border-base-content"}`}> */}
+                {/* <div className={`w-64 h-64 rounded-full border border-primary`}> */}
                     {
                         pictures.length >0 &&
                         // eslint-disable-next-line @next/next/no-img-element

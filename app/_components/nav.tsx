@@ -124,7 +124,6 @@ export default function Nav({ lang } : { lang: string}) {
                     </div>
                 </Link>
                 }
-
             </span>
             <span>
         {session?.user ? 
@@ -167,12 +166,12 @@ export default function Nav({ lang } : { lang: string}) {
                                 return l.public
                             }
                         }).map(({ href, label, labelFr }) => (
-                            <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href}>{lang=="fr"?labelFr:label}</Link>
+                            <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href} onClick={() => setMenuOpen(false)}>{lang=="fr"?labelFr:label}</Link>
                         ))
                     }
                     {
                         session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
-                        <Link className="" href={"/admin_saay_yaas"}>Admin</Link>
+                        <Link className="" href={"/admin_saay_yaas"} onClick={() => setMenuOpen(false)}>Admin</Link>
                     }
 
                     <div className="divider divider-vertical my-0"></div>
