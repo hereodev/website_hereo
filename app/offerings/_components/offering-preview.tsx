@@ -46,7 +46,7 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
                         //     alt={art.title} 
                         // />
                         <Image 
-                            src={pictures[0].Media.url} 
+                            src={pictures[0].Media.url + "?width=256&height=256"} 
                             width={256} height={256}
                             alt={art.title} 
                         />
