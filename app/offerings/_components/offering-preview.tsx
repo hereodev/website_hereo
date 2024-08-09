@@ -1,5 +1,6 @@
 import { ExtendedArt } from "@/global";
 import { Art, SubCategory, Media } from "@prisma/client";
+import Image from "next/image";
 import Link from "next/link";
 
 interface OfferingPreviewProps {
@@ -40,8 +41,13 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
                     {
                         pictures.length >0 &&
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img 
+                        // <img 
+                        //     src={pictures[0].Media.url} 
+                        //     alt={art.title} 
+                        // />
+                        <Image 
                             src={pictures[0].Media.url} 
+                            width={256} height={256}
                             alt={art.title} 
                         />
                     }

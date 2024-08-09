@@ -14,12 +14,12 @@ export default async function Loading() {
                 <h1>Offerings</h1>
             <div className="divider my-0"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div> 
             </div>
-            <div className="flex flex-row flex-wrap gap-6 justify-around">
+            <div className="flex flex-row flex-wrap gap-2">
                 {
                     emptyArray.map((art, index) => {
                         return (
                             <div key={index} className="avatar">
-                        <div className="w-64 h-64 rounded-full border border-white">
+                        <div className="w-64 h-64 rounded-full border border-primary">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 {/* <img
                                     src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"

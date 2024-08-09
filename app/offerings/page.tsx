@@ -185,7 +185,7 @@ const filteredArt = allArt ? allArt.filter(filterArt) : [];
             {/* <div>
                 <pre className="max-w-64 max-h-32 overflow-scroll text-xs">{JSON.stringify(searchParams, null, 2)}</pre>
             </div> */}
-            <div className={`flex flex-row flex-wrap justify-around gap-2`}>
+            <div className={`flex flex-row flex-wrap gap-2`}>
 
                 {
                     filteredArt.map((art) => {
