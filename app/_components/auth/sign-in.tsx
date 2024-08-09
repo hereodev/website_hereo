@@ -30,7 +30,7 @@ export function SignIn() {
             <FormSignIn />
             <div>
                 No account yet?
-                <Link href="auth/signup">Sign up here.</Link>
+                <Link href="auth/signup" className="text-primary">Sign up here.</Link>
             </div>
         </>
     )

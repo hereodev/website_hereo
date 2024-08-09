@@ -11,8 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 const displayFont = Raleway({ weight: ['400', '700'], subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: ":Her(e) Otherwise" + " | " + process.env.NODE_ENV,
-    description: "Welcome to Her(e) Otherwise, a digital space for art, writing, and community.",
+    title: ":Her(e) Otherwise",
+    // title: ":Her(e) Otherwise" + " | " + process.env.NODE_ENV,
+    description: "This platform responds to the urgent need to gather an open, interactive, and expanding community of black women engaged in the broadest possible range of self-determined acts and operations within the disciplines of architecture and urban design, and within the discourse of all spatial practices.",
     icons: {
         icon: '/favicon_hereo.svg', // /public path
     },

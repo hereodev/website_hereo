@@ -26,16 +26,17 @@
 - [x] Search bar: REMOVE the text "I’ve seen the future". Leave empty with only the magnifying glass symbol.
   
 ### DISPLAY of offerings
-- [ ] When hovering or selecting one of the offerings (‘round image/title), right now it responds by becoming fainter. It should do the opposite - that selected offering should be HIGHLIGHTED.
+- [x] When hovering or selecting one of the offerings (‘round image/title), right now it responds by becoming fainter. It should do the opposite - that selected offering should be HIGHLIGHTED.
 - [-] HIGHLIGHT the selected project as well as the OTHER ONES that are part of SAME CATEGORY.
  => not possible
-- [ ] IF HIGHLIGHTING is not a possibility, make all perimeter contour lines CITRON color (as opposed to different colors).
+- [x] IF HIGHLIGHTING is not a possibility, make all perimeter contour lines CITRON color (as opposed to different colors).
 - [ ] ALIGN offering circles at lowest row to the left side (left justify).
+  => ??
 - [x] On CELL PHONE viewing, the menu does not leave the screen - FIX.
-- [ ] THE DEAD WILL RISE + INVISIBLE BOUNDARIES projects/offerings are duplicated - verify.
+- [x] THE DEAD WILL RISE + INVISIBLE BOUNDARIES projects/offerings are duplicated - verify.
 - [ ] VIDEO: When an offering is a video, why is the video displayed small on a long white bar? What are other options? We prefer removal of the white bar so that the video sits on the black background. Also, move the arrows and text down to the bottom third of the page so that the video sits roughly in the middle and can be larger than it currently is.
 - [ ] ARROW always in middle.
-    => ?
+    => ??
 
 ## MENU
 - [x] HIGHLIGHT CITRON when HOVER over it (always - everywhere - a consistent logic).
@@ -46,11 +47,12 @@
   => it's: [how many are selected] | [how many are available]
 
 ## SIGN-IN
-- [ ] Log in or sign up should all be in CITRON color.
-- [ ] Add Key symbol below email (password bar).
-- [ ] LOG-in in second page should go back.
+- [x] Log in or sign up should all be in CITRON color.
+- [x] Add Key symbol below email (password bar).
+- [x] LOG-in in second page should go back.
 
 ## GENERAL
-- [ ] When cursor HOVERS over any item that could open, it should highlight in CITRON always.
+- [x] When cursor HOVERS over any item that could open, it should highlight in CITRON always.
 - [ ] We notice a SLOWNESS in responsiveness of the site - especially the loading of the offering image circles. Is this something which could be addressed?
 - [ ] Could you remind us how long you will be available to make changes on the website such as typos we may find or other minor adjustments?
+  => One year.

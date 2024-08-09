@@ -28,7 +28,7 @@ export default function FormSignIn() {
     // const justSignedUp = searchParams.get('signedup')
     return (
         // <form action={handleSignIn}>
-        <form action={dispatch}>
+        <form action={dispatch} className="flex flex-col gap-2 w-full">
         <div
           className="flex h-8 items-end space-x-1"
           aria-live="polite"
@@ -43,9 +43,10 @@ export default function FormSignIn() {
               )}
           </Suspense> */}
         </div>
+        
 
              <label className="input input-bordered flex items-center gap-2">
-                {/* <FiMail className="w-4 h-4 opacity-70" /> */}
+                <FiMail className="w-4 h-4 opacity-70" />
                 <input 
                     type="email" 
                     id="email" 
@@ -60,7 +61,7 @@ export default function FormSignIn() {
                  <input type="text" className="grow" placeholder="Name" />
              </label> */}
              <label className="input input-bordered flex items-center gap-2">
-                {/* <FiKey className="w-4 h-4 opacity-70" /> */}
+                <FiKey className="w-4 h-4 opacity-70" />
                 <input
                     id="password"
                     name="password"

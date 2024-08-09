@@ -6,7 +6,7 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 
 const SignUpPage = () => {
     return (
-        <div className="w-full lg:w-1/2 flex flex-col grow items-center justify-center">
+        <div className="w-full lg:w-1/2 lg:mx-auto flex flex-col grow items-center justify-center">
             <h1>Sign Up</h1>
             {/* <SignUpForm /> */}
             <SignUp />
@@ -17,7 +17,7 @@ const SignUpPage = () => {
                 </div> */}
                 <div className="justify-center items-center mt-8">
                     Already have an account?{' '}
-                    <Link href="/auth/signup" className="text-secondary hover:underline">Login here.</Link>
+                    <Link href="/auth/signin" className="text-primary hover:underline">Login here.</Link>
                 </div>
             </div>
 

@@ -5,18 +5,20 @@ import Link from 'next/link';
 
 const SignInPage: React.FC = () => {
     return (
-        <div>
+        <div className="w-full lg:w-1/2 lg:mx-auto flex flex-col grow items-center justify-center">
             <h1>Sign In</h1>
             {/* <SignIn /> */}
             <FormSignIn />
-            <div className="w-full flex flex-col items-center gap-2">
+            {/* <div className="w-full flex flex-col items-center gap-2"> */}
+            <div>
+
                 {/* <div className="divider lg:divider-horizontal">Or continue with</div>
                 <div className="flex flex-col justify-center items-center">
                     <a href="#" className="text-info"><AiFillGoogleCircle className="h-16 w-16"/></a>
                 </div> */}
                 <div className="justify-center items-center mt-8">
                     No account yet?{' '}
-                    <Link href="/auth/signup" className="text-accent">Sign up here.</Link>
+                    <Link href="/auth/signup" className="text-primary">Sign up here.</Link>
                 </div>
             </div>
         </div>

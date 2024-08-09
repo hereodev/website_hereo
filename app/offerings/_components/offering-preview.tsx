@@ -33,8 +33,9 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
         // </div>
         <Link href={`/offerings/${art.slug}`} 
         className="overlapper group group-hover:cursor-pointer">
-            <div className="avatar group-hover:opacity-30">
-                <div className={`w-64 h-64 rounded-full border `} style={{borderColor: borderColor.replace("border", "var(--color")+")" }}>
+            <div className="avatar group-hover:brightness-125 group-hover:filter group-hover:saturate-150">
+                <div className={`w-64 h-64 rounded-full border border-primary`} >
+                {/* <div className={`w-64 h-64 rounded-full border `} style={{borderColor: borderColor.replace("border", "var(--color")+")" }}> */}
                 {/* <div className={`w-64 h-64 rounded-full border border-primary`}> */}
                     {
                         pictures.length >0 &&
@@ -47,7 +48,7 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
                 </div>
             </div>
             <div className={`avatar placeholder ${pictures.length>0 && "opacity-0 group-hover:opacity-100"}`}>
-                <div className="w-64 h-64 rounded-full text-3xl text-base-content text-center p-10">
+                <div className="w-64 h-64 rounded-full text-3xl text-base-content group-hover:text-black text-center p-10">
                     {art.title.length > 46 ? art.title.slice(0, 46) + "..." : art.title}
                 </div>
             </div>
