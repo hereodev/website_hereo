@@ -237,10 +237,10 @@ export default async function Art({ params }: { params: { slug: string, lang: st
               {/* <p>Sites of belonging: {art.SitesOfBelonging.join(", ")}</p> */}
             {/* )} */}
             </div>
-            <div className="basis-[2%] divider sm:divider-horizontal"></div>
+            {/* <div className="basis-[2%] divider sm:divider-horizontal"></div>
             <div className="flex-1 basis-[49%]">
               <OfferingsTopMenu />
-            </div>
+            </div> */}
           </div>
         </main>
       )

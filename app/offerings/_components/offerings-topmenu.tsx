@@ -59,7 +59,7 @@ export default async function OfferingsTopMenu() {
 
 
     return (
-    <div className="collapse min-w-64 w-64 sm:w-full">
+    <div className="collapse min-w-64 w-64 sm:w-full group/tri">
     <input type="checkbox" />
         <div className="collapse-content flex flex-col w-full gap-2">
             {/* <SearchBar /> */}
@@ -97,7 +97,7 @@ export default async function OfferingsTopMenu() {
         </div>
 
     <div className="collapse-title p-0 m-0">
-        <div className="divider my-2"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div>
+        <div className="divider my-2"><FiTriangle className="h-8 w-8 group-hover/tri:text-primary" style={{transform: "rotate(180deg)"}}></FiTriangle></div>
     </div>
 
 

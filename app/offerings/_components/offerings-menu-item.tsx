@@ -72,7 +72,7 @@ export default function OfferingsMenuItem({
                                             }
                                         }}
                                     />
-                                    <span className={`${ chosenCategories.includes(category) && "font-extrabold text-primary" }`}>{category}</span>
+                                    <span className={`hover:text-primary hover:cursor-pointer ${ chosenCategories.includes(category) && "font-extrabold text-primary" }`}>{category}</span>
                                 </label>
                             )
                         })
