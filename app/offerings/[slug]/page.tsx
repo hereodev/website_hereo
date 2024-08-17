@@ -11,6 +11,7 @@ import { FiEdit2, FiPlus, FiTriangle } from "react-icons/fi"
 import Link from "next/link"
 import PictureZoom from "../_components/picture-zoom"
 import VideoPlayer from "@/app/_components/video-player"
+import VidPlayer from "@/app/_components/vid"
 
 
 type Props = {
@@ -190,7 +191,9 @@ export default async function Art({ params }: { params: { slug: string, lang: st
       {media.Media.title}
     </a>
   ) : media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "youtu.be" || new URL(media.Media.url).hostname === "vimeo.com") ? (
-    <VideoPlayer videoSrc={media.Media.url} ctrls={true} />
+    // <div className="h-screen w-full relative">
+      <VidPlayer videoSrc={media.Media.url} ctrls={true} />
+    // </div>
   ) : media.Media.url && media.Media.title ? (
     <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
       <FaFileAlt className="w-12 h-12" />

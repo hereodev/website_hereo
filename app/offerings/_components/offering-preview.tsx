@@ -49,6 +49,7 @@ const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
                             src={pictures[0].Media.url + "?width=256&height=256"} 
                             width={256} height={256}
                             alt={art.title} 
+                            className="opacity-80 group-hover:opacity-100"
                         />
                     }
                 </div>
