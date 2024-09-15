@@ -1,5 +1,6 @@
 "use client"
 
+import { updateArtTitle } from '@/app/lib/actions_db';
 import { useEffect, useState } from 'react';
 import UploadFiles from './upload-files';
 import { UploadedFile } from '@/global';

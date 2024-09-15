@@ -142,10 +142,14 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           {art.subtitle && <h2>{art.subtitle}</h2>}
 
           <p className="my-2 w-full text-left">Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
+            {art.SubCategories.length > 0 && (
+              <p>Keywords: {art.SubCategories.map(subCat => subCat.SubCategory.name).join(", ")}</p>
+            )}
+            <br/>
 
           {
             artText && 
-            <div className="prose w-full min-w-full" dangerouslySetInnerHTML={{__html: artText}}></div>
+            <div className="prose w-full min-w-full max-w-screen pb-6" dangerouslySetInnerHTML={{__html: artText}}></div>
           }
           {
             art.associated_media && 
@@ -192,7 +196,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
     </a>
   ) : media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "youtu.be" || new URL(media.Media.url).hostname === "vimeo.com") ? (
     // <div className="h-screen w-full relative">
-      <VidPlayer videoSrc={media.Media.url} ctrls={true} />
+      <VidPlayer videoSrc={media.Media.url} ctrls={true} cn={"max-w-[90vw]"} />
     // </div>
   ) : media.Media.url && media.Media.title ? (
     <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
@@ -218,7 +222,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <button className="btn btn-outline hover:btn-primary">Edit my profile</button>
           } */}
           {/* <h2>Credits</h2> */}
-          <div className="divider my-8"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div> 
+          {/* <div className="divider my-8"><FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle></div>  */}
 
           {/* <div className="grid sm:grid-cols-3 grid-cols-1 grid-rows-3">
             <div className="divider sm:divider-horizontal"></div>
@@ -228,23 +232,23 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             </div>
 
           </div> */}
-          <div className="flex flex-col sm:flex-row-reverse gap-4">
+          {/* <div className="flex flex-col sm:flex-row-reverse gap-4">
             <div className="flex-1 basis-[49%]">
             {art.authors.length > 0 && (
               <p>Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
             )}
             {art.SubCategories.length > 0 && (
               <p>Keywords: {art.SubCategories.map(subCat => subCat.SubCategory.name).join(", ")}</p>
-            )}
+            )} */}
             {/* {art.SitesOfBelonging && art.SitesOfBelonging.length > 0 && ( */}
               {/* <p>Sites of belonging: {art.SitesOfBelonging.join(", ")}</p> */}
             {/* )} */}
-            </div>
+            {/* </div> */}
             {/* <div className="basis-[2%] divider sm:divider-horizontal"></div>
             <div className="flex-1 basis-[49%]">
               <OfferingsTopMenu />
             </div> */}
-          </div>
+          {/* </div> */}
         </main>
       )
 
