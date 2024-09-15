@@ -25,16 +25,27 @@ export default function About() {
             <p><b>Patti Anahory</b> Cabo Verde, São Tomé, New York | architecte, professeure, commissaire, commentatrice, critique, observer, designer, mère, collaboratrice</p>
             <p><b>Mawena Yehouessi</b> Bénin, Togo, Sénégal, France | chercheuse, praticienne, curatrice, écrivaine/ traductrice, collusionist, avatar, amante, sœur et enfant</p> */}
             <div className="pb-4">
-                <p><b>Anna Abengowe</b> Nigeria, England | architect, pedagogue, designer, expositor, traveler, searcher, voice-finder, curious,
+                <p><b>Anna Abengowe</b> | Nigeria, England | architect, pedagogue, designer, expositor, traveler, searcher, voice-finder, curious,
                 interested, joker, aunty</p>
                 <p>Anna Nnenna Abengowe was appointed Deputy Director and Academic Lead at the Graduate School of Architecture (GSA), University of Johannesburg in 2022. She holds an M Arch from Princeton University School of Architecture. She pursues the development of new areas and platforms of pedagogy, research, and practice that are current and transnationally relevant to the built environment of architecture, urbanity, and related spatial practices on the African continent. She is a cofounder of the saay/yaas curatorial collective and creative co-director of the he(r)e, otherwise digital platform (2021). She is the co-recipient of a 2022 Graham Foundation Grant. She has been published in <i>Architectural Guide: Sub-Saharan Africa</i> (DOM 2021) and <i>E-Flux</i> (2022). She is a design associate at the Institute for Creative Repair (ICR), an advisory contributor at matri-archi, and an academic advisor at the African Futures Institute (AFI). She resides in Johannesburg.</p>
             </div>
 
             <div className="pb-4">
-                <p><b>Patti Anahory</b> Cape Verde, São Tomé, New York | architect, teacher, curator, commentator, critic, observer, designer, mother, collaborator</p>
+                {/* <p><b>Patti Anahory</b> Cape Verde, São Tomé, New York | architect, teacher, curator, commentator, critic, observer, designer, mother, collaborator</p> */}
+                <p><strong>Patti Anahory</strong> | Cabo Verde, S&#227;o Tom&#233; e Principe, Brooklyn | architect, independent curator, collaborator, commentator, observer, designer, mother&#8230;</p>
+    
+    <p>Patti Anahory is an architect whose work spans building design, art, education, and curatorial research-based practices. She holds a Master&#8217;s in Architecture from Princeton University and a professional architecture degree from the Boston Architectural College.</p>
+    
+    <p>She is interested in interrogating predominant narratives of identity and belonging across spatial practices, particularly from an African island perspective, and is committed to creating independent, multidisciplinary, collaborative platforms and spaces for ideation, experimentation, documentation, dissemination, and research on African and Diaspora spatial processes.</p>
+    
+    <p>Anahory co-founded <em>Storia na Lugar</em>, a storytelling and counter-narrative practice, and is the co-creator of the experimental architectural and curatorial platform <em>her(e), otherwise</em>. She serves as an Academic Advisor at the African Futures Institute and was a Visiting Professor at Columbia University (2022&#8211;23). She co-authored the book <em>Panorama da Arquitetura Habitacional em Cabo Verde</em> (2022) and is featured in <em>100 Women: Architects in Practice</em> (2024).</p>
             </div>
             <div className="pb-4">
-                <p><b>Mawena Yehouessi</b> Benin, Togo, Senegal, France | researcher, practitioner, curator, writer/translator, collusionist, avatar, lover, sister, and child</p>
+                <p><b>Mawena Yehouessi</b> | Benin, Togo, Senegal, France | researcher, practitioner, curator, writer/translator, collusionist, avatar, lover, sister, and child</p>
+   
+    <p>Born in 1990 in Cotonou (Benin), <strong>Mawena Yehouessi</strong> is an art curator and searcher/ practitioner in Arts and philosophy (PhD fellow @ Villa Arson / Universit&#233; C&#244;te d&#8217;Azur).</p>
+    
+    <p>Founder of the Black(s) to the Future collective, she lives and works between Nice and Paris (France). Also trained in cultural projects management and contemporary dance, she belongs to this generation of unclassifiable or downgraded?-beings whose practices &amp; jobs are a mash-up of slashes. In particular interested in alter-futurisms and po&#239;ethics, she also develops an exploratory, prospective, and collusion/collage art practice through her avatar M.Y.</p>
             </div>
 
             <h2>Our Sponsors</h2>
