@@ -214,7 +214,7 @@ function Swahili() {
 
 function Francais() {
   return(
-    <div className="about-text">
+    <div className="invitation-text">
             <p className="py-4 text-sm">« Des fantasmes qui ne nous représentent pas, mais représentent l&apos;imaginaire blanc. Ils constituent certains aspects du moi blanc, re-projetés sur nous comme s&apos;ils étaient des images de nous-mêmes, objectives et dignes de foi. Cela dit, ils ne sont pas notre problème à nous. » — Grada Kilomba </p>
       <p className="py-4 text-sm">Chères et amies et collègues, Lorsqu&apos;on leur a demandé d&apos;interpréter le « brief » pour le projet d&apos;architecture Saison Africa 2020, les membres du collectif de commissaires et d&apos;architectes saay/ yaas ont été inspirées par des stratégies qui reconnaissaient pleinement les formes d&apos;expression, de résilience et de contenu créatif venues d&apos;Afrique ou des diasporas africaines2,tout en fournissant un contrepoids aux idées préconçues, aux perceptions figées et aux notions homogénéisantes si communes lorsqu&apos;il s&apos;agit de l&apos;Afrique… « pour expliquer à ceux qui ont le privilège de ne pas savoir »3. considérait l&apos;exposition « classique » d&apos;architecture comme un format trop statique, offrant des possibilités critiques aussi limitées que limitatives : la plateforme en ligne her(e), otherwise est née de ce constat.</p>
 
@@ -224,7 +224,7 @@ function Francais() {
 }
 function English() {
   return(
-<div className="about-text">
+<div className="invitation-text">
     <h1>ABOUT</h1>
     <p>The <i>[i]:her(e), otherwise[/i]</i> curatorial proposition is conceptually anchored in the interrogation of the architectural brief as both a site and context of power. The briefs, having been formulated in silos of privilege, rendered them a tool of value creation that sustains the reproduction of structural inequality, while perpetuating erasure in the practice of the discipline.</p>
     <p>Through a mise-en-abîme format, saay/yaas*—four African co-curators—propose their own brief within the brief of Saison Africa2020. Conceptualized as a bureau de change, they develop an online platform as a community for knowledge and value production through intimate encounters and exchanges. A set of acts, each structured as call-and-response, invites successive responders to interrogate and jointly construct the architectural brief in a public act of knowledge/content production while operating across different scales and modes of belonging, practice, and representation.</p>

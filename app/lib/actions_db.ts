@@ -228,7 +228,31 @@ export async function deleteArt({ artId }: { artId: number }) {
     }
 }
 
-
+export async function setCategoriesDb({ artId, categories }: { artId: number, categories: string[] }) {
+    for (const category of categories) {
+        const subCategory = await prisma.subCategory.findFirst({
+            where: { name: category },
+        });
+        if (subCategory) {
+            await prisma.artSubCategory.create({
+                data: {
+                    art_id: artId,
+                    subcategory_id: subCategory.id,
+                },
+            });
+        } else {
+            const newSubCategory = await prisma.subCategory.create({
+                data: { name: category },
+            });
+            await prisma.artSubCategory.create({
+                data: {
+                    art_id: artId,
+                    subcategory_id: newSubCategory.id,
+                },
+            });
+        }
+    }
+}
 
 export async function connectUserToAuthor({ userId, authorName } : { userId: string, authorName: string }) {
     //  if user already has an author, return that author, change the author name if it is different, and return.

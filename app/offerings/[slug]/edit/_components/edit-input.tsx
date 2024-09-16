@@ -1,13 +1,14 @@
 "use client";
 
-import { UploadedFile } from "@/global";
+import { ArtWithSubCategories, ExtendedArt, UploadedFile } from "@/global";
 import { Art } from "@prisma/client";
 import { useState } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 // import { updateArtTitle } from "@/app/lib/actions_db";
 // import { useDebouncedCallback } from 'use-debounce';
-import { updateArtTitle, updateArtSubtitle, updateArtLongText } from "@/app/lib/actions_db";
+import { updateArtTitle, updateArtSubtitle, updateArtLongText, setCategoriesDb } from "@/app/lib/actions_db";
 import Tiptap from "@/app/_components/upload/tiptap3";
+import CategoriesSelect from "@/app/_components/upload/categories-select";
 
 type InputProps = {
     name: keyof (Art & {media?:UploadedFile[], authors?:string[], categories?:string[]});
@@ -57,11 +58,13 @@ type InputProps = {
 //     )
 // }
 
-const EditForm = ({art} : {art: Art}) => {
+const EditForm = ({art} : {art: ExtendedArt}) => {
 // const EditInput = ({name, label, placeholder, defaultVal = "", required = false, description, errorMessage, type = "text"}: InputProps) => {
     const [titleValue, setTitle] = useState(art.title);
     const [titleChanged, setTitleChanged] = useState(false);
     const [subtitleValue, setSubtitle] = useState(art.subtitle);
+    const [categories, setCategories] = useState<string[]>(art.SubCategories.map((subcat,i) => subcat.SubCategory.name));
+
     var longText = art.long_text || "";
     // if longtextvalue starts and ends with '"' then remove them
     if (longText.startsWith('"') && longText.endsWith('"')) {
@@ -115,6 +118,14 @@ const EditForm = ({art} : {art: Art}) => {
                 </label>
             </div>
 
+            <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
+            <button
+                className="btn btn-primary"
+                onClick={() => {
+                    setCategoriesDb({artId: art.id, categories: categories});
+                }}
+            >Save</button>
+
             <label className="form-control">
                             <div className="label pb-1">
                                 <span className="label-text title-txt">Content</span>
@@ -131,6 +142,7 @@ const EditForm = ({art} : {art: Art}) => {
                         >Save</button>
 
             </label>
+
 
         </div>
     )

@@ -43,7 +43,7 @@ export default function About() {
             <div className="pb-4">
                 <p><b>Mawena Yehouessi</b> | Benin, Togo, Senegal, France | researcher, practitioner, curator, writer/translator, collusionist, avatar, lover, sister, and child</p>
    
-    <p>Born in 1990 in Cotonou (Benin), <strong>Mawena Yehouessi</strong> is an art curator and searcher/ practitioner in Arts and philosophy (PhD fellow @ Villa Arson / Universit&#233; C&#244;te d&#8217;Azur).</p>
+    <p>Born in 1990 in Cotonou (Benin), Mawena Yehouessi is an art curator and searcher/ practitioner in Arts and philosophy (PhD fellow @ Villa Arson / Universit&#233; C&#244;te d&#8217;Azur).</p>
     
     <p>Founder of the Black(s) to the Future collective, she lives and works between Nice and Paris (France). Also trained in cultural projects management and contemporary dance, she belongs to this generation of unclassifiable or downgraded?-beings whose practices &amp; jobs are a mash-up of slashes. In particular interested in alter-futurisms and po&#239;ethics, she also develops an exploratory, prospective, and collusion/collage art practice through her avatar M.Y.</p>
             </div>
