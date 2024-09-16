@@ -228,7 +228,7 @@ export async function deleteArt({ artId }: { artId: number }) {
     }
 }
 
-export async function setCategoriesDb({ artId, categories }: { artId: number, categories: string[] }) {
+export async function setCategories({ artId, categories }: { artId: number, categories: string[] }) {
     for (const category of categories) {
         const subCategory = await prisma.subCategory.findFirst({
             where: { name: category },

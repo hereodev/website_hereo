@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 // import { updateArtTitle } from "@/app/lib/actions_db";
 // import { useDebouncedCallback } from 'use-debounce';
-import { updateArtTitle, updateArtSubtitle, updateArtLongText, setCategoriesDb } from "@/app/lib/actions_db";
+import { updateArtTitle, updateArtSubtitle, updateArtLongText, setCategories as setCategoriesDb } from "@/app/lib/actions_db";
 import Tiptap from "@/app/_components/upload/tiptap3";
 import CategoriesSelect from "@/app/_components/upload/categories-select";
 
@@ -120,7 +120,7 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
 
             <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
             <button
-                className="btn btn-primary"
+                className="btn btn-primary w-full"
                 onClick={() => {
                     setCategoriesDb({artId: art.id, categories: categories});
                 }}
