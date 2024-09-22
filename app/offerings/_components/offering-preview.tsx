@@ -10,7 +10,7 @@ interface OfferingPreviewProps {
 
 
 const OfferingPreview: React.FC<OfferingPreviewProps> = ({ art }) => {
-    const pictures = art.associated_media?.filter((media) => media.Media.type.split("/")[0] == "image") || [];
+    const pictures = art.associated_media?.filter((media) => media.Media.type && media.Media.type.split("/")[0] == "image") || [];
 
     const catColors = {
         STRATEGIES: "tag-purple",
