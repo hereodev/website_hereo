@@ -51,12 +51,30 @@ export async function deleteFileFromDbAndBunny({ fileId } : { fileId: number }) 
         // });
         // console.log("bunny delete response", bunnyDelete);
         // delete from db
-        const deletedFile = await prisma.media.delete({
+
+        const deleteFromArts = await prisma.mediaInArt.deleteMany({
             where: {
-                id: fileId,
-            }
+                media_id: fileId,
+            },
         });
-        return deletedFile;
+
+        if(deleteFromArts.count > 0) {
+            console.log("Deleted media from arts", deleteFromArts);
+            
+                    const deletedFile = await prisma.media.delete({
+                        where: {
+                            id: fileId,
+                        }
+                    });
+
+                    if(deletedFile) {
+                        return {deletion_successful:true, file:deletedFile};
+                    } else {
+                        return {deletion_successful:false, file:null};
+                    }
+        }
+        // return deletedFile;
+        return {deletion_successful: false, file:null};
     }
     // console.log("deleting file...", file.name, userId);
 }
@@ -296,6 +314,96 @@ export async function connectUserToAuthor({ userId, authorName } : { userId: str
         });
         return { author: newAuthor };
     }
+}
+
+export async function addAuthor({ authorName } : { authorName: string }) {
+    const author = await prisma.author.findFirst({
+        where: {
+            name: authorName,
+        },
+    });
+    if(author) {
+        return { author };
+    } else {
+        const newAuthor = await prisma.author.create({
+            data: {
+                name: authorName,
+            },
+        });
+        return { author: newAuthor };
+    }
+}
+
+export async function updateArtAuthors({ artId, authors }: { artId: number, authors: string[] }) {
+    const firstAuthorships = await prisma.authorship.findMany({
+        where: {
+            art_id: artId,
+        },
+    });
+    const deleteFormerAuthors = await prisma.authorship.deleteMany({
+        where: {
+            art_id: artId,
+        },
+    });
+
+    console.log("Deleted former authors", deleteFormerAuthors);
+
+    let artAuthors: Author[] = [];
+
+    try {
+
+        authors.forEach(async (author) => {
+            const authorRecord = await prisma.author.findFirst({
+                where: {
+                    name: author,
+                },
+            });
+            if(!authorRecord) {
+                const newAuthor = await prisma.author.create({
+                    data: {
+                        name: author,
+                    },
+                });
+                console.log("author record", authorRecord)
+                // artAuthors.push(newAuthor);
+                const authShip = await prisma.authorship.create({
+                    data: {
+                        art_id: artId,
+                        author_id: newAuthor.id,
+                    },
+                });
+                console.log("authorship record", authShip)
+                return {authShip};
+            } else {
+                console.log("author record", authorRecord)
+                // artAuthors.push(authorRecord);
+                const authShip = await prisma.authorship.create({
+                    data: {
+                        art_id: artId,
+                        author_id: authorRecord.id,
+                    },
+                });
+                console.log("authorship record", authShip)
+                return {authShip};
+            }
+        });
+    } catch(e) {
+        console.error("Error updating authors", e);
+        // rollback
+        for (const authorship of firstAuthorships) {
+            await prisma.authorship.create({
+                data: {
+                    art_id: artId,
+                    author_id: authorship.author_id,
+                },
+            });
+        }
+
+        return {error: e, message: "Error updating authors", artAuthors: firstAuthorships};
+    }
+
+    return {artAuthors};
+    
 }
 
 export async function uploadArt(data : {data: Art & {media?:UploadedFile[], link?:string, authors?:string[], categories?:string[]}}) {

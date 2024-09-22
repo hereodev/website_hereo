@@ -38,7 +38,11 @@ export default async function EditOffering({ params }: { params: { slug: string 
                     email: true, role:true,
                 }
             },
-            authors: true,
+            authors: {
+                include: {
+                    author: true
+                }
+            },
             SubCategories: {
                 include: {
                     SubCategory: true

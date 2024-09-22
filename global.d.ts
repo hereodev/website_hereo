@@ -47,7 +47,7 @@ export type AllArt = ArtWithDetails[];
 
 export type ExtendedArt = Art & {
   associated_media: {
-      Media: any;
+      Media: Media;
   }[];
   SubCategories: {
       SubCategory: {

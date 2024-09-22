@@ -10,10 +10,8 @@
     => I don't have the Sesotho text.
 
 ## ABOUT US
-- [ ] INSERT our PORTRAITS.
-    => I don't have them.
+- [x] INSERT our PORTRAITS.
 - [x] CHANGE curators' descriptions to ENGLISH (except Mawena, if she wants) and insert our BIOS.
-  => I translated all of them since I don't have them. I don't have Patti's and Mawena's bios. I inserted Anna's.
 - [x] Changes to Anna’s descriptor and bio - will send to you.
 
 ## SPONSORS

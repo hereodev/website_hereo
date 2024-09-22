@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useDebouncedCallback } from 'use-debounce';
-import { connectUserToAuthor, getAllAuthors, getUserName } from "@/app/lib/actions_db";
+import { addAuthor, connectUserToAuthor, getAllAuthors, getUserName } from "@/app/lib/actions_db";
 import { FiCheckCircle, FiCrosshair, FiX } from "react-icons/fi";
 import { Author } from "@prisma/client";
+import { FaPlus } from "react-icons/fa";
 
 export default function Authorship( {userId, authors, setAuthors} : { userId : string, authors: string[], setAuthors: (authors: string[]) => void}) {
     const [name, setName] = useState("");
     const [changedName, setChangedName] = useState(false);
     const [isMeChecked, setIsMeChecked] = useState(false);
-    const [isOthersChecked, setIsOthersChecked] = useState(false);
+    const [isOthersChecked, setIsOthersChecked] = useState(authors.length > 0 && authors.some((author) => author !== name));
     const [validateName, setValidateName] = useState(false);
     const [allAuthors, setAllAuthors] = useState<Author[]>([]);
     const [searchedAuthor, setSearchedAuthor] = useState<string>("");
@@ -78,6 +79,7 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
             </div>
 
             <div className="flex flex-col gap-2">
+            {/* <pre className="max-w-64 max-h-32 overflow-scroll text-xs">{JSON.stringify(authors, null, 2)}</pre> */}
                 <div className="flex flex-row items-center h-12 gap-2">
                     <label className="flex flex-row items-center h-12 gap-2">
                         <input 
@@ -115,19 +117,33 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
                             type="checkbox" 
                             name="chbx-others" 
                             className="checkbox" 
+                            defaultChecked={isOthersChecked}
                             onChange={(e) => setIsOthersChecked(e.target.checked)}
                         />
                         And/Or other Author(s){isOthersChecked && ":"}
                     </label>
                     {
                         isOthersChecked && (
+                            <label className="input input-bordered flex items-center gap-2">
+
                             <input 
                                 type="text" 
                                 id="name"
-                                placeholder="Search for author or add new one" // TODO: !!!!!
+                                placeholder="Search for author or add new one" 
                                 onChange={(e) => setSearchedAuthor(e.target.value)}
-                                className={"input input-sm input-bordered italic " + (validateName ? "border-success text-success" : "")}
+                                className={"italic grow " + (validateName ? "border-success text-success" : "")}
                             />
+                            <button className="hover:text-primary"
+                                onClick={async (e) => {
+                                    if(searchedAuthor.length > 0 && !authors.includes(searchedAuthor)) {
+                                        const addedAuthor = await addAuthor({authorName: searchedAuthor});
+                                        setAuthors([...authors, addedAuthor.author.name])
+                                    }
+                                }}
+                            >
+                                <FaPlus className="text-lg" />
+                            </button>
+                            </label>
                         )
                     }
                     {isOthersChecked && searchedAuthor.length >= 2 &&
@@ -136,17 +152,14 @@ export default function Authorship( {userId, authors, setAuthors} : { userId : s
                         {
                         allAuthors.filter(
                             (author) => {
-                                // if(searchedAuthor.length >= 2) {
-                                    return author.name.toLowerCase().includes(searchedAuthor.toLowerCase());
-                                // } else {
-                                    // return true;
-                                // }
+                                // but don't return if already in authors
+                                return author.name.toLowerCase().includes(searchedAuthor.toLowerCase()) && !authors.includes(author.name)
                             }
                         ).map((author, index) => {
                             // a select with multiple options, with a least of all authors
                             return (
                                 <div key={index} className="flex flex-row items-center gap-2 group hover:cursor-pointer">
-                                    <label className={`group-hover:underline ${authors.includes(author.name) ? "font-semibold" : ""}`}>
+                                    <label className={`group-hover:underline hover:cursor-pointer ${authors.includes(author.name) ? "font-semibold" : ""}`}>
                                     <input 
                                         type="checkbox" 
                                         name={`chbx-${author.name}`} 

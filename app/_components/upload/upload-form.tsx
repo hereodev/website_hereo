@@ -178,6 +178,8 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
 
                         <WatchedInput name="link" label="Link" placeholder="Link" />
 
+                {/* Legal accept */}
+
                         <div className="form-control w-full">
                             <div className="label pb-1">
                                 <span className="label-text-alt text-error text-sm opacity-80">required*</span>
@@ -202,8 +204,6 @@ const UploadForm: React.FC<UploadFormProps> = ({ userId }) => {
                         </div>
                     </>
                 }
-
-                {/* Legal accept */}
 
                 {
                     submitted ? (

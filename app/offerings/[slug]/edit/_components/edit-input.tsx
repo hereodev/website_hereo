@@ -6,9 +6,13 @@ import { useState } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 // import { updateArtTitle } from "@/app/lib/actions_db";
 // import { useDebouncedCallback } from 'use-debounce';
-import { updateArtTitle, updateArtSubtitle, updateArtLongText, setCategories as setCategoriesDb } from "@/app/lib/actions_db";
+import { updateArtTitle, updateArtSubtitle, updateArtLongText, updateArtAuthors, setCategories as setCategoriesDb } from "@/app/lib/actions_db";
 import Tiptap from "@/app/_components/upload/tiptap3";
 import CategoriesSelect from "@/app/_components/upload/categories-select";
+import EditMedia from "./edit-media";
+import { FaPlus } from "react-icons/fa";
+import { FaX } from "react-icons/fa6";
+import Authorship from "@/app/_components/upload/authorship";
 
 type InputProps = {
     name: keyof (Art & {media?:UploadedFile[], authors?:string[], categories?:string[]});
@@ -64,6 +68,9 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
     const [titleChanged, setTitleChanged] = useState(false);
     const [subtitleValue, setSubtitle] = useState(art.subtitle);
     const [categories, setCategories] = useState<string[]>(art.SubCategories.map((subcat,i) => subcat.SubCategory.name));
+    const [authors, setAuthors] = useState<string[]>(art.authors.map((authorship, idx) => authorship.author.name));
+    const [link, setLink] = useState(art.associated_media.filter((mediaWrapper) => mediaWrapper.Media.type === "link")[0]?.Media.url);
+
 
     var longText = art.long_text || "";
     // if longtextvalue starts and ends with '"' then remove them
@@ -127,21 +134,106 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
             >Save</button>
 
             <label className="form-control">
-                            <div className="label pb-1">
-                                <span className="label-text title-txt">Content</span>
-                                {/* <span className="label-text-alt">Alt label</span> */}
-                            </div>
-                            {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
-                            <Tiptap setContent={setLongText} initialContent={longTextValue} />
-                            <button
-                            className="btn btn-primary"
-                            onClick={() => {
-                                // updateArtSubtitle({artId: art.id, newSubtitle: subtitleValue || ""});
-                                updateArtLongText({artId: art.id, newLongText: longTextValue || ""});
-                            }}
-                        >Save</button>
+                <div className="label pb-1">
+                    <span className="label-text title-txt">Content</span>
+                    {/* <span className="label-text-alt">Alt label</span> */}
+                </div>
+                {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
+                <Tiptap setContent={setLongText} initialContent={longTextValue} />
+                <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                        // updateArtSubtitle({artId: art.id, newSubtitle: subtitleValue || ""});
+                        updateArtLongText({artId: art.id, newLongText: longTextValue || ""});
+                    }}
+                >Save</button>
 
             </label>
+
+            {/* <div className="w-full">
+                <label className="form-control w-full">
+                    <div className="label pb-1">
+                        <span className="label-text title-txt">Author(s)</span>
+                    </div>
+                </label>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    {
+                        art.authors.map((authorship, idx) => {
+                            const author = authorship.author;
+                            return (
+                                <div key={author.name + idx} className="badge badge-info gap-2">
+                                    <FaX className="w-2 h-2" />
+                                    <span className="label-text">{author.name}</span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div> */}
+
+            <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
+                <Authorship userId={"ec036ad1-60e4-4351-ab65-71fd08003f4d"} authors={authors} setAuthors={setAuthors} />
+                <button
+                    className="btn btn-primary h-full"
+                    onClick={async (e) => {
+                        // updateArtLongText({artId: art.id, newLongText: longTextValue || ""});
+                        const updatedAuthor = await updateArtAuthors({artId: art.id, authors: authors});
+                        if(updatedAuthor) {
+                            // console.log("Authors updated");
+                            // console.log(updatedAuthor.artAuthors);
+                        }
+                    }}
+                >Save</button>
+            </div>
+
+            <div className="w-full">
+                <label className="form-control w-full">
+                    <div className="label pb-1">
+                        <span className="label-text title-txt">Media</span>
+                    </div>
+                </label>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    {
+                        art.associated_media.map((mediaWrapper) => {
+                            const media = mediaWrapper.Media; // Access the nested Media property
+                            return (
+                                <EditMedia key={media.id} media={media} artId={art.id} />
+                            )
+                        })
+                    }
+                    {/* <button className="btn hover:border hover:border-primary hover:text-primary w-36 h-36 flex justify-center items-center">
+                        <FaPlus className="w-12 h-12" />
+                    </button> */}
+                </div>
+            </div>
+
+
+            <div className="w-full">
+                <label className="form-control w-full">
+                    <div className="label pb-1">
+                        <span className="label-text title-txt">Link</span>
+                    </div>
+                    <div className="flex flex-row w-full">
+                        <input type="text" placeholder="Type here" className="input input-bordered w-full flex-grow" value={link || ""}
+                            onChange={(e) => setTitle(e.target.value)} aria-invalid="false"
+                        />
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => {
+                                // updateArtTitle({artId: art.id, newTitle: titleValue});
+                            }}
+                        >{
+                            titleChanged ? 
+                            <span>Saved</span>
+                            : 
+                            <span>Save</span>
+                        }</button>
+                    </div>
+                {/* </div> */}
+                </label>
+            </div>
+
+
 
 
         </div>
