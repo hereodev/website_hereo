@@ -35,14 +35,14 @@ const EditMedia = ({media, artId} : {media: Media, artId: number}) => {
     }, [approveDelete]); // Added art.id to the dependency array as it's used in the effect
 
 
-    if(deleted) {
+    if(deleted || (media.url && (media.type == "link" || (new URL(media.url).hostname === "www.youtube.com" || new URL(media.url).hostname === "youtu.be" || new URL(media.url).hostname === "vimeo.com")))) {
         return null
     }
 
     return (
 
         <div className="overlapper w-36 h-36">
-            <div id="preview" className=" w-36 h-36 relative opacity-65 z-0" >
+            <div id="preview" className=" w-36 h-36 relative opacity-65 z-0 flex items-center justify-center" >
                 {
                     media.type && media.type.includes("image") && media.url ? (
                         <Image src={media.url} alt={media.alt || media.title || ""} 
@@ -72,15 +72,12 @@ const EditMedia = ({media, artId} : {media: Media, artId: number}) => {
                     ) : media.url && media.title ? (
                         <FaFileAlt className="w-12 h-12" />
                         
-                    ) : media.url && media.type == "link" ? (
-                        <FaExternalLinkAlt className="w-6 h-6" />
-                        //   {"See more at " + new URL(media.url).hostname}
                     ) : null
                 }
             </div>
             <div id="title_btns" className="w-36 h-36 flex flex-col z-20">
                 <div id="title" className="w-36 h-4 text-xs bg-black bg-opacity-25 text-white truncate" title={media.title || ""}>
-                    {media.title || ""}
+                    {media.title || media.url}
                 </div>
                 <div id="buttons" className="w-36 h-32 text-xs flex flex-col flex-nowrap items-end justify-end">
                     <button className="btn btn-square btn-error"

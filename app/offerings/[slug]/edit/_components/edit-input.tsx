@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 // import { updateArtTitle } from "@/app/lib/actions_db";
 // import { useDebouncedCallback } from 'use-debounce';
-import { updateArtTitle, updateArtSubtitle, updateArtLongText, updateArtAuthors, setCategories as setCategoriesDb, updateArtCategories } from "@/app/lib/actions_db";
+import { updateArtTitle, updateArtSubtitle, updateArtLongText, updateArtAuthors, setCategories as setCategoriesDb, updateArtCategories, updateLinkId } from "@/app/lib/actions_db";
 import Tiptap from "@/app/_components/upload/tiptap3";
 import CategoriesSelect from "@/app/_components/upload/categories-select";
 import EditMedia from "./edit-media";
@@ -70,7 +70,7 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
     const [categories, setCategories] = useState<string[]>(art.SubCategories.map((subcat,i) => subcat.SubCategory.name));
     const [authors, setAuthors] = useState<string[]>(art.authors.map((authorship, idx) => authorship.author.name));
     const [link, setLink] = useState(art.associated_media.filter((mediaWrapper) => mediaWrapper.Media.type === "link")[0]?.Media.url);
-
+    const [linkId, setLinkId] = useState(art.associated_media.filter((mediaWrapper) => mediaWrapper.Media.type === "link")[0]?.Media.id);
 
     var longText = art.long_text || "";
     // if longtextvalue starts and ends with '"' then remove them
@@ -213,6 +213,7 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                 <label className="form-control w-full">
                     <div className="label pb-1">
                         <span className="label-text title-txt">Link</span>
+                        <p>{linkId}</p>
                     </div>
                     <div className="flex flex-row w-full">
                         <input type="text" placeholder="Type here" className="input input-bordered w-full flex-grow" value={link || ""}
@@ -220,7 +221,10 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                         />
                         <button
                             className="btn btn-primary"
-                            onClick={() => {
+                            onClick={async (e) => {
+                                if(link) {
+                                    const updatedLink = await updateLinkId({mediaId: linkId, newLink: link});
+                                }
                                 // updateArtTitle({artId: art.id, newTitle: titleValue});
                             }}
                         >{
