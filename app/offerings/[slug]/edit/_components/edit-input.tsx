@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 // import { updateArtTitle } from "@/app/lib/actions_db";
 // import { useDebouncedCallback } from 'use-debounce';
-import { updateArtTitle, updateArtSubtitle, updateArtLongText, updateArtAuthors, setCategories as setCategoriesDb } from "@/app/lib/actions_db";
+import { updateArtTitle, updateArtSubtitle, updateArtLongText, updateArtAuthors, setCategories as setCategoriesDb, updateArtCategories } from "@/app/lib/actions_db";
 import Tiptap from "@/app/_components/upload/tiptap3";
 import CategoriesSelect from "@/app/_components/upload/categories-select";
 import EditMedia from "./edit-media";
@@ -142,9 +142,10 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                 <Tiptap setContent={setLongText} initialContent={longTextValue} />
                 <button
                     className="btn btn-primary"
-                    onClick={() => {
+                    onClick={async (e) => {
                         // updateArtSubtitle({artId: art.id, newSubtitle: subtitleValue || ""});
                         updateArtLongText({artId: art.id, newLongText: longTextValue || ""});
+                        // const upCat = await updateArtCategories({artId: art.id, categories: categories});
                     }}
                 >Save</button>
 
@@ -215,7 +216,7 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                     </div>
                     <div className="flex flex-row w-full">
                         <input type="text" placeholder="Type here" className="input input-bordered w-full flex-grow" value={link || ""}
-                            onChange={(e) => setTitle(e.target.value)} aria-invalid="false"
+                            onChange={(e) => setLink(e.target.value)} aria-invalid="false"
                         />
                         <button
                             className="btn btn-primary"
@@ -229,7 +230,6 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                             <span>Save</span>
                         }</button>
                     </div>
-                {/* </div> */}
                 </label>
             </div>
 

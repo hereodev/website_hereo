@@ -3,17 +3,25 @@ import Link from "next/link";
 import { FiTriangle } from "react-icons/fi";
 import VideoPlayer from "../_components/video-player";
 import Image from "next/image";
+import Modal from "../_components/invitation-modals";
 
-export default function About() {
+type SearchParamProps = {
+    searchParams: Record<string, string> | null | undefined;
+};
+
+export default function About({ searchParams }: SearchParamProps) {
+    const show = searchParams?.show;
+
     return (
         <main>
+            {show && <Modal slug={show} />}
             <div className="flex flex-col gap-2">
                 <p>This platform responds to the urgent need to gather an open, interactive, and expanding community of black women engaged in the broadest possible range of self-determined acts and operations within the disciplines of architecture and urban design, and within the discourse of all spatial practices.</p>
             </div>
             <div className="divider my-4 mt-8">
                 {/* <FiTriangle className="h-8 w-8"></FiTriangle> */}
             </div>
-            <Invitations welcome />
+            <Invitations />
             <div className="divider my-4 mb-8">
                 {/* <FiTriangle className="h-8 w-8" style={{transform: "rotate(180deg)"}}></FiTriangle> */}
             </div>

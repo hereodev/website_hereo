@@ -11,7 +11,20 @@ function shuffleArray<T>(array: T[]): T[] {
   return array;
 }
 
-export default function Invitations({welcome=false}: {welcome?: boolean}) {
+
+export default function Invitations() {
+// export default function Invitations({welcome=false}: {welcome?: boolean}) {
+
+  // const [currentWelcomeIndex, setCurrentWelcomeIndex] = useState(0);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentWelcomeIndex((currentWelcomeIndex + 1) % links.length);
+  //   }, 1600);
+
+  //   return () => clearInterval(interval);
+  // }, [currentWelcomeIndex]);
+
   const links = [
     { 
       name: 'Français', 
@@ -64,16 +77,6 @@ export default function Invitations({welcome=false}: {welcome?: boolean}) {
   ];
   const shuffledLinks = shuffleArray([...links]); // Create a shuffled copy of the links array
 
-  // const [currentWelcomeIndex, setCurrentWelcomeIndex] = useState(0);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrentWelcomeIndex((currentWelcomeIndex + 1) % links.length);
-  //   }, 1600);
-
-  //   return () => clearInterval(interval);
-  // }, [currentWelcomeIndex]);
-
       return (
         <div className="w-full flex flex-col items-center">
           {/* You can open the modal using document.getElementById('ID').showModal() method */}
@@ -88,14 +91,15 @@ export default function Invitations({welcome=false}: {welcome?: boolean}) {
             <div className="marquee-content">
               <div className="flex flex-row flex-nowrap gap-4 z-20">
                 {[...shuffledLinks, ...shuffledLinks].map((link, index) => (
-                  <div key={link.name} 
-                  onClick={() => (document.getElementById(slugify(link.invitation)) as HTMLDialogElement)?.showModal()} 
+                  <Link key={link.name} 
+                  href={"/about?show=" + slugify(link.name).toLowerCase()}
+                  // onClick={() => (document.getElementById("invitation-" + slugify(link.invitation)) as HTMLDialogElement)?.showModal()} 
                   className=" py-2 rounded-sm text-2xl flex flex-col flex-nowrap items-center hover:cursor-pointer hover:text-primary">
                     <p className="font-semibold">{link.welcome}</p>
                     <p className="font-medium">{link.invitation}</p>
                     {/* <Link key={index} href={link.url} className="hover:underline hover:cursor-pointer">{link.invitation}</Link> */}
-                    <InvitationModal key={link.name} slug={slugify(link.invitation)} title={link.invitation} />
-                  </div>
+                    {/* <InvitationModal key={link.name} slug={"invitation-" + slugify(link.invitation)} title={link.invitation} /> */}
+                  </Link>
                 ))}
               </div>
             </div>
@@ -103,7 +107,32 @@ export default function Invitations({welcome=false}: {welcome?: boolean}) {
         </div>
       )
 }
+function Modal() {
 
+  return (
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+      <div className="p-8 border w-96 shadow-lg rounded-md bg-white">
+        <div className="text-center">
+          <h3 className="text-2xl font-bold text-gray-900">Modal Title</h3>
+          <div className="mt-2 px-7 py-3">
+            <p className="text-lg text-gray-500">Modal Body</p>
+          </div>
+          <div className="flex justify-center mt-4">
+
+            {/* Navigates back to the base URL - closing the modal */}
+            <Link
+              href="/"
+              className="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+            >
+              Close
+            </Link>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 function InvitationModal({slug, title, content}: {slug: string, title: string, content?: string}) {
 
   return (

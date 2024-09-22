@@ -334,6 +334,109 @@ export async function addAuthor({ authorName } : { authorName: string }) {
     }
 }
 
+export async function updateArtCategories({ artId, categories }: { artId: number, categories: string[] }) {
+    const firstCategories = await prisma.artSubCategory.findMany({
+        where: {
+            art_id: artId,
+        },
+    });
+    const deleteFormerCategories = await prisma.artSubCategory.deleteMany({
+        where: {
+            art_id: artId,
+        },
+    });
+
+try {
+    for (const category of categories) {
+        const subCategory = await prisma.subCategory.findFirst({
+            where: { name: category },
+        });
+        if (subCategory) {
+            await prisma.artSubCategory.create({
+                data: {
+                    art_id: artId,
+                    subcategory_id: subCategory.id,
+                },
+            });
+        } else {
+            const newSubCategory = await prisma.subCategory.create({
+                data: { name: category },
+            });
+            await prisma.artSubCategory.create({
+                data: {
+                    art_id: artId,
+                    subcategory_id: newSubCategory.id,
+                },
+            });
+        }
+    }
+    return ({artCategories: categories});
+} catch(e) {
+    console.error("Error updating authors", e);
+    // rollback
+    for (const catego of firstCategories) {
+        await prisma.artSubCategory.create({
+            data: {
+                art_id: artId,
+                subcategory_id: catego.subcategory_id,
+            },
+        });
+    }
+
+    return {error: e, message: "Error updating categories", artCategories: firstCategories};
+}
+
+    // const existingCategories = await prisma.artSubCategory.findMany({
+    //     where: {
+    //         art_id: artId,
+    //     },
+    // });
+
+    // const categoriesToDelete = existingCategories.filter((category) => {
+    //     return !categories.includes(category.SubCategory.name);
+    // });
+
+    // const categoriesToDeleteIds = categoriesToDelete.map((category) => category.subcategory_id);
+
+    // const deletedCategories = await prisma.artSubCategory.deleteMany({
+    //     where: {
+    //         subcategory_id: {
+    //             in: categoriesToDeleteIds,
+    //         },
+    //     },
+    // });
+
+    // const categoriesToCreate = categories.filter((category) => {
+    //     return !existingCategories.some((existingCategory) => existingCategory.SubCategory.name === category);
+    // });
+
+    // for (const category of categoriesToCreate) {
+    //     const subCategory = await prisma.subCategory.findFirst({
+    //         where: { name: category },
+    //     });
+    //     if (subCategory) {
+    //         await prisma.artSubCategory.create({
+    //             data: {
+    //                 art_id: artId,
+    //                 subcategory_id: subCategory.id,
+    //             },
+    //         });
+    //     } else {
+    //         const newSubCategory = await prisma.subCategory.create({
+    //             data: { name: category },
+    //         });
+    //         await prisma.artSubCategory.create({
+    //             data: {
+    //                 art_id: artId,
+    //                 subcategory_id: newSubCategory.id,
+    //             },
+    //         });
+    //     }
+    // }
+
+    // return { deletedCategories, categoriesToCreate };
+}
+
 export async function updateArtAuthors({ artId, authors }: { artId: number, authors: string[] }) {
     const firstAuthorships = await prisma.authorship.findMany({
         where: {
