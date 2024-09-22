@@ -334,6 +334,18 @@ export async function addAuthor({ authorName } : { authorName: string }) {
     }
 }
 
+export async function updateLinkId({ mediaId, newLink } : { mediaId: number, newLink:string }) {
+    const updatedArt = await prisma.media.update({
+        where: {
+            id: mediaId,
+        },
+        data: {
+            url: newLink,
+        },
+    });
+    return updatedArt;
+}
+
 export async function updateArtCategories({ artId, categories }: { artId: number, categories: string[] }) {
     const firstCategories = await prisma.artSubCategory.findMany({
         where: {
