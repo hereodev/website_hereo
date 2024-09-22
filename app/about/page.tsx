@@ -57,10 +57,10 @@ export default function About({ searchParams }: SearchParamProps) {
             </div>
 
             <h2>Our Sponsors</h2>
-            <div className="flex flex-col md:flex-row md:flex-wrap justify-around items-center">
+            <div className="flex flex-col md:flex-row md:flex-wrap items-center gap-8">
                 <p>
                     <a href="http://www.grahamfoundation.org/" className="group" target="_blank" rel="noopener noreferrer">
-                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="200px" height="200px" viewBox="0 0 2048.000000 700.000000" preserveAspectRatio="xMidYMid meet">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="120px" height="120px" viewBox="0 0 2048.000000 700.000000" preserveAspectRatio="xMidYMid meet">
 <g transform="translate(0.000000,700.000000) scale(0.100000,-0.100000)" className="fill-white group-hover:fill-primary" stroke="none">
 <path d="M1327 6990 c-462 -58 -832 -283 -1069 -650 -186 -286 -270 -618 -255
 -1005 33 -833 537 -1389 1331 -1466 466 -45 890 92 1199 390 80 77 153 170
@@ -178,7 +178,7 @@ l-29 -85 -3 328 -2 327 -235 0 -235 0 0 -1105 0 -1105 235 0 235 0 0 686 0
                     <a href="https://www.arcenreve.eu/" className="group" target="_blank" rel="noopener noreferrer">
                         {/* Arc en rêve Centre d&apos;architecture */}
                         {/* <Image src="https://hereotherwise.b-cdn.net/assets_website/arcenreve-logo-2022.png" className="invert" alt="Arc en rêve Centre d'architecture" width={200} height={200} /> */}
-                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="200px" height="200px" viewBox="0 0 1300.000000 600.000000" preserveAspectRatio="xMidYMid meet">
+                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="120px" height="120px" viewBox="0 0 1300.000000 600.000000" preserveAspectRatio="xMidYMid meet">
 <g transform="translate(0.000000,600.000000) scale(0.100000,-0.100000)"
  stroke="none" className="fill-white group-hover:fill-primary">
 <path d="M7245 5388 c-49 -67 -91 -125 -93 -130 -2 -4 32 -8 76 -8 l79 0 59
