@@ -1,6 +1,6 @@
 
 ## ABOUT
-- [ ] HOVER over anything should make the item highlight in the CITRON color on all the pages
+- [x] HOVER over anything should make the item highlight in the CITRON color on all the pages
 - [-] ARROWS at the center of the page are non-responsive. What are they supposed to do?
     => They're just for aesthetics, and to put an emphasis on the invitations and divide the page (intro / invitations / about us). I removed them for clarity.
 
@@ -16,7 +16,6 @@
 
 ## SPONSORS
 - [x] Insert arc en reve’s LOGO (see attached). We are waiting for Graham Foundation’s logo.
-  => Found it. Please check if you like the design.
 - [x] Make slight change to the about blurb:
   > “This platform responds to the urgent need to gather an open, interactive, and expanding community of black women engaged in the broadest possible range of self-determined acts and operations within the disciplines of architecture and urban design, and within the discourse of all spatial practices.”
 

@@ -13,6 +13,7 @@ import EditMedia from "./edit-media";
 import { FaPlus } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 import Authorship from "@/app/_components/upload/authorship";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 type InputProps = {
     name: keyof (Art & {media?:UploadedFile[], authors?:string[], categories?:string[]});
@@ -24,60 +25,48 @@ type InputProps = {
     errorMessage?: string;
     type?: string;
 }
-// const WatchedInput = ({name, label, placeholder, defaultVal, required = false, description, errorMessage, type = "text"}: InputProps) => {
-//     return (
-//         <label className="form-control w-full">
-//             <div className="label pb-1">
-//                 <span className="label-text title-txt">{label}</span>
-//                 {
-//                     required && (
-//                         <span className="label-text-alt text-error text-sm opacity-80">required*</span>
-//                     )
-//                 }
-//             </div>
-//             <input 
-//                 type={type} 
-//                 placeholder="Type here" 
-//                 className="input input-bordered w-full" 
-//                 {...register(name, { required })} 
-//                 aria-invalid={errors[name] ? "true" : "false"}
-//                 defaultValue={defaultVal || ""}
-//             />
-//             {
-//                 errors[name] && (
-//                     <div className="label">
-//                         <span className="label-text-alt text-error flex flex-row items-center">
-//                             <FiAlertCircle className="text-lg mr-2" />
-//                             {errorMessage || ""}
-//                         </span>
-//                         {
-//                             errors[name]?.type == "required" && (
-//                                 <span className="label-text-alt">{description || required ? "This field is required" : ""}</span>
-//                             )
-//                         }
-//                     </div>
-//                 )
-//             }
-//         </label>
-//     )
-// }
 
 const EditForm = ({art} : {art: ExtendedArt}) => {
 // const EditInput = ({name, label, placeholder, defaultVal = "", required = false, description, errorMessage, type = "text"}: InputProps) => {
     const [titleValue, setTitle] = useState(art.title);
-    const [titleChanged, setTitleChanged] = useState(false);
+    const [titleStatus, setTitleStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
     const [subtitleValue, setSubtitle] = useState(art.subtitle);
-    const [categories, setCategories] = useState<string[]>(art.SubCategories.map((subcat,i) => subcat.SubCategory.name));
-    const [authors, setAuthors] = useState<string[]>(art.authors.map((authorship, idx) => authorship.author.name));
+    const [subtitleStatus, setSubtitleStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+    const [categories, setCategories] = useState<string[]>(art.SubCategories.map((subcat) => subcat.SubCategory.name));
+    const [categoriesStatus, setCategoriesStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+    const [authors, setAuthors] = useState<string[]>(art.authors.map((authorship) => authorship.author.name));
+    const [authorsStatus, setAuthorsStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
     const [link, setLink] = useState(art.associated_media.filter((mediaWrapper) => mediaWrapper.Media.type === "link")[0]?.Media.url);
     const [linkId, setLinkId] = useState(art.associated_media.filter((mediaWrapper) => mediaWrapper.Media.type === "link")[0]?.Media.id);
+    const [linkStatus, setLinkStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-    var longText = art.long_text || "";
-    // if longtextvalue starts and ends with '"' then remove them
+    let longText = art.long_text || "";
     if (longText.startsWith('"') && longText.endsWith('"')) {
-        longText = longText.slice(1, longText.length-1);
+        longText = longText.slice(1, longText.length - 1);
     }
     const [longTextValue, setLongText] = useState(longText);
+    const [longTextStatus, setLongTextStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+    const handleSave = async (saveFn: () => Promise<void>, setStatus: React.Dispatch<React.SetStateAction<"idle" | "loading" | "success" | "error">>) => {
+        setStatus("loading");
+        try {
+            await saveFn();
+            setStatus("success");
+            setTimeout(() => setStatus("idle"), 2000); // reset after 2 seconds
+        } catch (error) {
+            setStatus("error");
+        }
+    };
+    // var longText = art.long_text || "";
+    // // if longtextvalue starts and ends with '"' then remove them
+    // if (longText.startsWith('"') && longText.endsWith('"')) {
+    //     longText = longText.slice(1, longText.length-1);
+    // }
+    // const [longTextValue, setLongText] = useState(longText);
     return (
         <div>
             <div className="w-full">
@@ -90,16 +79,11 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                             onChange={(e) => setTitle(e.target.value)} aria-invalid="false"
                         />
                         <button
-                            className="btn btn-primary"
-                            onClick={() => {
-                                updateArtTitle({artId: art.id, newTitle: titleValue});
-                            }}
-                        >{
-                            titleChanged ? 
-                            <span>Saved</span>
-                            : 
-                            <span>Save</span>
-                        }</button>
+                            className={`btn ${titleStatus === "error" ? "btn-error" : titleStatus === "success" ? "btn-success" : "btn-primary"}`}
+                            onClick={() => handleSave(async () => { await updateArtTitle({artId: art.id, newTitle: titleValue}); }, setTitleStatus)}
+                        >
+                            {titleStatus === "loading" ? <AiOutlineLoading3Quarters className="animate-spin" /> : titleStatus === "success" ? "Saved" : "Save"}
+                        </button>
                     </div>
                 {/* </div> */}
                 </label>
@@ -115,23 +99,24 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                             onChange={(e) => setSubtitle(e.target.value)} aria-invalid="false"
                         />
                         <button
-                            className="btn btn-primary"
-                            onClick={() => {
-                                updateArtSubtitle({artId: art.id, newSubtitle: subtitleValue || ""});
-                            }}
-                        >Save</button>
+                            className={`btn ${subtitleStatus === "error" ? "btn-error" : subtitleStatus === "success" ? "btn-success" : "btn-primary"}`}
+                            onClick={() => handleSave(async () => { await updateArtSubtitle({artId: art.id, newSubtitle: subtitleValue || ""}); }, setSubtitleStatus)}
+                        >
+                            {subtitleStatus === "loading" ? <AiOutlineLoading3Quarters className="animate-spin" /> : subtitleStatus === "success" ? "Saved" : "Save"}
+                        </button>
                     </div>
                 {/* </div> */}
                 </label>
             </div>
 
+            {/* Categories input */}
             <CategoriesSelect selectedCategories={categories} setSelectedCategories={setCategories} />
             <button
-                className="btn btn-primary w-full"
-                onClick={() => {
-                    setCategoriesDb({artId: art.id, categories: categories});
-                }}
-            >Save</button>
+                className={`btn w-full ${categoriesStatus === "error" ? "btn-error" : categoriesStatus === "success" ? "btn-success" : "btn-primary"}`}
+                onClick={() => handleSave(() => setCategoriesDb({artId: art.id, categories}), setCategoriesStatus)}
+            >
+                {categoriesStatus === "loading" ? <AiOutlineLoading3Quarters className="animate-spin" /> : categoriesStatus === "success" ? "Saved" : "Save"}
+            </button>
 
             <label className="form-control">
                 <div className="label pb-1">
@@ -141,40 +126,29 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                 {/* <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea> */}
                 <Tiptap setContent={setLongText} initialContent={longTextValue} />
                 <button
-                    className="btn btn-primary"
-                    onClick={async (e) => {
-                        // updateArtSubtitle({artId: art.id, newSubtitle: subtitleValue || ""});
-                        updateArtLongText({artId: art.id, newLongText: longTextValue || ""});
-                        // const upCat = await updateArtCategories({artId: art.id, categories: categories});
-                    }}
-                >Save</button>
+                    className={`btn ${longTextStatus === "error" ? "btn-error" : longTextStatus === "success" ? "btn-success" : "btn-primary"}`}
+                    onClick={() => handleSave(async () => { await updateArtLongText({artId: art.id, newLongText: longTextValue || ""}); }, setLongTextStatus)}
+                >
+                    {longTextStatus === "loading" ? <AiOutlineLoading3Quarters className="animate-spin" /> : longTextStatus === "success" ? "Saved" : "Save"}
+                </button>
 
             </label>
 
-            {/* <div className="w-full">
-                <label className="form-control w-full">
-                    <div className="label pb-1">
-                        <span className="label-text title-txt">Author(s)</span>
-                    </div>
-                </label>
-                <div className="flex flex-col sm:flex-row gap-4">
-                    {
-                        art.authors.map((authorship, idx) => {
-                            const author = authorship.author;
-                            return (
-                                <div key={author.name + idx} className="badge badge-info gap-2">
-                                    <FaX className="w-2 h-2" />
-                                    <span className="label-text">{author.name}</span>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div> */}
 
             <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
                 <Authorship userId={"ec036ad1-60e4-4351-ab65-71fd08003f4d"} authors={authors} setAuthors={setAuthors} />
                 <button
+                    className={`btn h-full ${authorsStatus === "error" ? "btn-error" : authorsStatus === "success" ? "btn-success" : "btn-primary"}`}
+                    onClick={() => handleSave(async () => {
+                        const response = await updateArtAuthors({artId: art.id, authors});
+                        if ('error' in response) {
+                            throw new Error(response.message);
+                        }
+                    }, setAuthorsStatus)}
+                >
+                    {authorsStatus === "loading" ? <AiOutlineLoading3Quarters className="animate-spin" /> : authorsStatus === "success" ? "Saved" : "Save"}
+                </button>
+                {/* <button
                     className="btn btn-primary h-full"
                     onClick={async (e) => {
                         // updateArtLongText({artId: art.id, newLongText: longTextValue || ""});
@@ -184,7 +158,7 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                             // console.log(updatedAuthor.artAuthors);
                         }
                     }}
-                >Save</button>
+                >Save</button> */}
             </div>
 
             <div className="w-full">
@@ -220,19 +194,26 @@ const EditForm = ({art} : {art: ExtendedArt}) => {
                             onChange={(e) => setLink(e.target.value)} aria-invalid="false"
                         />
                         <button
-                            className="btn btn-primary"
-                            onClick={async (e) => {
-                                if(link) {
-                                    const updatedLink = await updateLinkId({mediaId: linkId, newLink: link});
-                                }
-                                // updateArtTitle({artId: art.id, newTitle: titleValue});
-                            }}
-                        >{
-                            titleChanged ? 
-                            <span>Saved</span>
-                            : 
-                            <span>Save</span>
-                        }</button>
+                            className={`btn ${linkStatus === "error" ? "btn-error" : linkStatus === "success" ? "btn-success" : "btn-primary"}`}
+                            onClick={() =>
+                                handleSave(
+                                    async () => {
+                                        if (link) {
+                                            await updateLinkId({ mediaId: linkId, newLink: link });
+                                        }
+                                    },
+                                    setLinkStatus
+                                )
+                            }
+                        >
+                            {linkStatus === "loading" ? (
+                                <AiOutlineLoading3Quarters className="animate-spin" />
+                            ) : linkStatus === "success" ? (
+                                <span>Saved</span>
+                            ) : (
+                                <span>Save</span>
+                            )}
+                        </button>
                     </div>
                 </label>
             </div>

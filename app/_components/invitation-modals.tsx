@@ -81,6 +81,27 @@ function Yoruba() {
   function Swahili() {
     return (
       <div className="text">
+        <div>
+  <p><strong>KUHUSU (MADA YA…)</strong></p>
+  <p>
+    (Uzinduzi), (vingenevyo), wa kihusihi cha kitabia katika mfumo wa dhana ya nanga ya kuhoji usanifu wa nguvu kitovuti na kwa muktadha Muktadhari hiyo, 
+    iliyoandaliwa kwa vitengo vya upendeleo, ziliundwa kama vyombo vya dhamana ambavyo vilisstawi usawa wa uzazi wa kimuundo, wakati huo huo, kuendelea 
+    kufuta nidhamu ya zoezi hilo / mazaoezi hayo.
+  </p>
+  <p>
+    Kupitia muundo wa ‘mise-en-abime’, ‘saay/yaas’ – watunzaji wenza wa kijinsia ya kiafrika – walipendekeza / walitoa harabi za kifupi katika habari au ripoti 
+    fupi za ‘Saison Africa 2020. Ukianzishwa kama badaliko offisini kupitia kutungwa kwa kujkwaa la lini wa mtandao wa jamii kuhusu maarifa na uzalishaji wa 
+    thamani kupitia uhusiano wa karibu na kubadilishana (maoni). Seti (uwekaji) wa vitendo, kila moja ikiundwa kama mtindo wa mwito-na-majibu, hukaribisha 
+    (huita) wanaojibu mara kwa mara kujohi na uunda usanifu mfupi kwa pamoja katika uwazi wa uma yaliyomo, wakiwa katika harakati za ufanya kazi katika 
+    viwango ya maeno mbali mbali ya fomu, mazoezi na hata uwakilisha(o).
+  </p>
+  <p>
+    Wanaojibu ni wanawake wa Kiafrica kutoka nchi za ng’ambo (diaspora), watengezao anga na wanafikra, idadi ya watu ambao kihistoria wanazidi kuwachwa 
+    nje ya zoezi la uundaji wa maarifa, lakini ambao mikabala yao ya mazoezi anuwai huzaa (huunda) umati mkubwa wa fomu na njia za (ya) mazoezi tunza, 
+    anga na za pamoja.
+  </p>
+</div>
+
         <h1>MWALIKO</h1>
         <blockquote>
             “Ndoto, ambazo hazituwakilishi, ila firkra za watu wa kijinsia ya kizungu. Haya ndiyo mambo ya ukanusha wa kibinafsi wa kizungu ambayo yana wekwa kama makadirio kwetu sisi, kana kwamba yana mamlaka na lenga yakuonesha picha halisi yetu sisi. Walakin, hazina thamani kwetu (hazifai wasiwasi kwetu).” - Grada Kilomba
@@ -182,6 +203,13 @@ function Yoruba() {
   function IsiZulu() {
     return(
   <div className="text">
+      <h2>MAYELANA…</h2>
+      <p>I<i>:her(e), otherwise</i> ukuhlungwa kwezethulo kuncike ekuqophisaneni, kugqame imiyalelo emayelana nokumiswa kwezakhiwo njengewebhu eyindawo kanye nequkethe isimo samandla. Imiyalelo, eyakhiwe yazimela ngokwemgomo yayo, yagqamisa indlela yokwakha ukubaluleka okuzogcina ukwakhiwa kwesakhiwo esingalingani, yaqxila ekuqondiseni izigwegwe kulo mkhakha wokumiswa kwezakhiwo.</p>
+  
+      <p>Ngokwe mise-en-abime, saay/yaas* - abacubungili basezwenikazi lase-Afrika abane – baphakamisa eyabo imilayelo eyashiqilelwa emqulwini oka-Saison Africa2020. Lapho kundlalwe imiqondo eveza inguquko yezinto baphendula ngokusungula inkundla yokuxhumana njengesizinda (inkundla yomtapo yolwazi) nokuhlonzwa kwemikhiqizo ukuze bakwazi ukuhlanganyela nokusizana. Idlanzana elibambisene, elinye nelinye lizakhele uhlelo lwayo lokulekelelana, iheha abantu abanezindlela ezingcono zokuqoqa ulwazi kanye nokubambisana ekwakhiweni izindlela ezintsha zokumiswa kwezakhiwo nokuqoqa ulwazi esidlangalaleni. Yize kusetshenzwa ngezindlela ezahlukene kulomkhakha kanye nemigomo eyakhelwe lokho, kwenziwe futhi kwethulwe.</p>
+  
+      <p>Abangathumela izimpendulo makube isibhuda sasezwenikazi lase-Afrika namaphethelo, abanekhono kanye nolwazi lokucubungula, ngokomlando makube abantu ababengabandakanyiwe ekuqhakambiseni nokuthuthukisa ulwazi futhi bakwazi ukusungula izindlela ezizoguqula imikhiqizo. Kusunguleke uxhaxha lwezindlela ezintsha zokwenza izindawo/ukuhlungwa/nokusebenza ngokubambisana.</p>
+  
       <h2>ISIMEMO</h2>
       <blockquote>
           “Imicabango, engameli thina, kodwa eyacatshwanga abamhlophe ngabamnyama. Kuyizinkomba ezazigqame kwabamhlophe zedluliselwa kwabamnyama, kwakheka isithombe esinamandla esagqama kwabamnyama kwaba isithombe esinamandla futhi sabanezinhloso ezithile. Yize noma kunjalo kwakungabalulekanga kithi” - Grada Kilomba.
@@ -198,13 +226,6 @@ function Yoruba() {
       <p>Simema amaciko asungule izindlela zawo “zokukhangisa” ngokuziqambela eyabo imisebenzi, imicabango, egqamisa ubufakazi, ekhangayo Kanye nengakhangi, ethokozisa umqondo (ebonwayo, ezwakalayo noma ebhalwayo), ephothulwe, eqediwe nengaqediwe noma amaphrojekthi ayiphupho (imifanekiso mqondo), imibuzo, imicu/izitatimendi noma eqophisanayo yangabekelwa migomo namibandela elindeleke ukulandelwa. Lemikhiqizo ingathunyelwa ngokuzidalula okanye ithunyelwe ngokuzifihla ungazidaluli. Ungazethula njengendawo yokusebenza, ababambisene noma uzimele wedwa. Ukuze kube yimpumelelo, sikunxusa ukuba udlulise isimemo nakwabanye ezwenikazi lase-Afrika namaphethelo, ukuze nabo bakwazi ukwakha izikhangiso zabo bazithumele, ngaleyondlela siyophumelela ekukhuliseni lo mkhakha, amaciko akwazi ukucabanga kanye nabasebenzi bokumiswa kwezakhiwo abaxhumene ngazo zonke izindlela ekumisweni kwezakhiwo kanye nezindlela zokwenza izindawo futhi abantu bazibone bafanelekile ukuba kulomkhakha.</p>
   
       <p><em>Saay/yaas -abujapraiaparisjohannesburg</em></p>
-  
-      <h2>MAYELANA…</h2>
-      <p>I<i>:her(e), otherwise</i> ukuhlungwa kwezethulo kuncike ekuqophisaneni, kugqame imiyalelo emayelana nokumiswa kwezakhiwo njengewebhu eyindawo kanye nequkethe isimo samandla. Imiyalelo, eyakhiwe yazimela ngokwemgomo yayo, yagqamisa indlela yokwakha ukubaluleka okuzogcina ukwakhiwa kwesakhiwo esingalingani, yaqxila ekuqondiseni izigwegwe kulo mkhakha wokumiswa kwezakhiwo.</p>
-  
-      <p>Ngokwe mise-en-abime, saay/yaas* - abacubungili basezwenikazi lase-Afrika abane – baphakamisa eyabo imilayelo eyashiqilelwa emqulwini oka-Saison Africa2020. Lapho kundlalwe imiqondo eveza inguquko yezinto baphendula ngokusungula inkundla yokuxhumana njengesizinda (inkundla yomtapo yolwazi) nokuhlonzwa kwemikhiqizo ukuze bakwazi ukuhlanganyela nokusizana. Idlanzana elibambisene, elinye nelinye lizakhele uhlelo lwayo lokulekelelana, iheha abantu abanezindlela ezingcono zokuqoqa ulwazi kanye nokubambisana ekwakhiweni izindlela ezintsha zokumiswa kwezakhiwo nokuqoqa ulwazi esidlangalaleni. Yize kusetshenzwa ngezindlela ezahlukene kulomkhakha kanye nemigomo eyakhelwe lokho, kwenziwe futhi kwethulwe.</p>
-  
-      <p>Abangathumela izimpendulo makube isibhuda sasezwenikazi lase-Afrika namaphethelo, abanekhono kanye nolwazi lokucubungula, ngokomlando makube abantu ababengabandakanyiwe ekuqhakambiseni nokuthuthukisa ulwazi futhi bakwazi ukusungula izindlela ezizoguqula imikhiqizo. Kusunguleke uxhaxha lwezindlela ezintsha zokwenza izindawo/ukuhlungwa/nokusebenza ngokubambisana.</p>
   
       <p><em>Sindi, Anahory, Abengowe, Yehouessi / Yehouessi, Abengowe, Anahory, Sindi.</em></p>
   </div>
