@@ -3,12 +3,14 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 
 export default function OfferingsMenuItem({ 
-    label, count, categories, searchParamsEntry
+    label, count, categories, searchParamsEntry, 
+    // removefilter
 }: { 
     label: string, 
     count: number,
     categories: string[],
     searchParamsEntry: string
+    // removefilter: () => void
 }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -29,6 +31,7 @@ export default function OfferingsMenuItem({
         routerReplace(`${pathname}?${params.toString()}`);
     }
 
+
     useEffect(() => {
         const params = new URLSearchParams(searchParams);
         if (chosenCategories.length > 0) {
@@ -38,6 +41,15 @@ export default function OfferingsMenuItem({
         }
         routerReplace(`${pathname}?${params.toString()}`);
     }, [chosenCategories]);
+
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams);
+        if (!params.has(searchParamsEntry)) {
+            setChosenCategories([]);
+        } else {
+            setChosenCategories(params.getAll(searchParamsEntry));
+        }
+    }, [searchParams]);
     return (
         <div>
             {/* <p className="text-xs">{chosenCategories.join(', ')}</p> */}

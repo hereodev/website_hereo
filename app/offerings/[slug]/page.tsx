@@ -118,6 +118,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
       // Remove the '"' at the beginning and end of the string if they're there
         ? art.long_text.slice(1, -1)
         : art.long_text;
+
       return (
         <main>
           <div className="flex flex-row w-full justify-between items-center">
@@ -142,15 +143,19 @@ export default async function Art({ params }: { params: { slug: string, lang: st
           {art.subtitle && <h2>{art.subtitle}</h2>}
 
           <p className="my-2 w-full text-left">Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
-            {art.SubCategories.length > 0 && (
-              <p>Keywords: {art.SubCategories.map(subCat => subCat.SubCategory.name).join(", ")}</p>
-            )}
-            <br/>
-
+        {art.SubCategories.length > 0 && (
+            <p className="my-2 w-full text-left">Keywords: {art.SubCategories.map(subCat => subCat.SubCategory.name).join(", ")}</p>
+        )}
+        {art.SubCategories.length > 0 && (
+            <p className="my-2 w-full text-left">Categories: {[...Array.from(new Set(art.SubCategories.map(subCat => subCat.SubCategory.Category?.name || ""))).filter((name: any) => name)].join(", ")}</p>
+        )}
+        <br/>
           {
             artText && 
             <div className="prose w-full min-w-full max-w-screen pb-6" dangerouslySetInnerHTML={{__html: artText}}></div>
           }
+          <br />
+          <br />
           {
             art.associated_media && 
             <div className={`grid ${art.associated_media.length <= 1 ? 'grid-cols-1' : 'sm:grid-cols-2 sm:gap-4'}`}>

@@ -3,6 +3,9 @@ import prisma from "@/prisma";
 import { FiTriangle } from "react-icons/fi";
 import OfferingsMenuItem from "./offerings-menu-item";
 import { Author, Category, Site } from "@prisma/client";
+import Link from "next/link";
+import { FaX } from "react-icons/fa6";
+import OfferingsMenuRemovefilters from "./offerings-topmenu-removefilters";
 
 
 export default async function OfferingsTopMenu() {
@@ -57,6 +60,10 @@ export default async function OfferingsTopMenu() {
         console.error(error)
     }
 
+    // function that is triggered by OfferingsMenuRemovefilters and passed to OfferingsMenuItem
+    function removeFilter() {
+        console.log("removeFilter")
+    }
 
     return (
     <div className="collapse min-w-64 w-64 sm:w-full group/tri">
@@ -77,7 +84,7 @@ export default async function OfferingsTopMenu() {
                 </div>
             </div> */}
             <OfferingsMenuItem
-                label="KEYWORDS"
+                label="CATEGORIES"
                 count={allTags}
                 categories={allCategories && allCategories.map(c => c.name) || []}
                 searchParamsEntry="keywords"
@@ -94,6 +101,7 @@ export default async function OfferingsTopMenu() {
                 categories={allSites && allSites.map(s => s.text) || []}
                 searchParamsEntry="sites"
             />
+            <OfferingsMenuRemovefilters  />
         </div>
 
     <div className="collapse-title p-0 m-0">
