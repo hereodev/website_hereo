@@ -11,6 +11,7 @@ import { FiEdit, FiPlus, FiTrash } from "react-icons/fi"
 import Image from "next/image"
 import { deleteArt, logArtDetails } from "../lib/actions_db"
 import PreviewArt from "./_components/preview-art"
+import LogoutBtn from "../_components/auth/logout-btn"
 
 type Props = {
     params: { id: string }
@@ -179,6 +180,7 @@ export default async function Profile() {
         </div>
                 */}
 
+                <LogoutBtn />
       </main>
     )
 

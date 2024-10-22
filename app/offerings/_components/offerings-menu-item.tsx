@@ -67,7 +67,7 @@ export default function OfferingsMenuItem({
                 isExtended && 
                 <div className="flex flex-col gap-2">
                     {
-                        categories.map((category) => {
+                        categories.sort((a, b) => a.localeCompare(b)).map((category) => {
                             // FIXME: if pre-checked categories, they should be checked. for now it doesnt work.
                             return (
                                 <label key={category} className="flex items-center gap-2">
