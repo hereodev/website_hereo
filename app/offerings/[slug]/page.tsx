@@ -188,34 +188,40 @@ export default async function Art({ params }: { params: { slug: string, lang: st
   ) : media.Media.type && media.Media.type.includes("video") && media.Media.url ? (
       <VideoPlayer videoSrc={media.Media.url} ctrls={true} cn={"h-12"} />
   ) : media.Media.type && media.Media.type === "application/pdf" && media.Media.url ? (
-    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
-      <FaFilePdf className="w-12 h-12" />
-      {media.Media.title}
+    <div className="flex items-center justify-center w-full h-full gap-2">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="hover:cursor-pointer ring-primary ring-offset-base-100 w-24 h-24 rounded-full ring ring-offset-2 flex flex-col items-center justify-center bg-primary">
+      <span className="text-xs text-black text-center truncate w-full px-2">{media.Media.title}</span>
     </a>
+    </div>
   ) : media.Media.type && (media.Media.type === "application/vnd.ms-powerpoint" || media.Media.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation") && media.Media.url ? (
-    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
-      <FaFilePowerpoint className="w-12 h-12" />
-      {media.Media.title}
+    <div className="flex items-center justify-center w-full h-full gap-2">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="hover:cursor-pointer ring-primary ring-offset-base-100 w-24 h-24 rounded-full ring ring-offset-2 flex flex-col items-center justify-center bg-primary">
+      <span className="text-xs text-black text-center truncate w-full px-2">{media.Media.title}</span>
     </a>
+    </div>
   ) : media.Media.type && media.Media.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && media.Media.url ? (
-    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
-      <FaFileWord className="w-12 h-12" />
-      {media.Media.title}
+    <div className="flex items-center justify-center w-full h-full gap-2">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="hover:cursor-pointer ring-primary ring-offset-base-100 w-24 h-24 rounded-full ring ring-offset-2 flex flex-col items-center justify-center bg-primary">
+      <span className="text-xs text-black text-center truncate w-full px-2">{media.Media.title}</span>
     </a>
+    </div>
   ) : media.Media.url && (new URL(media.Media.url).hostname === "www.youtube.com" || new URL(media.Media.url).hostname === "youtu.be" || new URL(media.Media.url).hostname === "vimeo.com") ? (
     // <div className="h-screen w-full relative">
       <VidPlayer videoSrc={media.Media.url} ctrls={true} cn={"max-w-[90vw]"} />
     // </div>
   ) : media.Media.url && media.Media.title ? (
-    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
-      <FaFileAlt className="w-12 h-12" />
-      {media.Media.title}
+    <div className="flex items-center justify-center w-full h-full gap-2">
+    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="hover:cursor-pointer ring-primary ring-offset-base-100 w-24 h-24 rounded-full ring ring-offset-2 flex flex-col items-center justify-center bg-primary">
+      <span className="text-xs text-black text-center truncate w-full px-2">{media.Media.title}</span>
     </a>
-  ) : media.Media.url && media.Media.type == "link" ? (
-    <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full gap-2">
-      <FaExternalLinkAlt className="w-6 h-6" />
-      {"See more at " + new URL(media.Media.url).hostname}
-    </a>
+    </div>
+  ) : media.Media.url && (media.Media.type == "link" || media.Media.type?.toLowerCase() == "website")? (
+      <div className="flex items-center justify-center w-full h-full gap-2">
+      <a href={media.Media.url} target="_blank" rel="noopener noreferrer" className="hover:cursor-pointer ring-primary ring-offset-base-100 w-24 h-24 rounded-full ring ring-offset-2 flex flex-col items-center justify-center bg-primary">
+        <FaExternalLinkAlt className="text-xs text-black w-6 h-6" />
+        <span className="text-xs text-black text-center truncate w-full px-2">{media.Media.title}</span>
+      </a></div>
+  
   ) : null}
                   </div>
                 )
