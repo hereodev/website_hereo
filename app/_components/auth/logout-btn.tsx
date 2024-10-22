@@ -12,10 +12,10 @@ export default function LogoutBtn() {
       };
     
     return (
-        <button className="btn btn-error" onClick={() => handleLogout}>
-      {/* Button for logging out */}
-      Disconnect
-    </button>
+        <button className="btn btn-error" onClick={() => handleLogout()}>
+        {/* Button for logging out */}
+          Disconnect
+        </button>
 
     )
 }

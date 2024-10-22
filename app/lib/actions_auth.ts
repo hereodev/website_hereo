@@ -80,10 +80,10 @@ export async function sendMail( {email, lang="en"} : { email: string, lang?: str
   const rawFormData = {
     to: email || "isadoravuongvan@gmail.com",
     // to: email,
-    cc: "hereotherwise@vuongvan.dev",
-    from: "hereotherwise@vuongvan.dev",
+    cci: "info@hereotherwise.site",
+    from: "info@hereotherwise.site",
     subject: `New message from Her(e) Otherwise`,
-    text: "Thank you for signing up to Her(e) Otherwise.",
+    text: "Thank you for joining her(e), otherwise.\n\nsaay|yaas",
 }
 
 try {

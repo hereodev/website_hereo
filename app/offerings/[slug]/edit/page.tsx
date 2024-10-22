@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 
 import { redirect } from 'next/navigation'
 import EditForm from "./_components/edit-input";
-import { ExtendedArt } from "@/global";
+import { ExtendedArt, UserWithRole } from "@/global";
 export const metadata: Metadata = {
     title: ":Her(e) Otherwise: Edit Offering",
     // title: ":Her(e) Otherwise" + " | " + process.env.NODE_ENV,
@@ -50,7 +50,10 @@ export default async function EditOffering({ params }: { params: { slug: string 
             },
         }
     }) as unknown as ExtendedArt;
-    if(session && session.user && session.user.id && offering && session.user.id === offering?.uploader_id) {
+    if((session && session.user && session.user.id && offering && session.user.id === offering?.uploader_id)
+        || 
+          (session && (session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))
+    ) {
         return (
             <main>
                 <div>

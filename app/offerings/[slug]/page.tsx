@@ -125,7 +125,10 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             <h1>{art.title}</h1>
             <div className="flex flex-row justify-center items-center gap-2">
               {
-                session && session.user && art.uploader.id == session.user.id && //|| (((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
+                session && session.user && (
+                  art.uploader.id == session.user.id 
+                || 
+                ((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN"))) &&
                 <Link href={`/offerings/${art.slug}/edit`} className="btn btn-outline hover:btn-primary">
                   <FiEdit2 />
                   Edit
