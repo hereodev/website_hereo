@@ -21,6 +21,13 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
     const [password, setPassword] = useState('');
     const [changedName, setChangedName] = useState(false);
     const [validateName, setValidateName] = useState(false);
+    const [site1, setSite1] = useState(initialSites && initialSites[0] || "");
+    const [site2, setSite2] = useState(initialSites && initialSites[1] || "");
+    const [site3, setSite3] = useState(initialSites && initialSites[2] || "");
+    const [changedSite, setChangedSite] = useState(false);
+    const [validateSite, setValidateSite] = useState(false);
+    const [changedEmail, setChangedEmail] = useState(false);
+    const [validateEmail, setValidateEmail] = useState(false);
 
     // const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //     setName(e.target.value);
@@ -68,28 +75,29 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
         // TODO: send email to new adress.
-    };
-
     const handleSiteChange = useDebouncedCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
-        console.log(e.target.id.charAt(4))
+        const siteNumber = e.target.id.charAt(4);
+        const newSiteValue = e.target.value;
 
-        if(userId) { 
-            const userUpdated = await fetch(`/api/user?userId=${userId}&site=${e.target.value}&num=${e.target.id.charAt(4)}`, {
+        if (siteNumber === '1') setSite1(newSiteValue);
+        if (siteNumber === '2') setSite2(newSiteValue);
+        if (siteNumber === '3') setSite3(newSiteValue);
+
+        if (userId) {
+            const userUpdated = await fetch(`/api/user?userId=${userId}&site${siteNumber}=${newSiteValue}`, {
                 method: 'PUT',
             });
 
-            // const userUpdated = await changeName(userId, e.target.value); 
-            // console.log("userUpdated", userUpdated)
-            if(userUpdated.ok) {
-                console.log("site changed successfully")
-                setChangedName(true);
+            if (userUpdated.ok) {
+                console.log("site changed successfully");
+                setChangedSite(true);
             } else {
-                console.error("error changing site")
+                console.error("error changing site");
             }
         }
+    }, 1000);  
 
-    }, 1000);
+    
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
