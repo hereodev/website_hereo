@@ -12,6 +12,7 @@ import Image from "next/image"
 import { deleteArt, logArtDetails } from "../lib/actions_db"
 import PreviewArt from "./_components/preview-art"
 import LogoutBtn from "../_components/auth/logout-btn"
+import { Art } from "@prisma/client"
 
 type Props = {
     params: { id: string }
@@ -91,7 +92,11 @@ export default async function Profile() {
   // }
     const relatedAuthors = await prisma.author.findFirst({})
 
-    var userArt = await prisma.art.findMany({
+    let userArt: Art[] = []
+    if((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN")) {
+      userArt = await prisma.art.findMany()
+    }
+    userArt = await prisma.art.findMany({
         where: {
             uploader_id: id
         }
