@@ -146,6 +146,8 @@ export async function sendMail( {email, lang="en",
   if(!apiKey) {
     throw new Error('SENDGRID_API_KEY not set');
   }
+  console.log('SendGrid API Key:', apiKey);
+
   // Set the SendGrid API key
   sgMail.setApiKey(apiKey);
   const rawFormData = {

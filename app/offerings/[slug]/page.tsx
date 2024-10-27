@@ -46,7 +46,7 @@ export async function generateMetadata(
 
     if(!art) {
       return {
-        title: `#${slug} | Her(e) Otherwise | ${process.env.NODE_ENV}`,
+        title: `:Her(e) Otherwise: #${slug}`,
       //   openGraph: {
       //     images: ['/some-specific-page-image.jpg', ...previousImages],
       //   },
@@ -54,7 +54,7 @@ export async function generateMetadata(
     }
 
     return {
-      title: `${art.title} ${art.authors && `by ${art.authors.map(a => a.author.name).join(", ")}`} | Her(e) Otherwise | ${process.env.NODE_ENV}`,
+      title: `:Her(e) Otherwise: ${art.title} ${art.authors && `by ${art.authors.map(a => a.author.name).join(", ")}`}`,
     //   openGraph: {
     //     images: ['/some-specific-page-image.jpg', ...previousImages],
     //   },

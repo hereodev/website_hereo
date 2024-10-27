@@ -28,7 +28,7 @@ export async function generateMetadata(
 
     if(!session) {
       return {
-        title: `Sign in | Her(e) Otherwise | ${process.env.NODE_ENV}`,
+        title: `Sign in | Her(e) Otherwise`,
       }
     }
 
@@ -42,7 +42,7 @@ export async function generateMetadata(
 
 
     return {
-      title: `My Profile | Her(e) Otherwise | ${process.env.NODE_ENV}`,
+      title: `My Profile | Her(e) Otherwise`,
     //   openGraph: {
     //     images: ['/some-specific-page-image.jpg', ...previousImages],
     //   },
