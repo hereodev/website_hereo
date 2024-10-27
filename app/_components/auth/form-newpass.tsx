@@ -3,16 +3,29 @@
 import { useState } from "react";
 import { FiAlertCircle, FiEye, FiEyeOff, FiKey, FiMail, FiUser, FiArrowRight } from "react-icons/fi"
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions_auth';
+// import { authenticate } from '@/app/lib/actions_auth';
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import Link from "next/link";
 import SubmitButton from "../submit-button";
+import { newPassword } from "@/app/lib/actions_auth";
 
 
-export default function FormSignIn() {
-// export default function FormSignIn({ handleSignIn } : { handleSignIn: (formData: FormData) => void}) {
-    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+
+export default function FormNewPassword() {
+// export default function FormNewPassword({ handleSignIn } : { handleSignIn: (formData: FormData) => void}) {
+
+    const searchParams = useSearchParams();
+    const token = searchParams.get("token");
+
+    const [formState, dispatch] = useFormState(async (state: any, formData: FormData) => {
+        const payload = formData.get('password') as string;
+        if (!payload) return state;
+        const result = await newPassword(payload, token);
+        return result;
+    }, { error: '', success: 'Your password has been reset successfully.' });
+
+    const errorMessage = formState?.error;
 
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -43,23 +56,6 @@ export default function FormSignIn() {
               )}
           </Suspense> */}
         </div>
-        
-
-             <label className="input input-bordered flex items-center gap-2">
-                <FiMail className="w-4 h-4 opacity-70" />
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="email"
-                    className="grow" 
-                    placeholder="Email"
-                    // defaultValue={justSignedUp || ""}
-                />
-             </label>
-             {/* <label className="input input-bordered flex items-center gap-2">
-                 <FiUser className="w-4 h-4 opacity-70" />
-                 <input type="text" className="grow" placeholder="Name" />
-             </label> */}
              <label className="input input-bordered flex items-center gap-2">
                 <FiKey className="w-4 h-4 opacity-70" />
                 <input
@@ -85,14 +81,9 @@ export default function FormSignIn() {
                 </span>
             </label> 
 
-            <div className="w-1/2">
-                <Link href="/auth/reset-password" className="text-sm text-primary hover:cursor-pointer hover:underline">
-                    Forgot password?
-                </Link>
-            </div>
             
             {/* <button className="btn btn-secondary">Sign In</button> */}
-            <LoginButton />
+            <NewPasswordButton />
             {/* <SubmitButton pending={useFormStatus()} submitMessage="Sign In" submittingMessage="Signing in..." color="primary" /> */}
 
             <div
@@ -100,12 +91,18 @@ export default function FormSignIn() {
             aria-live="polite"
             aria-atomic="true"
             >
-            {errorMessage && (
-                <>
-                <FiAlertCircle className="h-5 w-5 text-error" />
-                <p className="text-sm text-error">{errorMessage}</p>
-                </>
-            )}
+                {errorMessage && errorMessage.error && (
+                    <div className="flex flex-row items-center gap-2 ">
+                        <FiAlertCircle className="h-5 w-5 text-error" />
+                        <p className="text-sm text-error">{errorMessage.error}</p>
+                    </div>
+                )}
+                {errorMessage && errorMessage.success && (
+                    <div className="flex flex-row items-center gap-2 ">
+                        <FiMail className="h-5 w-5 text-success" />
+                        <p className="text-sm text-success">{errorMessage.success} Check out your inbox, including your spam folder.</p>
+                    </div>
+                )}
             </div>
 
         </form>
@@ -113,16 +110,16 @@ export default function FormSignIn() {
 }
 
 
-function LoginButton() {
+function NewPasswordButton() {
     const { pending } = useFormStatus();
  
     return (
         <button className="btn btn-outline hover:btn-primary mt-4 w-full" aria-disabled={pending}>
             {
                 pending ?
-                <span>Logging in...</span>
+                <span>Changing password...</span>
                 :
-                <span className="w-full flex justify-between items-center">Log In <FiArrowRight className="h-5 w-5" /></span>
+                <span className="w-full flex justify-between items-center">Change Password <FiArrowRight className="h-5 w-5" /></span>
             }
         </button>
     );

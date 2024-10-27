@@ -7,6 +7,8 @@ import { redirect } from 'next/navigation';
 import sgMail from '@sendgrid/mail'
 import { UserWithRole } from "@/global";
 import { getSession, UpdateSession } from 'next-auth/react';
+import { text } from 'stream/consumers';
+import { getPasswordResetTokenByToken } from '@/lib/password-reset-token';
 // import jwt from 'jsonwebtoken';
 export async function myAction() {
   console.log("action: myAction...")
@@ -69,7 +71,76 @@ export async function addUser(
 
 }
 
-export async function sendMail( {email, lang="en"} : { email: string, lang?: string }) {
+// export async function changePassword(userId:string, newPassword: string) {
+//   const hashedPassword = await bcrypt.hash(newPassword, 10);
+//   const user = await prisma.user.update({
+//     where: { id: userId },
+//     data: { password: hashedPassword },
+//   });
+//   return user;
+// }
+
+export const newPassword = async (
+  // values: z.infer<typeof NewPasswordSchema>,
+  password:string,
+  token?: string | null
+) => {
+  if (!token) {
+    return { error: "Missing token!" };
+  }
+
+  // const validatedFields = NewPasswordSchema.safeParse(values);
+
+  // if (!validatedFields.success) {
+  //   return { error: "Invalid fields!" };
+  // }
+
+  // const { password } = validatedFields.data;
+
+  const existingToken = await getPasswordResetTokenByToken(token);
+
+  if (!existingToken) {
+    return { error: "Invalid token!" };
+  }
+
+  const hasExpired = new Date(existingToken.expires) < new Date();
+
+  if (hasExpired) {
+    return { error: "Token has expired!" };
+  }
+
+  const existingUser = await prisma.user.findFirst({
+    where: { email: existingToken.email },
+  });
+
+  if (!existingUser) {
+    return { error: "Email does not exist!" };
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await prisma.user.update({
+    where: { id: existingUser.id },
+    data: { password: hashedPassword },
+  });
+
+  await prisma.passwordResetToken.delete({
+    where: { id: existingToken.id },
+  });
+
+  return { success: "Password updated!" };
+};
+
+
+export async function sendMail( {email, lang="en",
+  subject="New message from Her(e) Otherwise",
+  text="Thank you for joining her(e), otherwise.\n\nsaay|yaas",
+  html="<p>Thank you for joining her(e), otherwise.</p><p>saay|yaas</p>"
+} : { email: string, lang?: string, 
+  subject?:string,
+  text?:string 
+  html?:string
+}) {
   // send email
   const apiKey = process.env.SENDGRID_API_KEY;
   if(!apiKey) {
@@ -82,8 +153,9 @@ export async function sendMail( {email, lang="en"} : { email: string, lang?: str
     // to: email,
     cci: "info@hereotherwise.site",
     from: "info@hereotherwise.site",
-    subject: `New message from Her(e) Otherwise`,
-    text: "Thank you for joining her(e), otherwise.\n\nsaay|yaas",
+    subject: subject,
+    text: text,
+    html: html,
 }
 
 try {
