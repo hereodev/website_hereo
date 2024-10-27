@@ -166,7 +166,7 @@ try {
   return 'Email sent';
 } catch (error) {
   // Send an error response
-  console.log("Something went wrong, please try again!")
+  console.log("Something went wrong while sendind email to " + rawFormData.to, error)
   // TODO: send error message to the admin
   return "Something went wrong, please try again!"
 }
