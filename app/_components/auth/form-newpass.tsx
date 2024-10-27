@@ -12,8 +12,8 @@ import { newPassword } from "@/app/lib/actions_auth";
 
 
 
-export default function FormNewPassword() {
-// export default function FormNewPassword({ handleSignIn } : { handleSignIn: (formData: FormData) => void}) {
+function FormNPass() {
+// export default function FormNPass({ handleSignIn } : { handleSignIn: (formData: FormData) => void}) {
 
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
@@ -41,8 +41,6 @@ export default function FormNewPassword() {
     // const justSignedUp = searchParams.get('signedup')
     return (
         // <form action={handleSignIn}>
-        <Suspense>
-
         <form action={dispatch} className="flex flex-col gap-2 w-full">
         <div
           className="flex h-8 items-end space-x-1"
@@ -108,7 +106,6 @@ export default function FormNewPassword() {
             </div>
 
         </form>
-        </Suspense>
     )
 }
 
@@ -125,5 +122,14 @@ function NewPasswordButton() {
                 <span className="w-full flex justify-between items-center">Change Password <FiArrowRight className="h-5 w-5" /></span>
             }
         </button>
+    );
+}
+
+// Parent component or page
+export default function FormNewPassword() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <FormNPass />
+        </Suspense>
     );
 }
