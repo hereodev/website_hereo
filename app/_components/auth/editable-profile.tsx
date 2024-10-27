@@ -5,6 +5,8 @@ import { changeName, changeEmail, myAction } from '@/app/lib/actions_auth';
 import { useDebouncedCallback } from 'use-debounce';
 import { FiCheck, FiCheckCircle } from 'react-icons/fi';
 import { Media } from '@prisma/client';
+import DebouncedInput from '../debounced-input';
+import { updateSite, updateEmail, updateUsername } from '@/app/lib/actions_db';
 
 interface EditableProfileProps {
     userId?: string | null | undefined;
@@ -104,10 +106,11 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
         // Handle form submission logic here
     };
 
+    if(userId) {
     return (
         // <div>
             <div >
-                <div className="label w-full">
+                {/* <div className="label w-full">
                     <label htmlFor="name" className="form-control w-full max-w-xs">
                         <div className="label"><span className="label-text">Name</span></div>
                     </label>
@@ -133,12 +136,61 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         onChange={handleEmailChange}
                         className="input input-bordered w-full"
                     />
-                </div>
+                </div> */}
+
+                <DebouncedInput
+                    label="Name"
+                    defaultValue={initialName || ""}
+                    onSave={async (newValue) => {
+                        // const userUpdated = await fetch(`/api/user?userId=${userId}&name=${newValue}`, { method: 'PUT' });
+                        // return userUpdated.ok;
+                        const userUpdated = await updateUsername({userId, newUsername:newValue});
+                        return userUpdated.ok;
+                    }}
+                />
+                <DebouncedInput
+                    label="Email"
+                    type="email"
+                    defaultValue={initialEmail || ""}
+                    onSave={async (newValue) => {
+                        // const userUpdated = await fetch(`/api/user?userId=${userId}&email=${newValue}`, { method: 'PUT' });
+                        // return userUpdated.ok;
+                        const userUpdated = await updateEmail({userId, newEmail:newValue});
+                        return userUpdated.ok;
+                    }}
+                />
 
                 <h2>Sites of belonging</h2>
                 <p>You can enter up to 3 sites of belonging.</p>
                 <p>Make sure you entered a name above for your sites of belonging to be saved.</p>
-                <div className="label w-full">
+                {
+                    [1,2,3].map((siteNum) => {
+                        return (
+                            <DebouncedInput key="siteNum"
+                                label={`Site n°${siteNum}`}
+                                defaultValue={initialSites && initialSites[siteNum-1] || ""}
+                                onSave={async (newValue) => {
+                                    // const userUpdated = await fetch(`/api/user?userId=${userId}&site${siteNum}=${newValue}`, { method: 'PUT' });
+                                    // return userUpdated.ok;
+                                    const siteUpdated = await updateSite({userId, newSite:newValue, siteNum:siteNum.toString()});
+                                    return siteUpdated.ok;
+                                }}
+                            />
+                        )
+                    })
+                }
+                {/* <DebouncedInput
+                    label="Site n°1"
+                    defaultValue={initialSites && initialSites[0] || ""}
+                    onSave={async (newValue) => {
+                        // const userUpdated = await fetch(`/api/user?userId=${userId}&site1=${newValue}`, { method: 'PUT' });
+                        // return userUpdated.ok;
+                        const siteUpdated = await updateSite({userId, newSite:newValue, siteNum:"1"});
+                        return siteUpdated.ok ?? false;
+                    }}
+                /> */}
+
+                {/* <div className="label w-full">
                     <label htmlFor="site1" className="form-control w-full max-w-xs">
                         <div className="label"><span className="label-text">Site n°1</span></div>
                     </label>
@@ -173,7 +225,7 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         onChange={handleSiteChange}
                         className="input input-bordered w-full"
                     />
-                </div>
+                </div> */}
                 {/* <div className="w-full">
                     <label htmlFor="password" className="form-control w-full max-w-xs">
                         Password
@@ -193,7 +245,9 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                 
             </div>
         // </div>
-    );
+    );} else {
+        return <div>loading...</div>
+    }
 };
 
 export default EditableProfile;

@@ -449,6 +449,113 @@ try {
     // return { deletedCategories, categoriesToCreate };
 }
 
+export async function updateUsername({ userId, newUsername } : { userId: string, newUsername: string }) {
+    const updatedUser = await prisma.user.update({
+        where: {
+            id: userId,
+        },
+        data: {
+            name: newUsername,
+        },
+    });
+    // update author name as well if an author exists with the same user id
+    const author = await prisma.author.findFirst({
+        where: {
+            user_id: userId,
+        },
+    });
+    if(author) {
+        await prisma.author.update({
+            where: {
+                id: author.id,
+            },
+            data: {
+                name: newUsername,
+            },
+        });
+    }
+    return {updatedUser, ok: updatedUser ? true : false};
+}
+
+export async function updateEmail({ userId, newEmail } : { userId: string, newEmail: string }) {
+    const updatedUser = await prisma.user.update({
+        where: {
+            id: userId,
+        },
+        data: {
+            email: newEmail,
+        },
+    });
+    return {updatedUser, ok: updatedUser ? true : false};
+}
+
+export async function updateSite({ userId, siteNum, newSite } : { userId: string, siteNum: string, newSite: string }) {
+    let author = await prisma.author.findFirst({
+        where: {
+            user_id: userId,
+        },
+    });
+    if(!author) {
+    // } else {
+        // return { error: "Author not found" };
+        var user = await prisma.user.findFirst({
+            where: { id: userId },
+        });
+        if(user && user.name) {
+            // console.log("user name:", user.name)
+            author = await prisma.author.upsert({
+                where: {
+                    user_id: userId,
+                },
+                update: {
+                    name: user.name,
+                },
+                create: {
+                    user_id: userId,
+                    name: user.name,
+                },
+            });
+            const sites = await prisma.site.upsert({
+                where: {
+                    author_id_number: {
+                        author_id: author.id,
+                        number: parseInt(siteNum),
+                    },
+                },
+                update: {
+                    text: newSite,
+                },
+                create: {
+                    author_id: author.id,
+                    number: parseInt(siteNum),
+                    text: newSite,
+                },
+            });
+            return {site: sites, ok: sites ? true : false};
+        }
+
+    } else {
+        const site = await prisma.site.upsert({
+            where: {
+                author_id_number: {
+                    author_id: author.id,
+                    number: parseInt(siteNum),
+                },
+            },
+            update: {
+                text: newSite,
+            },
+            create: {
+                author_id: author.id,
+                number: parseInt(siteNum),
+                text: newSite,
+            },
+        });
+        return {site, ok: site ? true : false};
+    }
+    return {error: "Author not found", ok:false};
+}
+
 export async function updateArtAuthors({ artId, authors }: { artId: number, authors: string[] }) {
     const firstAuthorships = await prisma.authorship.findMany({
         where: {
