@@ -17,6 +17,18 @@ export const metadata: Metadata = {
     icons: {
         icon: '/favicon_hereo.svg', // /public path
     },
+    openGraph: {
+        title: ":Her(e) Otherwise",
+        description: "This platform responds to the urgent need to gather an open, interactive, and expanding community of black women engaged in the broadest possible range of self-determined acts and operations within the disciplines of architecture and urban design, and within the discourse of all spatial practices.",
+        images: [
+            {
+                url: 'https://hereo.imgix.net/assets_website/SAAY-YAAS_static.jpg?w=1200&h=630',
+                width: 1200,
+                height: 630,
+                alt: ":Her(e) Otherwise - Open Graph Image",
+            },
+        ],
+    },
 };
 
 // export async function generateStaticParams() {
