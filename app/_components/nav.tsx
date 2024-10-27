@@ -92,12 +92,12 @@ export default function Nav({ lang } : { lang: string}) {
                     </Link>
                 ))
             }
-            {
+            {/* {
                 session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
                 <Link className={`uppercase ${(("/admin_saay_yaas"==parentPath && isNotTopPath) || ("/admin_saay_yaas"!=parentPath)) && "hover:border-t-primary"} border-t border-t-black hover:cursor-pointer hover:text-primary flex flex-row items-center gap-1`} href={"/admin_saay_yaas"}>
                     Admin
                 </Link>
-            }
+            } */}
             {/* <>
                 <Link className={`uppercase text-white ${((href==parentPath && isNotTopPath) || (href!=parentPath)) && "hover:border-t-primary"} border-t border-t-black hover:cursor-pointer flex flex-col items-center justify-center`} href={"/admin_saay_yaas"}>
                         <span><FiTriangle className="h-2 w-2 stroke-white" style={{transform:`rotate(180deg)`}} /></span>
