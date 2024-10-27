@@ -110,33 +110,6 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
     return (
         // <div>
             <div >
-                {/* <div className="label w-full">
-                    <label htmlFor="name" className="form-control w-full max-w-xs">
-                        <div className="label"><span className="label-text">Name</span></div>
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        defaultValue={name}
-                        onChange={handleNameChange}
-                        className={"input input-bordered w-full " + (validateName ? "border-success text-success" : "")}
-                    />
-                    {
-                        changedName && <div className="text-success"><FiCheckCircle /></div>
-                    }
-                </div>
-                <div className="label w-full">
-                    <label htmlFor="email" className="form-control w-full max-w-xs">
-                        <div className="label"><span className="label-text">Email</span></div>
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        defaultValue={email}
-                        onChange={handleEmailChange}
-                        className="input input-bordered w-full"
-                    />
-                </div> */}
 
                 <DebouncedInput
                     label="Name"
@@ -179,68 +152,6 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
                         )
                     })
                 }
-                {/* <DebouncedInput
-                    label="Site n°1"
-                    defaultValue={initialSites && initialSites[0] || ""}
-                    onSave={async (newValue) => {
-                        // const userUpdated = await fetch(`/api/user?userId=${userId}&site1=${newValue}`, { method: 'PUT' });
-                        // return userUpdated.ok;
-                        const siteUpdated = await updateSite({userId, newSite:newValue, siteNum:"1"});
-                        return siteUpdated.ok ?? false;
-                    }}
-                /> */}
-
-                {/* <div className="label w-full">
-                    <label htmlFor="site1" className="form-control w-full max-w-xs">
-                        <div className="label"><span className="label-text">Site n°1</span></div>
-                    </label>
-                    <input
-                        type="text"
-                        id="site1"
-                        defaultValue={initialSites && initialSites[0] || ""}
-                        onChange={handleSiteChange}
-                        className="input input-bordered w-full"
-                    />
-                </div>
-                <div className="label w-full">
-                    <label htmlFor="site2" className="form-control w-full max-w-xs">
-                        <div className="label"><span className="label-text">Site n°2</span></div>
-                    </label>
-                    <input
-                        type="text"
-                        id="site2"
-                        defaultValue={initialSites && initialSites[1] || ""}
-                        onChange={handleSiteChange}
-                        className="input input-bordered w-full"
-                    />
-                </div>
-                <div className="label w-full">
-                    <label htmlFor="site3" className="form-control w-full max-w-xs">
-                        <div className="label"><span className="label-text">Site n°3</span></div>
-                    </label>
-                    <input
-                        type="text"
-                        id="site3"
-                        defaultValue={initialSites && initialSites[2] || ""}
-                        onChange={handleSiteChange}
-                        className="input input-bordered w-full"
-                    />
-                </div> */}
-                {/* <div className="w-full">
-                    <label htmlFor="password" className="form-control w-full max-w-xs">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        className="input input-bordered"
-                    />
-                </div> */}
-                {/* <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md">
-                    Change Password
-                </button> */}
 
                 
             </div>

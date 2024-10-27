@@ -93,14 +93,15 @@ export default async function Profile() {
     const relatedAuthors = await prisma.author.findFirst({})
 
     let userArt: Art[] = []
-    if((session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN")) {
-      userArt = await prisma.art.findMany()
-    }
     userArt = await prisma.art.findMany({
         where: {
             uploader_id: id
         }
     })
+    let allArt = (session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN") ?
+      await prisma.art.findMany()
+      : []
+
 
     const userMedia = await prisma.media.findMany({
         where: {
@@ -158,6 +159,26 @@ export default async function Profile() {
             })
           }
           </div>
+        }
+        {
+          (session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN") ?
+          <div className="flex flex-row items-end gap-6">
+            <h2>Users&apos; Offerings</h2>
+          </div>
+          : null
+        }
+        {
+          (session.user as UserWithRole).role && (session.user as UserWithRole).role.match("ADMIN") ?
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          { allArt.map((art) => {
+            return (
+              <PreviewArt key={art.id} art={art} />
+            )
+          })
+        }
+
+          </div>
+          : null
         }
                 {/* 
         <h2>My Media</h2>
