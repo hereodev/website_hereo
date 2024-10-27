@@ -12,6 +12,7 @@ import Link from "next/link"
 import PictureZoom from "../_components/picture-zoom"
 import VideoPlayer from "@/app/_components/video-player"
 import VidPlayer from "@/app/_components/vid"
+import SocialShareButtons from "../_components/social-icons"
 
 
 type Props = {
@@ -146,7 +147,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
         <main>
           <div className="flex flex-row w-full justify-between items-center">
             <h1>{art.title}</h1>
-            <div className="flex flex-row justify-center items-center gap-2">
+            <div className="flex justify-center items-center gap-2">
               {
                 session && session.user && (
                   art.uploader.id == session.user.id 
@@ -167,6 +168,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
             </div>
           </div>
           {art.subtitle && <h2>{art.subtitle}</h2>}
+            <SocialShareButtons />
 
           <p className="my-2 w-full text-left">Offered by: {art.authors.map(a => a.author.name).join(", ") || "Anonymous"}</p>
         {art.SubCategories.length > 0 && (
@@ -286,6 +288,7 @@ export default async function Art({ params }: { params: { slug: string, lang: st
               <OfferingsTopMenu />
             </div> */}
           {/* </div> */}
+          
         </main>
       )
 
