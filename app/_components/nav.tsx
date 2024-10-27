@@ -169,10 +169,10 @@ export default function Nav({ lang } : { lang: string}) {
                             <Link key={href} className="hover:font-bold hover:cursor-pointer" href={href} onClick={() => setMenuOpen(false)}>{lang=="fr"?labelFr:label}</Link>
                         ))
                     }
-                    {
+                    {/* {
                         session?.user && ((session.user as UserWithRole).role == "ADMIN" || (session.user as UserWithRole).role == "SUPERADMIN") &&
                         <Link className="" href={"/admin_saay_yaas"} onClick={() => setMenuOpen(false)}>Admin</Link>
-                    }
+                    } */}
 
                     <div className="divider divider-vertical my-0"></div>
                     {/* <span className="">
