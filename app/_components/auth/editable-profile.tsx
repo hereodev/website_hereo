@@ -75,28 +75,25 @@ const EditableProfile: React.FC<EditableProfileProps> = ({ userId, initialName, 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
         // TODO: send email to new adress.
+    };
     const handleSiteChange = useDebouncedCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const siteNumber = e.target.id.charAt(4);
-        const newSiteValue = e.target.value;
-
-        if (siteNumber === '1') setSite1(newSiteValue);
-        if (siteNumber === '2') setSite2(newSiteValue);
-        if (siteNumber === '3') setSite3(newSiteValue);
+        console.log(e.target.value);
+        console.log(e.target.id.charAt(4));
 
         if (userId) {
-            const userUpdated = await fetch(`/api/user?userId=${userId}&site${siteNumber}=${newSiteValue}`, {
+            const siteNumber = e.target.id.charAt(4);
+            const userUpdated = await fetch(`/api/user?userId=${userId}&site${siteNumber}=${e.target.value}`, {
                 method: 'PUT',
             });
 
             if (userUpdated.ok) {
                 console.log("site changed successfully");
-                setChangedSite(true);
+                setChangedName(true);
             } else {
                 console.error("error changing site");
             }
         }
     }, 1000);  
-
     
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
