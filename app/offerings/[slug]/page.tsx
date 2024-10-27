@@ -35,6 +35,11 @@ export async function generateMetadata(
               author: true,
             }
           },
+          associated_media: {
+            include: {
+              Media: true
+            }
+        },
       }
     })
 
@@ -53,11 +58,29 @@ export async function generateMetadata(
       }
     }
 
+    const mediaImages = art.associated_media
+    .filter(media => media.Media && media.Media.url && media.Media.url.startsWith('https://hereotherwise.b-cdn.net/') && (media.Media.url.endsWith('.jpg') || media.Media.url.endsWith('.png')))
+    .map(media => ({
+        url: media.Media.url ? media.Media.url.replace('https://hereotherwise.b-cdn.net/', 'https://hereo.imgix.net/') : '',
+        width: 1200, // You can adjust the width and height as needed
+        height: 630,
+        alt: media.Media.alt || media.Media.title || ":Her(e) Otherwise - Open Graph Image",
+    }));
+
+    const og = mediaImages.length > 0 ? 
+    {
+      title: `:Her(e) Otherwise: ${art.title} ${art.authors && `an Offering by ${art.authors.map(a => a.author.name).join(", ")}`}`,
+      description: `${art.long_text && art.long_text.slice(0, 160)}`,
+      images: mediaImages,
+    } : {
+      title: `:Her(e) Otherwise: ${art.title} ${art.authors && `an Offering by ${art.authors.map(a => a.author.name).join(", ")}`}`,
+      description: `${art.long_text && art.long_text.slice(0, 160)}`,
+      images: previousImages,
+    }
+
     return {
-      title: `:Her(e) Otherwise: ${art.title} ${art.authors && `by ${art.authors.map(a => a.author.name).join(", ")}`}`,
-    //   openGraph: {
-    //     images: ['/some-specific-page-image.jpg', ...previousImages],
-    //   },
+      title: `:Her(e) Otherwise: ${art.title} ${art.authors && `an Offering by ${art.authors.map(a => a.author.name).join(", ")}`}`,
+      openGraph: og,
     }
   }
 
