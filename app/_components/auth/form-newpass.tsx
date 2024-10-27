@@ -41,6 +41,8 @@ export default function FormNewPassword() {
     // const justSignedUp = searchParams.get('signedup')
     return (
         // <form action={handleSignIn}>
+        <Suspense>
+
         <form action={dispatch} className="flex flex-col gap-2 w-full">
         <div
           className="flex h-8 items-end space-x-1"
@@ -106,6 +108,7 @@ export default function FormNewPassword() {
             </div>
 
         </form>
+        </Suspense>
     )
 }
 
