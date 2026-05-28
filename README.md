@@ -1,55 +1,55 @@
+# her.e.otherwise — README
 
-## ABOUT
-- [x] HOVER over anything should make the item highlight in the CITRON color on all the pages
-- [-] ARROWS at the center of the page are non-responsive. What are they supposed to do?
-    => They're just for aesthetics, and to put an emphasis on the invitations and divide the page (intro / invitations / about us). I removed them for clarity.
+Next.js site (App Router, TypeScript, Tailwind CSS + DaisyUI).
 
-## INVITATIONS
-- [x] The text of the invitations should read with a VERTICAL SCROLL, no horizontal scroll.
-- [x] Insert actual text for each invitation.
-    => I don't have the Sesotho text.
+## Tech Stack
 
-## ABOUT US
-- [x] INSERT our PORTRAITS.
-- [x] CHANGE curators' descriptions to ENGLISH (except Mawena, if she wants) and insert our BIOS.
-- [x] Changes to Anna’s descriptor and bio - will send to you.
+- **Framework**: Next.js 14 (App Router, `.tsx`)
+- **Auth**: Prisma + bcrypt (manual user management, no OAuth provider)
+- **Database**: PostgreSQL via Supabase (accessed through Prisma ORM)
+- **ORM**: Prisma (`prisma generate` required before build)
+- **Images**: Bunny.net (storage) + Imgix (transformation/optimization)
+- **Emails**: SendGrid
+- **Deployment**: Vercel
+- **Domain**: IONOS (DNS managed via Cloudflare)
 
-## SPONSORS
-- [x] Insert arc en reve’s LOGO (see attached). We are waiting for Graham Foundation’s logo.
-- [x] Make slight change to the about blurb:
-  > “This platform responds to the urgent need to gather an open, interactive, and expanding community of black women engaged in the broadest possible range of self-determined acts and operations within the disciplines of architecture and urban design, and within the discourse of all spatial practices.”
+## Accounts & Access
 
-## OFFERINGS
-- [x] Search bar: REMOVE the text "I’ve seen the future". Leave empty with only the magnifying glass symbol.
-  
-### DISPLAY of offerings
-- [x] When hovering or selecting one of the offerings (‘round image/title), right now it responds by becoming fainter. It should do the opposite - that selected offering should be HIGHLIGHTED.
-- [-] HIGHLIGHT the selected project as well as the OTHER ONES that are part of SAME CATEGORY.
- => not possible
-- [x] IF HIGHLIGHTING is not a possibility, make all perimeter contour lines CITRON color (as opposed to different colors).
-- [ ] ALIGN offering circles at lowest row to the left side (left justify).
-  => ??
-- [x] On CELL PHONE viewing, the menu does not leave the screen - FIX.
-- [x] THE DEAD WILL RISE + INVISIBLE BOUNDARIES projects/offerings are duplicated - verify.
-- [ ] VIDEO: When an offering is a video, why is the video displayed small on a long white bar? What are other options? We prefer removal of the white bar so that the video sits on the black background. Also, move the arrows and text down to the bottom third of the page so that the video sits roughly in the middle and can be larger than it currently is.
-- [ ] ARROW always in middle.
-    => ??
+To get access to the different services, contact:
+- hereotherwise@vuongvan.dev
+- info@hereotherwise.site
 
-## MENU
-- [x] HIGHLIGHT CITRON when HOVER over it (always - everywhere - a consistent logic).
-- [x] ARROW also turns CITRON when hover over it.
-- [-] SITES OF BELONGING? How does it operate?
-  => once authors will have entered a site of belonging (on their profile), they will appear here. so far only mine are there (test ones that I'm going to remove.)
-- [-] What are the NUMBERS on right side 4|1 20 etc.?
-  => it's: [how many are selected] | [how many are available]
+Services: Vercel, Supabase, Bunny.net, Imgix, SendGrid, IONOS, Cloudflare.
 
-## SIGN-IN
-- [x] Log in or sign up should all be in CITRON color.
-- [x] Add Key symbol below email (password bar).
-- [x] LOG-in in second page should go back.
+## Environment Variables
 
-## GENERAL
-- [x] When cursor HOVERS over any item that could open, it should highlight in CITRON always.
-- [ ] We notice a SLOWNESS in responsiveness of the site - especially the loading of the offering image circles. Is this something which could be addressed?
-- [ ] Could you remind us how long you will be available to make changes on the website such as typos we may find or other minor adjustments?
-  => One year.
+All variables are configured in Vercel (Settings → Environment Variables)
+or in a `.env.local` file for local development. Ask the contacts above for the values.
+
+Key variables (non-exhaustive):
+- `DATABASE_URL` — Supabase/PostgreSQL connection URL
+- `AUTH_SECRET` — session secret
+- `SENDGRID_API_KEY` — email sending
+- `NEXT_PUBLIC_IMGIX_DOMAIN` — Imgix domain
+- `BUNNY_API_KEY` / `BUNNY_STORAGE_ZONE` — Bunny.net access
+
+## Local Setup
+
+```bash
+npm install
+npx prisma generate
+npm run dev
+```
+
+Project runs on `http://localhost:3000`.
+
+## Deployment
+
+Deployment is automatic via Vercel on every push to `main`.
+The build runs `prisma generate && next build` (see `package.json`).
+
+## Watch Out
+
+- The Supabase project can go into **pause** after inactivity — reactivate it from the Supabase dashboard if the DB is unresponsive.
+- DNS is on **Cloudflare** even though the domain is registered at **IONOS**.
+- Always run `npx prisma generate` before building, otherwise the Prisma client won't be up to date.
