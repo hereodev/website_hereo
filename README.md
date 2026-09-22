@@ -15,9 +15,7 @@ Next.js site (App Router, TypeScript, Tailwind CSS + DaisyUI).
 
 ## Accounts & Access
 
-To get access to the different services, contact:
-- hereotherwise@vuongvan.dev
-- info@hereotherwise.site
+To get access to the different services, use hereotherwise@vuongvan.dev
 
 Services: Vercel, Supabase, Bunny.net, Imgix, SendGrid, IONOS, Cloudflare.
 
